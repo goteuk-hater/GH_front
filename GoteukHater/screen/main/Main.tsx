@@ -1,4 +1,4 @@
-import React, {type PropsWithChildren} from 'react';
+import React from 'react';
 import {SafeAreaView, Text, StyleSheet, View, ScrollView} from 'react-native';
 import {NavigationProp, NavigationState} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -6,6 +6,9 @@ import StatusCard from '../../components/main/StatusCard';
 import InformationCard from '../../components/main/ImformationCard';
 import CertificationCard from '../../components/main/CertificationCard';
 import LinkCard from '../../components/main/LinkCard';
+import Formbtn from '../../components/globalcomponents/Formbtn';
+import {height, scale, width} from '../../config/globalStyles';
+
 interface Props {
   navigation: NavigationProp<NavigationState>;
 }
@@ -27,7 +30,9 @@ const Main = ({navigation}: Props) => {
             <Text style={styles.title}>나의 신청현황</Text>
             <TouchableOpacity
               onPress={() => navigation.navigate('BookingListScreen' as never)}>
-              <Text style={{fontSize: 12, fontWeight: '400'}}>전체보기</Text>
+              <Text style={{fontSize: 12 * scale, fontWeight: '400'}}>
+                전체보기
+              </Text>
             </TouchableOpacity>
           </View>
           <View>
@@ -82,6 +87,7 @@ const Main = ({navigation}: Props) => {
           />
         </View>
       </View>
+      <Formbtn title={'시험 예약하기'} icon={'calendar'} />
     </SafeAreaView>
   );
 };
@@ -93,23 +99,23 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    marginTop: 8,
-    marginBottom: 8,
-    marginLeft: 16,
-    marginRight: 16,
+    marginTop: 8 * height,
+    marginBottom: 8 * height,
+    marginLeft: 16 * width,
+    marginRight: 16 * width,
   },
   section: {
-    marginBottom: 16,
+    marginBottom: 16 * height,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: 4 * height,
   },
   title: {
-    fontSize: 18,
+    fontSize: 18 * scale,
     fontWeight: '700',
-    marginBottom: 12,
+    marginBottom: 12 * height,
   },
   titlebox: {
     flexDirection: 'row',
