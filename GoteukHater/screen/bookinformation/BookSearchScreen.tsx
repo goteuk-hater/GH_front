@@ -1,9 +1,14 @@
 import React, {type PropsWithChildren} from 'react';
 import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
 import Card from '../../components/globalcomponents/Card';
+import {NavigationProp, NavigationState} from '@react-navigation/native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {height, width} from '../../config/globalStyles';
 import {Shadow} from 'react-native-shadow-2';
-const BookSearchScreen = () => {
+interface Props {
+  navigation: NavigationProp<NavigationState>;
+}
+const BookSearchScreen = ({navigation}: Props) => {
   const [text, onChangeText] = React.useState('검색어를 입력해주세요.');
   return (
     <View style={styles.container}>
@@ -17,57 +22,70 @@ const BookSearchScreen = () => {
         <Text style={styles.catalog}>최신순</Text>
       </View>
       <View style={styles.bookCard}>
-        <Card style={styles.card}>
-          <View style={styles.bookImage} />
-          <View style={{width: 245}}>
-            <Text numberOfLines={1} style={styles.bookTitle}>
-              프로테스탄티즘의 윤리와 자본주의 정신
-            </Text>
-            <Text style={styles.bookSubject}>막스 베버 (문예출판사 2010)</Text>
-            <View style={styles.starCover}>
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
+        <TouchableOpacity
+          onPress={() => navigation.navigate('BookInfoScreen' as never)}>
+          <Card style={styles.card}>
+            <View style={styles.bookImage} />
+            <View style={{width: 245}}>
+              <Text numberOfLines={1} style={styles.bookTitle}>
+                프로테스탄티즘의 윤리와 자본주의 정신
+              </Text>
+              <Text style={styles.bookSubject}>
+                막스 베버 (문예출판사 2010)
+              </Text>
+              <View style={styles.starCover}>
+                <View
+                  style={{backgroundColor: 'black', width: 10, height: 10}}
+                />
+                <View
+                  style={{backgroundColor: 'black', width: 10, height: 10}}
+                />
+                <View
+                  style={{backgroundColor: 'black', width: 10, height: 10}}
+                />
+                <View
+                  style={{backgroundColor: 'black', width: 10, height: 10}}
+                />
+                <View
+                  style={{backgroundColor: 'black', width: 10, height: 10}}
+                />
+              </View>
+              <Text style={styles.review}>후기 6</Text>
             </View>
-            <Text style={styles.review}>후기 6</Text>
-          </View>
-        </Card>
-        <Card style={styles.card}>
-          <View style={styles.bookImage} />
-          <View style={{width: 245}}>
-            <Text numberOfLines={1} style={styles.bookTitle}>
-              프로테스탄티즘의 윤리와 자본주의 정신
-            </Text>
-            <Text style={styles.bookSubject}>막스 베버 (문예출판사 2010)</Text>
-            <View style={styles.starCover}>
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
+          </Card>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('BookInfoScreen' as never)}>
+          <Card style={styles.card}>
+            <View style={styles.bookImage} />
+            <View style={{width: 245}}>
+              <Text numberOfLines={1} style={styles.bookTitle}>
+                프로테스탄티즘의 윤리와 자본주의 정신
+              </Text>
+              <Text style={styles.bookSubject}>
+                막스 베버 (문예출판사 2010)
+              </Text>
+              <View style={styles.starCover}>
+                <View
+                  style={{backgroundColor: 'black', width: 10, height: 10}}
+                />
+                <View
+                  style={{backgroundColor: 'black', width: 10, height: 10}}
+                />
+                <View
+                  style={{backgroundColor: 'black', width: 10, height: 10}}
+                />
+                <View
+                  style={{backgroundColor: 'black', width: 10, height: 10}}
+                />
+                <View
+                  style={{backgroundColor: 'black', width: 10, height: 10}}
+                />
+              </View>
+              <Text style={styles.review}>후기 6</Text>
             </View>
-            <Text style={styles.review}>후기 6</Text>
-          </View>
-        </Card>
-        <Card style={styles.card}>
-          <View style={styles.bookImage} />
-          <View style={{width: 245}}>
-            <Text numberOfLines={1} style={styles.bookTitle}>
-              프로테스탄티즘의 윤리와 자본주의 정신
-            </Text>
-            <Text style={styles.bookSubject}>막스 베버 (문예출판사 2010)</Text>
-            <View style={styles.starCover}>
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-            </View>
-            <Text style={styles.review}>후기 6</Text>
-          </View>
-        </Card>
+          </Card>
+        </TouchableOpacity>
       </View>
     </View>
   );
