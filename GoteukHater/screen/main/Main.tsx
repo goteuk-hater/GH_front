@@ -6,6 +6,7 @@ import StatusCard from '../../components/main/StatusCard';
 import InformationCard from '../../components/main/ImformationCard';
 import CertificationCard from '../../components/main/CertificationCard';
 import LinkCard from '../../components/main/LinkCard';
+import {width} from '../../config/globalStyles';
 interface Props {
   navigation: NavigationProp<NavigationState>;
 }
@@ -95,8 +96,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 8,
     marginBottom: 8,
-    marginLeft: 16,
-    marginRight: 16,
+    marginLeft: 16 * width,
+    marginRight: 16 * width,
   },
   section: {
     marginBottom: 16,

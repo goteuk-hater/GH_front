@@ -1,5 +1,6 @@
 import React, {Children, type PropsWithChildren} from 'react';
 import {Text, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
+import {width} from '../../config/globalStyles';
 import Card from '../globalcomponents/Card';
 interface CertificationCardProps {
   title: string;
@@ -19,7 +20,7 @@ const CertificationCard: React.FunctionComponent<
 
   return (
     <Card
-      style={{width: 175}}
+      style={{width: 175 * width}}
       children={
         <View>
           <Text style={styles.certifiedtitle}>{props.title}</Text>
