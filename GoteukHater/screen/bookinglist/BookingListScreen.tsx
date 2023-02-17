@@ -10,8 +10,8 @@ const BookingListScreen = () => {
       style={{
         flex: 1,
         marginTop: 8,
-        marginLeft: 16,
-        marginRight: 8,
+        paddingLeft: 16,
+        paddingRight: 8,
         marginBottom: 16,
       }}>
       {data.map((data, index) => {
@@ -21,7 +21,7 @@ const BookingListScreen = () => {
             date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
             classification={3}
             detail={true}
-            style={{width: 358}}
+            style={{width: 358 * width}}
             location={'광개토관 108B호'}
             key={index}
           />

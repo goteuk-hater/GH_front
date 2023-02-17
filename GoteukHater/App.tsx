@@ -10,7 +10,7 @@ type RootStackParamList = {
   Login: undefined;
   SplashScreen: undefined;
 };
-type RootProps = NativeStackScreenProps<RootStackParamList, 'SplashScreen'>;
+
 const Stack = createStackNavigator<RootStackParamList>();
 const App = () => {
   return (
@@ -20,7 +20,7 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{headerShown: false}}
+          options={{headerShown: false, gestureEnabled: false}}
         />
         <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>

@@ -11,6 +11,7 @@ import Card from '../globalcomponents/Card';
 import Calendar from 'react-native-vector-icons/Feather';
 import Clock from 'react-native-vector-icons/MaterialIcons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {height, scale, width} from '../../config/globalStyles';
 interface StatusProps {
   title: string;
   date: {
@@ -44,7 +45,7 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
       style={[props.style, styles.card]}
       children={
         <View style={styles.container}>
-          <View style={[styles.row, {marginBottom: 12}]}>
+          <View style={[styles.row, {marginBottom: 12 * height}]}>
             <View style={[styles.classbox, boxcolor]}>
               <Text style={styles.classtext}>{classtext}</Text>
             </View>
@@ -59,11 +60,11 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
           <Text style={styles.title}>{props.title}</Text>
           <View style={styles.row}>
             <View style={styles.datebox}>
-              <Calendar name="calendar" size={14} color="#B1B3C5" />
-              <Text style={[{marginRight: 4}, styles.timetext]}>
+              <Calendar name="calendar" size={14 * scale} color="#B1B3C5" />
+              <Text style={[{marginRight: 4 * width}, styles.timetext]}>
                 {props.date.month} {props.date.day}th, {props.date.year}
               </Text>
-              <Clock name="schedule" size={14} color="#B1B3C5" />
+              <Clock name="schedule" size={14 * scale} color="#B1B3C5" />
               <Text style={styles.timetext}>{props.date.time}</Text>
             </View>
             {props.detail ? (
@@ -80,23 +81,23 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
 
 const styles = StyleSheet.create({
   card: {
-    height: 110,
-    minWidth: 220,
+    height: 110 * height,
+    minWidth: 220 * width,
   },
   container: {
     justifyContent: 'center',
   },
   classbox: {
     alignSelf: 'flex-start',
-    paddingRight: 8,
-    paddingLeft: 8,
-    paddingTop: 4,
-    paddingBottom: 4,
-    borderRadius: 10,
+    paddingRight: 8 * width,
+    paddingLeft: 8 * width,
+    paddingTop: 4 * height,
+    paddingBottom: 4 * height,
+    borderRadius: 10 * scale,
   },
   classtext: {
     color: 'white',
-    fontSize: 12,
+    fontSize: 12 * scale,
     fontWeight: 'bold',
   },
   west: {
@@ -112,26 +113,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#C780E8',
   },
   title: {
-    fontSize: 14,
+    fontSize: 14 * scale,
     fontWeight: '600',
-    marginBottom: 12,
+    marginBottom: 12 * height,
   },
   datebox: {
     backgroundColor: 'rgba(228, 235, 253, 1)',
     alignSelf: 'flex-start',
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 10,
-    paddingLeft: 8,
-    paddingRight: 8,
-    paddingTop: 6,
-    paddingBottom: 6,
+    borderRadius: 10 * height,
+    paddingLeft: 8 * width,
+    paddingRight: 8 * width,
+    paddingTop: 6 * height,
+    paddingBottom: 6 * height,
   },
   timetext: {
     color: '#646570',
-    marginLeft: 4,
+    marginLeft: 4 * width,
     fontWeight: '700',
-    fontSize: 10,
+    fontSize: 10 * scale,
   },
   row: {
     flexDirection: 'row',
@@ -139,11 +140,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   btntext: {
-    fontSize: 10,
+    fontSize: 10 * scale,
     fontWeight: '700',
   },
   detailtext: {
-    fontSize: 12,
+    fontSize: 12 * scale,
     fontWeight: '400',
     color: '#818181',
   },

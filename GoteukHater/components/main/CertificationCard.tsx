@@ -1,5 +1,6 @@
 import React, {Children, type PropsWithChildren} from 'react';
 import {Text, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
+import {height, scale, width} from '../../config/globalStyles';
 import Card from '../globalcomponents/Card';
 interface CertificationCardProps {
   title: string;
@@ -19,7 +20,7 @@ const CertificationCard: React.FunctionComponent<
 
   return (
     <Card
-      style={{width: 175}}
+      style={{width: 175 * width}}
       children={
         <View>
           <Text style={styles.certifiedtitle}>{props.title}</Text>
@@ -37,26 +38,26 @@ const CertificationCard: React.FunctionComponent<
 
 const styles = StyleSheet.create({
   certifiedtitle: {
-    fontSize: 14,
+    fontSize: 14 * scale,
     fontWeight: '700',
-    marginBottom: 8,
+    marginBottom: 8 * width,
   },
   certifiedtext: {
-    fontSize: 10,
+    fontSize: 10 * scale,
     fontWeight: '400',
     textAlign: 'right',
     color: '#8B8B8B',
-    marginBottom: 8,
+    marginBottom: 8 * height,
   },
   barbox: {
-    borderRadius: 20,
+    borderRadius: 20 * scale,
     flexDirection: 'row',
-    width: 150,
-    height: 8,
+    width: 150 * width,
+    height: 8 * height,
     backgroundColor: '#EAEEF2',
   },
   bar: {
-    borderRadius: 20,
+    borderRadius: 20 * scale,
   },
   red: {
     backgroundColor: '#FF6961',
