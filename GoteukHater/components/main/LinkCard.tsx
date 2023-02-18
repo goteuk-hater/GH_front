@@ -2,6 +2,7 @@ import {NavigationProp, NavigationState} from '@react-navigation/native';
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {height, scale} from '../../config/globalStyles';
 import Card from '../globalcomponents/Card';
 interface LinkCardProps {
   navigation: NavigationProp<NavigationState>;
@@ -12,7 +13,7 @@ interface LinkCardProps {
 const LinkCard: React.FC<LinkCardProps> = props => {
   return (
     <Card
-      style={{width: '100%', height: 75}}
+      style={{width: '100%', height: 75 * height}}
       children={
         <TouchableOpacity
           onPress={() => props.navigation.navigate(props.link as never)}>
@@ -26,13 +27,13 @@ const LinkCard: React.FC<LinkCardProps> = props => {
 
 const styles = StyleSheet.create({
   linktitle: {
-    fontSize: 16,
+    fontSize: 16 * scale,
     fontWeight: '700',
     marginBottom: 2,
   },
   linktext: {
     color: '#8B8B8B',
-    fontSize: 12,
+    fontSize: 12 * scale,
     fontWeight: '700',
   },
 });

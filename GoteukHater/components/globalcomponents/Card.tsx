@@ -1,6 +1,7 @@
 import React, {Children, type PropsWithChildren} from 'react';
 import {Text, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
+import {height, scale, width} from '../../config/globalStyles';
 
 interface propsType {
   children: React.ReactNode;
@@ -21,13 +22,13 @@ const Card: React.FunctionComponent<propsType> = props => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingTop: 12,
-    paddingLeft: 12,
-    paddingRight: 12,
-    paddingBottom: 12,
-    borderRadius: 15,
-    marginRight: 8,
-    marginBottom: 8,
+    paddingTop: 12 * height,
+    paddingLeft: 12 * width,
+    paddingRight: 12 * width,
+    paddingBottom: 12 * height,
+    borderRadius: 15 * scale,
+    marginRight: 8 * width,
+    marginBottom: 8 * height,
     justifyContent: 'center',
   },
 });
