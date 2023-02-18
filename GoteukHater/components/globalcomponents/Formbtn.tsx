@@ -68,7 +68,11 @@ const Formbtn: React.FC<FormbtnProps> = props => {
               style={{marginRight: 8 * width}}
             />
             <Text
-              style={{color: 'black', fontSize: 16 * scale, fontWeight: '700'}}>
+              style={{
+                color: 'black',
+                fontSize: 16 * scale,
+                fontWeight: '700',
+              }}>
               {props.title}
             </Text>
             <FontAwesome
