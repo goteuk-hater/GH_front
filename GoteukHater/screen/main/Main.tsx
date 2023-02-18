@@ -1,12 +1,5 @@
 import React, {useRef} from 'react';
-import {
-  SafeAreaView,
-  Text,
-  StyleSheet,
-  View,
-  ScrollView,
-  Button,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, View, ScrollView} from 'react-native';
 import {NavigationProp, NavigationState} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import StatusCard from '../../components/main/StatusCard';
@@ -15,7 +8,7 @@ import CertificationCard from '../../components/main/CertificationCard';
 import LinkCard from '../../components/main/LinkCard';
 import Formbtn from '../../components/globalcomponents/Formbtn';
 import {height, scale, width} from '../../config/globalStyles';
-import {Shadow} from 'react-native-shadow-2';
+import StyledText from '../../components/globalcomponents/StyledText';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -26,7 +19,7 @@ const Main = ({navigation}: Props) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
           <View style={styles.section}>
-            <Text style={styles.title}>내 정보</Text>
+            <StyledText style={styles.title} content="내 정보" />
             <InformationCard
               name={'김민수'}
               grade={4}
@@ -36,15 +29,13 @@ const Main = ({navigation}: Props) => {
           </View>
           <View style={styles.section}>
             <View style={styles.titlebox}>
-              <Text style={styles.title}>나의 신청현황</Text>
+              <StyledText style={styles.title} content="나의 신청현황" />
               <TouchableOpacity
                 style={{paddingTop: 8 * height, paddingLeft: 4 * width}}
                 onPress={() =>
                   navigation.navigate('BookingListScreen' as never)
                 }>
-                <Text style={{fontSize: 12 * scale, fontWeight: '400'}}>
-                  전체보기
-                </Text>
+                <StyledText style={styles.listbtn} content="전체보기" />
               </TouchableOpacity>
             </View>
             <View>
@@ -65,7 +56,7 @@ const Main = ({navigation}: Props) => {
             </View>
           </View>
           <View style={styles.section}>
-            <Text style={styles.title}>나의 인증현황</Text>
+            <StyledText style={styles.title} content="나의 인증현황" />
             <View style={styles.row}>
               <CertificationCard
                 title={'서양의 역사와 사상'}
@@ -84,7 +75,7 @@ const Main = ({navigation}: Props) => {
             </View>
           </View>
           <View style={styles.section}>
-            <Text style={styles.title}>바로가기</Text>
+            <StyledText style={styles.title} content="바로가기" />
             <LinkCard
               title={'고전도서 정보 게시판'}
               text={'고전도서시험에는 어떤 책들이 있는지! 후기는 어떤지!'}
@@ -110,6 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F6F9',
     flex: 1,
   },
+  listbtn: {fontSize: 12 * scale, fontWeight: '400'},
   content: {
     flex: 1,
     marginTop: 8 * height,
@@ -126,9 +118,10 @@ const styles = StyleSheet.create({
     marginBottom: 4 * height,
   },
   title: {
+    fontFamily: 'SUITVariable-Regular',
     fontSize: 18 * scale,
-    fontWeight: '700',
     marginBottom: 12 * height,
+    fontWeight: '700',
   },
   titlebox: {
     flexDirection: 'row',
