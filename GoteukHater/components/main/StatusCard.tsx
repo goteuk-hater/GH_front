@@ -12,6 +12,8 @@ import Calendar from 'react-native-vector-icons/Feather';
 import Clock from 'react-native-vector-icons/MaterialIcons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {height, scale, width} from '../../config/globalStyles';
+import ClassBox from '../globalcomponents/ClassBox';
+
 interface StatusProps {
   title: string;
   date: {
@@ -26,29 +28,13 @@ interface StatusProps {
   location?: string;
 }
 const StatusCard: React.FunctionComponent<StatusProps> = props => {
-  let boxcolor, classtext;
-  if (props.classification === 1) {
-    boxcolor = styles.west;
-    classtext = '서양';
-  } else if (props.classification === 2) {
-    boxcolor = styles.east;
-    classtext = '동양';
-  } else if (props.classification === 3) {
-    boxcolor = styles.science;
-    classtext = '과학사';
-  } else {
-    boxcolor = styles.eastwest;
-    classtext = '동서양';
-  }
   return (
     <Card
       style={[props.style, styles.card]}
       children={
         <View style={styles.container}>
           <View style={[styles.row, {marginBottom: 12 * height}]}>
-            <View style={[styles.classbox, boxcolor]}>
-              <Text style={styles.classtext}>{classtext}</Text>
-            </View>
+            <ClassBox classification={props.classification} usedScreen="main" />
             {props.detail ? (
               <TouchableOpacity>
                 <Text style={styles.btntext}>예약 취소</Text>
@@ -99,18 +85,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 12 * scale,
     fontWeight: 'bold',
-  },
-  west: {
-    backgroundColor: '#FFAA70',
-  },
-  east: {
-    backgroundColor: '#59ADF6',
-  },
-  eastwest: {
-    backgroundColor: '#3ABD91',
-  },
-  science: {
-    backgroundColor: '#C780E8',
   },
   title: {
     fontSize: 14 * scale,

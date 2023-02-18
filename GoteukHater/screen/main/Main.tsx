@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18 * scale,
-    fontWeight: '700',
+    fontFamily: 'Roboto',
+    fontWeight: 700,
     marginBottom: 12 * height,
   },
   titlebox: {

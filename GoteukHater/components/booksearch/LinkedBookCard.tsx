@@ -1,11 +1,17 @@
 import React from 'react';
 import {Text, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
 import Card from '../globalcomponents/Card';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {NavigationProp, NavigationState} from '@react-navigation/native';
 
-const BookCard: React.FC = () => {
+interface propsType {
+  navigation: NavigationProp<NavigationState>;
+}
+
+const LinbkedBookCard: React.FC<propsType> = props => {
   return (
-    <View>
+    <TouchableOpacity
+      onPress={() => props.navigation.navigate('BookInfoScreen' as never)}>
       <Card style={styles.card}>
         <View style={styles.bookImage} />
         <View style={{width: 245}}>
@@ -23,7 +29,7 @@ const BookCard: React.FC = () => {
           <Text style={styles.review}>후기 6</Text>
         </View>
       </Card>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -31,6 +37,7 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     width: '100%',
+    justifyContent: 'space-between',
   },
   bookImage: {
     width: 79,
@@ -60,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BookCard;
+export default LinbkedBookCard;
