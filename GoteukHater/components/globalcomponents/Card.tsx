@@ -3,11 +3,11 @@ import {Text, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
 import {height, scale, width} from '../../config/globalStyles';
 
-interface CardProps {
+interface propsType {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
-const Card: React.FunctionComponent<CardProps> = props => {
+const Card: React.FunctionComponent<propsType> = props => {
   return (
     <Shadow
       style={[styles.container, props.style]}

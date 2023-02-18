@@ -10,7 +10,7 @@ interface LinkCardProps {
   text: string;
   link: string;
 }
-const LinkCard: React.FunctionComponent<LinkCardProps> = props => {
+const LinkCard: React.FC<LinkCardProps> = props => {
   return (
     <Card
       style={{width: '100%', height: 75 * height}}
