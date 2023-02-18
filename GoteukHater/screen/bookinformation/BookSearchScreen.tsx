@@ -83,11 +83,13 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   catalog: {
+    // fontFamily: 'SUITVariable-Regular',
     color: 'black',
     fontSize: 14,
     marginRight: 4,
   },
   input: {
+    fontFamily: 'SUITVariable-Regular',
     height: 40 * height,
     paddingTop: 10,
     paddingBottom: 10,
