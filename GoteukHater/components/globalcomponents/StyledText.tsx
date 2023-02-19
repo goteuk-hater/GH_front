@@ -10,11 +10,15 @@ import {
 import {height, scale, width} from '../../config/globalStyles';
 
 interface propsType {
-  content: string;
   style?: StyleProp<TextStyle>;
+  children: string;
 }
 const StyledText: React.FunctionComponent<propsType> = props => {
-  return <Text style={[styles.text, props.style]}>{props.content}</Text>;
+  return (
+    <Text {...props} style={[styles.text, props.style]}>
+      {props.children}
+    </Text>
+  );
 };
 
 const styles = StyleSheet.create({
