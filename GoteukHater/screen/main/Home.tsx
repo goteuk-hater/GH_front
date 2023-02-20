@@ -6,6 +6,7 @@ import BookInfoScreen from '../bookinformation/BookInfoScreen';
 import BookingListScreen from '../bookinglist/BookingListScreen';
 import ExamMainScreen from '../examdata/ExamMainScreen';
 import Main from './Main';
+import {width} from '../../config/globalStyles';
 const Home = () => {
   type MainStackParamList = {
     Main: undefined;

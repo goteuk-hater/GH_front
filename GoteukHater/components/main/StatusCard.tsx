@@ -36,8 +36,8 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
         <View style={styles.container}>
           <View style={[styles.row, {marginBottom: 12 * height}]}>
             <ClassBox classification={props.classification} usedScreen="main" />
-            <View style={[styles.classbox, boxcolor]}>
-              <StyledText style={styles.classtext}>{classtext}</StyledText>
+            <View style={[styles.classbox]}>
+              <StyledText style={styles.classtext} />
             </View>
             {props.detail ? (
               <TouchableOpacity>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14 * scale,
-    fontWeight: '600',
+    fontWeight: '700',
     marginBottom: 12 * height,
   },
   datebox: {
