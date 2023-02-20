@@ -2,6 +2,7 @@ import React, {Children, type PropsWithChildren} from 'react';
 import {Text, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
 import {height, scale, width} from '../../config/globalStyles';
 import Card from '../globalcomponents/Card';
+import StyledText from '../globalcomponents/StyledText';
 
 interface InformationCardProps {
   name: string;
@@ -26,23 +27,23 @@ const InformationCard: React.FunctionComponent<
               marginRight: 12 * width,
             }}></View>
           <View>
-            <Text
+            <StyledText
               style={{
                 fontSize: 20 * scale,
                 fontWeight: '700',
                 marginBottom: 4,
               }}>
               {props.name}
-            </Text>
+            </StyledText>
 
-            <Text
+            <StyledText
               style={{
                 fontSize: 12 * scale,
                 fontWeight: '700',
                 color: '#636570',
               }}>
               {props.major} {props.grade}학년 - {props.studentNumber}
-            </Text>
+            </StyledText>
           </View>
         </View>
       }

@@ -7,6 +7,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {height, scale, width} from '../../config/globalStyles';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import BtnScreen from '../../screen/reservationscreen/BtnScreen';
+import StyledText from './StyledText';
 
 interface FormbtnProps {
   title: string;
@@ -67,14 +68,14 @@ const Formbtn: React.FC<FormbtnProps> = props => {
               color="black"
               style={{marginRight: 8 * width}}
             />
-            <Text
+            <StyledText
               style={{
                 color: 'black',
                 fontSize: 16 * scale,
                 fontWeight: '700',
               }}>
               {props.title}
-            </Text>
+            </StyledText>
             <FontAwesome
               name="chevron-right"
               size={12}
