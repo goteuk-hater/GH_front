@@ -3,6 +3,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {height, scale, width} from '../../config/globalStyles';
 import Card from '../globalcomponents/Card';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import StyledText from '../globalcomponents/StyledText';
 interface Propstype {
   time: string;
   maxnumber: number;
@@ -17,12 +18,12 @@ const TimeselectCard: React.FC<Propstype> = props => {
         color="white"
         style={{marginRight: 4 * scale}}
       />
-      <Text style={styles.time}>{props.time}</Text>
+      <StyledText style={styles.time}>{props.time}</StyledText>
     </View>
   );
   const Box = () => (
     <View style={[styles.timebox]}>
-      <Text style={styles.time}>{props.time}</Text>
+      <StyledText style={styles.time}>{props.time}</StyledText>
     </View>
   );
 
@@ -30,9 +31,9 @@ const TimeselectCard: React.FC<Propstype> = props => {
     <TouchableOpacity>
       <Card style={styles.card}>
         {props.maxnumber === props.nownumber ? <FullBox /> : <Box />}
-        <Text style={styles.numinfo}>
+        <StyledText style={styles.numinfo}>
           {props.nownumber}명 / {props.maxnumber}명
-        </Text>
+        </StyledText>
       </Card>
     </TouchableOpacity>
   );

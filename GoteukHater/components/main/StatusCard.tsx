@@ -12,6 +12,7 @@ import Calendar from 'react-native-vector-icons/Feather';
 import Clock from 'react-native-vector-icons/MaterialIcons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {height, scale, width} from '../../config/globalStyles';
+import StyledText from '../globalcomponents/StyledText';
 interface StatusProps {
   title: string;
   date: {
@@ -47,28 +48,28 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
         <View style={styles.container}>
           <View style={[styles.row, {marginBottom: 12 * height}]}>
             <View style={[styles.classbox, boxcolor]}>
-              <Text style={styles.classtext}>{classtext}</Text>
+              <StyledText style={styles.classtext}>{classtext}</StyledText>
             </View>
             {props.detail ? (
               <TouchableOpacity>
-                <Text style={styles.btntext}>예약 취소</Text>
+                <StyledText style={styles.btntext}>예약 취소</StyledText>
               </TouchableOpacity>
             ) : (
               <View></View>
             )}
           </View>
-          <Text style={styles.title}>{props.title}</Text>
+          <StyledText style={styles.title}>{props.title}</StyledText>
           <View style={styles.row}>
             <View style={styles.datebox}>
               <Calendar name="calendar" size={14 * scale} color="#B1B3C5" />
-              <Text style={[{marginRight: 4 * width}, styles.timetext]}>
+              <StyledText style={[{marginRight: 4 * width}, styles.timetext]}>
                 {props.date.month} {props.date.day}th, {props.date.year}
-              </Text>
+              </StyledText>
               <Clock name="schedule" size={14 * scale} color="#B1B3C5" />
-              <Text style={styles.timetext}>{props.date.time}</Text>
+              <StyledText style={styles.timetext}>{props.date.time}</StyledText>
             </View>
             {props.detail ? (
-              <Text style={styles.detailtext}>광개토관 108B호</Text>
+              <StyledText style={styles.detailtext}>광개토관 108B호</StyledText>
             ) : (
               <View></View>
             )}

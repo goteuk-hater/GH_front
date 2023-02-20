@@ -4,6 +4,7 @@ import {Text, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {height, scale} from '../../config/globalStyles';
 import Card from '../globalcomponents/Card';
+import StyledText from '../globalcomponents/StyledText';
 interface LinkCardProps {
   navigation: NavigationProp<NavigationState>;
   title: string;
@@ -17,8 +18,8 @@ const LinkCard: React.FC<LinkCardProps> = props => {
       children={
         <TouchableOpacity
           onPress={() => props.navigation.navigate(props.link as never)}>
-          <Text style={styles.linktitle}>{props.title}</Text>
-          <Text style={styles.linktext}>{props.text}</Text>
+          <StyledText style={styles.linktitle}>{props.title}</StyledText>
+          <StyledText style={styles.linktext}>{props.text}</StyledText>
         </TouchableOpacity>
       }
     />
