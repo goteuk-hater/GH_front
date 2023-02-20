@@ -1,32 +1,84 @@
 import React, {type PropsWithChildren} from 'react';
 import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
 import Card from '../../components/globalcomponents/Card';
+import BookCard from '../../components/booksearch/BookCard';
+import StyledText from '../../components/globalcomponents/StyledText';
+import ClassBox from '../../components/globalcomponents/ClassBox';
 
 const BookInfoScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.bookCard}>
-        <Card style={styles.card}>
-          <View style={styles.bookImage} />
-          <View style={{width: 245}}>
-            <Text numberOfLines={1} style={styles.bookTitle}>
-              프로테스탄티즘의 윤리와 자본주의 정신
-            </Text>
-            <Text style={styles.bookSubject}>막스 베버 (문예출판사 2010)</Text>
-            <View style={styles.starCover}>
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-              <View style={{backgroundColor: 'black', width: 10, height: 10}} />
+        <BookCard />
+      </View>
+      <View style={styles.reviewWrapper}>
+        <View style={styles.titleWrapper}>
+          <Text style={styles.titleText}>시험 후기</Text>
+          <Text style={styles.subText}> (23)</Text>
+        </View>
+        <View style={styles.reviewCard}>
+          <Card style={{width: '100%'}}>
+            <View style={styles.revierTitleWrapper}>
+              <View style={{flexDirection: 'row'}}>
+                <StyledText
+                  content="김민수의 사상"
+                  style={{marginRight: 8}}></StyledText>
+                <ClassBox classification={2} usedScreen="bookInfo" />
+              </View>
+              <View style={{backgroundColor: 'black', width: 16, height: 16}} />
             </View>
-            <Text style={styles.review}>후기 6</Text>
-          </View>
-        </Card>
+            <Text style={styles.reviewedDate}>2023년 01월 07일</Text>
+            <View
+              style={{
+                backgroundColor: 'black',
+                width: 100,
+                height: 10,
+                marginBottom: 8,
+              }}
+            />
+            <Text style={{fontSize: 12, color: 'black'}}>
+              그냥저냥 공부할만 했던 시험인거 같아요..
+              {'\n'}
+              {'\n'}
+              김민수씨의 사상을 잘 알고있다면 쉽고, 아얘 모르시는 분은 공 부하기
+              어려우실꺼 같아요
+            </Text>
+          </Card>
+        </View>
+        <View style={styles.reviewCard}>
+          <Card style={{width: '100%'}}>
+            <View style={styles.revierTitleWrapper}>
+              <View style={{flexDirection: 'row'}}>
+                <StyledText
+                  content="김민수의 사상"
+                  style={{marginRight: 8}}></StyledText>
+                <ClassBox classification={2} usedScreen="bookInfo" />
+              </View>
+              <View style={{backgroundColor: 'black', width: 16, height: 16}} />
+            </View>
+            <Text style={styles.reviewedDate}>2023년 01월 07일</Text>
+            <View
+              style={{
+                backgroundColor: 'black',
+                width: 100,
+                height: 10,
+                marginBottom: 8,
+              }}
+            />
+            <Text style={{fontSize: 12, color: 'black'}}>
+              그냥저냥 공부할만 했던 시험인거 같아요..
+              {'\n'}
+              {'\n'}
+              김민수씨의 사상을 잘 알고있다면 쉽고, 아얘 모르시는 분은 공 부하기
+              어려우실꺼 같아요
+            </Text>
+          </Card>
+        </View>
       </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
@@ -35,62 +87,43 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingLeft: 16,
   },
-  catalogList: {
-    flexDirection: 'row',
-    paddingTop: 10,
-    paddingBottom: 10,
-    justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: 8,
-  },
-  catalog: {
-    color: 'black',
-    fontSize: 14,
-  },
-  input: {
-    height: 40,
-    padding: 10,
-    marginBottom: 12,
-    backgroundColor: '#FFFFFF',
-    color: '#818181',
-    width: '100%',
-    borderRadius: 15,
-  },
   bookCard: {
     width: '100%',
     ellipsizeMode: 'tail',
     flexShrink: 1,
+    marginBottom: 20,
   },
-  card: {
+  reviewWrapper: {
+    width: '100%',
+  },
+  titleWrapper: {
     flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-  },
-  bookImage: {
-    width: 79,
-    height: 118,
-    backgroundColor: 'black',
-    marginRight: 10,
-  },
-  bookTitle: {
-    color: 'black',
-    fontSize: 16,
-    fontWeight: 'bold',
-    width: '100%',
-    marginBottom: 4,
-  },
-  bookSubject: {
-    fontSize: 10,
-    color: 'black',
+    alignItems: 'baseline',
     marginBottom: 8,
   },
-  starCover: {
-    flexDirection: 'row',
-    marginBottom: 4,
+  titleText: {
+    fontSize: 16,
+    fontWeight: 900,
+    color: 'black',
   },
-  review: {
+  subText: {
     fontSize: 10,
-    color: '#B0B0B0',
+  },
+  reviewCard: {
+    width: '100%',
+  },
+  revierTitleWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  reviewTitle: {
+    fontSize: 16,
+    color: 'bold',
+  },
+  reviewedDate: {
+    fontSize: 9,
   },
 });
 

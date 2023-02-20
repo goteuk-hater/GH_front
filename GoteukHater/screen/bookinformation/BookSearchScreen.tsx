@@ -1,6 +1,6 @@
 import React, {type PropsWithChildren} from 'react';
 import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
-import BookCard from '../../components/booksearch/BookCard';
+import LinbkedBookCard from '../../components/booksearch/LinkedBookCard';
 import {NavigationProp, NavigationState} from '@react-navigation/native';
 import {Dimensions} from 'react-native';
 import {ScreenStackHeaderSubview} from 'react-native-screens';
@@ -10,6 +10,7 @@ import {SafeAreaView} from 'react-native';
 interface propsType {
   navigation: NavigationProp<NavigationState>;
 }
+
 const BookSearchScreen: React.FC<propsType> = props => {
   const [text, onChangeText] = React.useState('');
   return (
@@ -58,8 +59,8 @@ const BookSearchScreen: React.FC<propsType> = props => {
         </View>
       </View>
       <View style={styles.bookCard}>
-        <BookCard navigation={props.navigation} />
-        <BookCard navigation={props.navigation} />
+        <LinbkedBookCard navigation={props.navigation} />
+        <LinbkedBookCard navigation={props.navigation} />
       </View>
     </View>
   );
@@ -82,11 +83,13 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   catalog: {
+    // fontFamily: 'SUITVariable-Regular',
     color: 'black',
     fontSize: 14,
     marginRight: 4,
   },
   input: {
+    fontFamily: 'SUITVariable-Regular',
     height: 40 * height,
     paddingTop: 10,
     paddingBottom: 10,
