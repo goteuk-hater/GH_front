@@ -19,7 +19,7 @@ const Main = ({navigation}: Props) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
           <View style={styles.section}>
-            <StyledText style={styles.title} content="내 정보" />
+            <StyledText style={styles.title}>내 정보</StyledText>
             <InformationCard
               name={'김민수'}
               grade={4}
@@ -29,13 +29,13 @@ const Main = ({navigation}: Props) => {
           </View>
           <View style={styles.section}>
             <View style={styles.titlebox}>
-              <StyledText style={styles.title} content="나의 신청현황" />
+              <StyledText style={styles.title}>나의 신청현황</StyledText>
               <TouchableOpacity
                 style={{paddingTop: 8 * height, paddingLeft: 4 * width}}
                 onPress={() =>
                   navigation.navigate('BookingListScreen' as never)
                 }>
-                <StyledText style={styles.listbtn} content="전체보기" />
+                <StyledText style={styles.listbtn}>전체보기</StyledText>
               </TouchableOpacity>
             </View>
             <View>
@@ -56,7 +56,7 @@ const Main = ({navigation}: Props) => {
             </View>
           </View>
           <View style={styles.section}>
-            <StyledText style={styles.title} content="나의 인증현황" />
+            <StyledText style={styles.title}>나의 인증현황</StyledText>
             <View style={styles.row}>
               <CertificationCard
                 title={'서양의 역사와 사상'}
@@ -75,7 +75,7 @@ const Main = ({navigation}: Props) => {
             </View>
           </View>
           <View style={styles.section}>
-            <StyledText style={styles.title} content="바로가기" />
+            <StyledText style={styles.title}>바로 가기</StyledText>
             <LinkCard
               title={'고전도서 정보 게시판'}
               text={'고전도서시험에는 어떤 책들이 있는지! 후기는 어떤지!'}

@@ -2,6 +2,7 @@ import React, {Children, type PropsWithChildren} from 'react';
 import {Text, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
 import {height, scale, width} from '../../config/globalStyles';
 import Card from '../globalcomponents/Card';
+import StyledText from '../globalcomponents/StyledText';
 interface CertificationCardProps {
   title: string;
   maxnum: number;
@@ -23,10 +24,10 @@ const CertificationCard: React.FunctionComponent<
       style={{width: 175 * width}}
       children={
         <View>
-          <Text style={styles.certifiedtitle}>{props.title}</Text>
-          <Text style={styles.certifiedtext}>
+          <StyledText style={styles.certifiedtitle}>{props.title}</StyledText>
+          <StyledText style={styles.certifiedtext}>
             {props.mynum}/{props.maxnum}권
-          </Text>
+          </StyledText>
           <View style={styles.barbox}>
             <View style={[styles.bar, barcolor, {width: rate}]}></View>
           </View>

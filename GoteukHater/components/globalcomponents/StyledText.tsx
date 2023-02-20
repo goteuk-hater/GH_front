@@ -7,14 +7,22 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
+import {
+  TextChild,
+  TextProps,
+} from 'react-native-svg/lib/typescript/lib/extract/extractText';
 import {height, scale, width} from '../../config/globalStyles';
 
 interface propsType {
-  content: string;
   style?: StyleProp<TextStyle>;
+  children: React.ReactNode;
 }
 const StyledText: React.FunctionComponent<propsType> = props => {
-  return <Text style={[styles.text, props.style]}>{props.content}</Text>;
+  return (
+    <Text {...props} style={[styles.text, props.style]}>
+      {props.children}
+    </Text>
+  );
 };
 
 const styles = StyleSheet.create({
