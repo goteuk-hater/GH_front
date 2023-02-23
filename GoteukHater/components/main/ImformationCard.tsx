@@ -3,6 +3,7 @@ import {Text, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
 import {height, scale, width} from '../../config/globalStyles';
 import Card from '../globalcomponents/Card';
 import StyledText from '../globalcomponents/StyledText';
+import {SvgUri} from 'react-native-svg';
 
 interface InformationCardProps {
   name: string;
@@ -22,10 +23,16 @@ const InformationCard: React.FunctionComponent<
             style={{
               width: 60 * width,
               height: 60 * height,
-              backgroundColor: 'gray',
               borderRadius: 50 * scale,
               marginRight: 12 * width,
-            }}></View>
+              backgroundColor: 'gray',
+            }}>
+            <SvgUri
+              width={'100%'}
+              height={'100%'}
+              uri="https://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"
+            />
+          </View>
           <View>
             <StyledText
               style={{
