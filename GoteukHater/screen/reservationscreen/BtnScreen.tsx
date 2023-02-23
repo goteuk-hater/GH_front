@@ -10,6 +10,7 @@ import {View, Text, Button, StyleSheet} from 'react-native';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import StyledText from '../../components/globalcomponents/StyledText';
 import {scale, width} from '../../config/globalStyles';
 import ReservationDetail from './ReservationDetail';
 import ReservationHome from './ReservationHome';
@@ -40,13 +41,27 @@ const BtnScreen: React.FC<Propstype> = props => {
           name="ReservationHome"
           component={ReservationHome}
           options={{
-            headerTitle: '고전독서 예약',
+            headerTitle: () => {
+              return (
+                <StyledText style={{fontSize: 18 * scale, fontWeight: '700'}}>
+                  고전독서 예약
+                </StyledText>
+              );
+            },
+            headerTitleAlign: 'center',
             headerLeft: () => (
               <TouchableOpacity
                 onPress={() => props.close()}
                 style={styles.btnbox}>
-                <Ionicons name={'chevron-back'} size={28} color="#007AFF" />
-                <Text style={styles.btntext}>취소</Text>
+                <Text>
+                  <Ionicons
+                    name={'chevron-back'}
+                    size={24}
+                    color="#007AFF"
+                    style={{paddingTop: 4}}
+                  />
+                </Text>
+                <StyledText style={styles.btntext}>취소</StyledText>
               </TouchableOpacity>
             ),
             headerRight: () => (
@@ -55,7 +70,7 @@ const BtnScreen: React.FC<Propstype> = props => {
                   navigation.navigate('ReservationDetail' as never)
                 }
                 style={styles.btnbox}>
-                <Text style={styles.btntext}>신청하기</Text>
+                <StyledText style={styles.btntext}>신청하기</StyledText>
               </TouchableOpacity>
             ),
           }}
@@ -64,18 +79,32 @@ const BtnScreen: React.FC<Propstype> = props => {
           name="ReservationDetail"
           component={ReservationDetail}
           options={{
-            headerTitle: '고전독서 예약',
+            headerTitleAlign: 'center',
+            headerTitle: () => {
+              return (
+                <StyledText style={{fontSize: 18 * scale, fontWeight: '700'}}>
+                  고전독서 예약
+                </StyledText>
+              );
+            },
             headerLeft: () => (
               <TouchableOpacity
                 onPress={() => navigation.navigate('ReservationHome' as never)}
                 style={styles.btnbox}>
-                <Ionicons name={'chevron-back'} size={28} color="#007AFF" />
-                <Text style={styles.btntext}>취소</Text>
+                <Text>
+                  <Ionicons
+                    name={'chevron-back'}
+                    size={24}
+                    color="#007AFF"
+                    style={{paddingTop: 4 * scale}}
+                  />
+                </Text>
+                <StyledText style={styles.btntext}>취소</StyledText>
               </TouchableOpacity>
             ),
             headerRight: () => (
               <TouchableOpacity style={styles.btnbox}>
-                <Text style={styles.btntext}>신청하기</Text>
+                <StyledText style={styles.btntext}>신청하기</StyledText>
               </TouchableOpacity>
             ),
           }}
@@ -86,13 +115,14 @@ const BtnScreen: React.FC<Propstype> = props => {
 };
 const styles = StyleSheet.create({
   btntext: {
-    fontSize: 17 * scale,
+    fontSize: 16 * scale,
     fontWeight: '700',
     color: '#007AFF',
     marginRight: 8 * width,
   },
   btnbox: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });

@@ -6,7 +6,9 @@ import BookInfoScreen from '../bookinformation/BookInfoScreen';
 import BookingListScreen from '../bookinglist/BookingListScreen';
 import ExamMainScreen from '../examdata/ExamMainScreen';
 import Main from './Main';
-import {width} from '../../config/globalStyles';
+import {scale, width} from '../../config/globalStyles';
+import {HeaderTitle} from '@react-navigation/elements';
+import StyledText from '../../components/globalcomponents/StyledText';
 const Home = () => {
   type MainStackParamList = {
     Main: undefined;
@@ -23,10 +25,62 @@ const Home = () => {
         component={Main}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="BookingListScreen" component={BookingListScreen} />
-      <Stack.Screen name="BookSearchScreen" component={BookSearchScreen} />
-      <Stack.Screen name="BookInfoScreen" component={BookInfoScreen} />
-      <Stack.Screen name="ExamMainScreen" component={ExamMainScreen} />
+      <Stack.Screen
+        name="BookingListScreen"
+        component={BookingListScreen}
+        options={{
+          headerTitleAlign: 'center',
+          headerTitle: () => {
+            return (
+              <StyledText style={{fontSize: 18 * scale, fontWeight: '700'}}>
+                나의 신청현황
+              </StyledText>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="BookSearchScreen"
+        component={BookSearchScreen}
+        options={{
+          headerTitleAlign: 'center',
+          headerTitle: () => {
+            return (
+              <StyledText style={{fontSize: 18 * scale, fontWeight: '700'}}>
+                고전도서 정보 게시판
+              </StyledText>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="BookInfoScreen"
+        component={BookInfoScreen}
+        options={{
+          headerTitleAlign: 'center',
+          headerTitle: () => {
+            return (
+              <StyledText style={{fontSize: 18 * scale, fontWeight: '700'}}>
+                프로테스탄티즘의 윤리와 자본주의 정신
+              </StyledText>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ExamMainScreen"
+        component={ExamMainScreen}
+        options={{
+          headerTitleAlign: 'center',
+          headerTitle: () => {
+            return (
+              <StyledText style={{fontSize: 18 * scale, fontWeight: '700'}}>
+                시험 족보
+              </StyledText>
+            );
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 };
