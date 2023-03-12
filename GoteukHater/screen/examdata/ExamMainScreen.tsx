@@ -68,7 +68,9 @@ const ExamMainScreen = () => {
         <Card style={{width: '100%'}}>
           <View style={styles.revierTitleWrapper}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <StyledText style={{marginRight: 8}}>김민수의 사상</StyledText>
+              <StyledText style={{marginRight: 8, fontWeight: 'bold'}}>
+                김민수의 사상
+              </StyledText>
               <ClassBox classification={2} usedScreen="bookInfo" />
             </View>
             <View style={{backgroundColor: 'black', width: 16, height: 16}} />
