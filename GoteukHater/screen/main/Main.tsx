@@ -91,7 +91,11 @@ const Main = ({navigation}: Props) => {
           </View>
         </View>
       </SafeAreaView>
-      <Formbtn title={'시험 예약하기'} icon={'calendar'} />
+      <Formbtn
+        title={'시험 예약하기'}
+        icon={'calendar'}
+        routename={'ReservationHome'}
+      />
     </>
   );
 };

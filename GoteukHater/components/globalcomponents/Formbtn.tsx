@@ -12,12 +12,13 @@ import StyledText from './StyledText';
 interface FormbtnProps {
   title: string;
   icon: string;
+  routename: string;
   // calendar, pencil
 }
 
 const Formbtn: React.FC<FormbtnProps> = props => {
   const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
-  const snapPoints = React.useMemo(() => [790 * height], []);
+  const snapPoints = React.useMemo(() => [750 * height], []);
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
@@ -51,7 +52,7 @@ const Formbtn: React.FC<FormbtnProps> = props => {
           borderTopLeftRadius: 24,
         }}
         snapPoints={snapPoints}>
-        <BtnScreen close={modalclose} routename={'ReservationHome'} />
+        <BtnScreen close={modalclose} routename={props.routename} />
       </BottomSheetModal>
       <View style={styles.absolute}>
         <Shadow

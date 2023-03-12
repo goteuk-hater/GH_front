@@ -15,9 +15,12 @@ import {scale, width} from '../../config/globalStyles';
 import ReservationDetail from './ReservationDetail';
 import ReservationHome from './ReservationHome';
 
+import BookReview from '../bookinformation/BookReview';
+
 type BtnParamList = {
   ReservationHome: undefined;
   ReservationDetail: undefined;
+  BookReview: undefined;
 };
 interface Propstype {
   close: () => void;
@@ -106,6 +109,48 @@ const BtnScreen: React.FC<Propstype> = props => {
               <TouchableOpacity style={styles.btnbox}>
                 <StyledText style={styles.btntext}>신청하기</StyledText>
               </TouchableOpacity>
+            ),
+          }}
+        />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#F6F6F9',
+            height: 50,
+            borderBottomWidth: 1,
+          },
+          headerStatusBarHeight: 0,
+        }}>
+        <Stack.Screen
+          name="BookReview"
+          component={BookReview}
+          options={{
+            headerTitle: () => {
+              return (
+                <StyledText style={{fontSize: 18 * scale, fontWeight: '700'}}>
+                  후기 작성하기
+                </StyledText>
+              );
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => props.close()}
+                style={styles.btnbox}>
+                <Text>
+                  <Ionicons
+                    name={'chevron-back'}
+                    size={24}
+                    color="#007AFF"
+                    style={{paddingTop: 4}}
+                  />
+                </Text>
+                <StyledText style={styles.btntext}>취소</StyledText>
+              </TouchableOpacity>
+            ),
+            headerRight: () => (
+              <StyledText style={styles.btntext}>작성하기</StyledText>
             ),
           }}
         />

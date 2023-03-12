@@ -6,6 +6,7 @@ import {Dimensions} from 'react-native';
 import {ScreenStackHeaderSubview} from 'react-native-screens';
 import {height} from '../../config/globalStyles';
 import {SafeAreaView} from 'react-native';
+import Formbtn from '../../components/globalcomponents/Formbtn';
 
 interface propsType {
   navigation: NavigationProp<NavigationState>;
@@ -14,55 +15,62 @@ interface propsType {
 const BookSearchScreen: React.FC<propsType> = props => {
   const [text, onChangeText] = React.useState('');
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: 12 * height,
-          backgroundColor: '#FFFFFF',
-          borderRadius: 15,
-          width: 358,
-        }}>
+    <>
+      <View style={styles.container}>
         <View
           style={{
-            width: 10,
-            height: 10,
-            backgroundColor: 'black',
-            marginLeft: 12,
-            marginRight: 8,
-          }}
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          value={text}
-          placeholder="검색어를 입력해 주세요."
-        />
-        <View
-          style={{
-            width: 10,
-            height: 10,
-            backgroundColor: 'black',
-            marginRight: 12,
-          }}
-        />
-      </View>
-      <View style={styles.catalogList}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={styles.catalog}>영역</Text>
-          <View style={{width: 13, height: 13, backgroundColor: 'black'}} />
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 12 * height,
+            backgroundColor: '#FFFFFF',
+            borderRadius: 15,
+            width: 358,
+          }}>
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              backgroundColor: 'black',
+              marginLeft: 12,
+              marginRight: 8,
+            }}
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeText}
+            value={text}
+            placeholder="검색어를 입력해 주세요."
+          />
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              backgroundColor: 'black',
+              marginRight: 12,
+            }}
+          />
         </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={styles.catalog}>최신순</Text>
-          <View style={{width: 13, height: 13, backgroundColor: 'black'}} />
+        <View style={styles.catalogList}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={styles.catalog}>영역</Text>
+            <View style={{width: 13, height: 13, backgroundColor: 'black'}} />
+          </View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={styles.catalog}>최신순</Text>
+            <View style={{width: 13, height: 13, backgroundColor: 'black'}} />
+          </View>
+        </View>
+        <View style={styles.bookCard}>
+          <LinbkedBookCard navigation={props.navigation} />
+          <LinbkedBookCard navigation={props.navigation} />
         </View>
       </View>
-      <View style={styles.bookCard}>
-        <LinbkedBookCard navigation={props.navigation} />
-        <LinbkedBookCard navigation={props.navigation} />
-      </View>
-    </View>
+      <Formbtn
+        title={'후기 작성하기'}
+        icon={'calendar'}
+        routename={'BookReview'}
+      />
+    </>
   );
 };
 
@@ -83,7 +91,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   catalog: {
-    // fontFamily: 'SUITVariable-Regular',
     color: 'black',
     fontSize: 14,
     marginRight: 4,

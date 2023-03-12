@@ -1,0 +1,185 @@
+import {NavigationProp, NavigationState} from '@react-navigation/native';
+import React, {useMemo, useState} from 'react';
+import {Text, StyleSheet, View, Button} from 'react-native';
+import {SelectList} from 'react-native-dropdown-select-list';
+import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import {height, scale, width} from '../../config/globalStyles';
+import {onClose, onOpen, Picker} from 'react-native-actions-sheet-picker';
+import StyledText from '../../components/globalcomponents/StyledText';
+
+const BookReview = () => {
+  const bookdata = {
+    0: [{name: '분야를 선택해주세요.', key: 0}],
+    1: [
+      {name: '플라톤의 국가', key: 1},
+      {name: '정치학', key: 2},
+      {name: '키케로의 의무론', key: 3},
+    ],
+    2: [
+      {name: '성학십도', key: 1},
+      {name: '북학의', key: 2},
+      {name: '조선상고사', key: 3},
+    ],
+    3: [
+      {name: '젊은 예술가의 초상', key: 1},
+      {name: '구토', key: 2},
+      {name: '실락원', key: 3},
+      {name: '젊은 예술가의 초상', key: 4},
+      {name: '구토', key: 5},
+      {name: '실락원', key: 6},
+      {name: '젊은 예술가의 초상', key: 7},
+      {name: '구토', key: 8},
+      {name: '실락원', key: 9},
+      {name: '젊은 예술가의 초상', key: 10},
+      {name: '구토', key: 11},
+      {name: '실락원', key: 12},
+      {name: '젊은 예술가의 초상', key: 13},
+      {name: '구토', key: 14},
+      {name: '실락원', key: 15},
+    ],
+    4: [
+      {name: '통섭', key: 1},
+      {name: '종의 기원', key: 2},
+      {name: '부분과 전체', key: 3},
+    ],
+  };
+  const [certification, setCertification] = React.useState([
+    {name: '서양의 역사와 사상', key: 1},
+    {name: '동양의 역사와 사상', key: 2},
+    {name: '동서양의 문학', key: 3},
+    {name: '과학사', key: 4},
+  ]);
+  const [selectedBook, setSelectedBook] = React.useState({
+    name: '책을 선택해주세요.',
+    key: 0,
+  });
+  const choosecertification = data => {
+    setSelected(data);
+    setSelectedBook({
+      name: '책을 선택해주세요.',
+      key: 0,
+    });
+    setBooklist(bookdata[data.key]);
+  };
+  const [selected, setSelected] = React.useState({
+    name: '분야를 선택해주세요.',
+    key: 0,
+  });
+  const [booklist, setBooklist] = React.useState(bookdata[0]);
+  const [query, setQuery] = React.useState('');
+  const onSearch = text => {
+    setQuery(text);
+  };
+  const filteredData = useMemo(() => {
+    if (booklist && booklist.length > 0) {
+      return booklist.filter(item => item.name.includes(query));
+    }
+  }, [booklist, query]);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.contentWrapper}>
+        <StyledText style={styles.title}>영역</StyledText>
+        <TouchableOpacity
+          style={styles.inputbox}
+          onPress={() => onOpen('certification')}>
+          <StyledText style={styles.input}>{selected.name}</StyledText>
+        </TouchableOpacity>
+        <Picker
+          id="certification"
+          data={certification}
+          setSelected={data => choosecertification(data)}
+          label="분야"
+        />
+      </View>
+      <View style={styles.contentWrapper}>
+        <StyledText style={styles.title}>도서명</StyledText>
+        <TouchableOpacity
+          style={styles.inputbox}
+          onPress={() => onOpen('book')}>
+          <StyledText style={styles.input}>{selectedBook.name}</StyledText>
+        </TouchableOpacity>
+        <Picker
+          id="book"
+          data={filteredData}
+          setSelected={setSelectedBook}
+          label="도서선택"
+          onSearch={onSearch}
+          searchable={true}
+          inputValue={query}
+          noDataFoundText={'책 제목을 확인해 주세요.'}
+        />
+      </View>
+      <View style={styles.contentWrapper}>
+        <StyledText style={styles.title}>별점</StyledText>
+        <View style={{flexDirection: 'row'}}>
+          <View style={{height: 30, width: 30, backgroundColor: 'black'}} />
+          <View style={{height: 30, width: 30, backgroundColor: 'black'}} />
+          <View style={{height: 30, width: 30, backgroundColor: 'black'}} />
+          <View style={{height: 30, width: 30, backgroundColor: 'black'}} />
+          <View style={{height: 30, width: 30, backgroundColor: 'black'}} />
+        </View>
+      </View>
+      <View style={styles.contentWrapper}>
+        <StyledText style={styles.title}>글작성</StyledText>
+        <TextInput
+          style={styles.inputbox}
+          placeholder={'자유롭게 후기를 작성해 주세요!'}></TextInput>
+      </View>
+    </View>
+  );
+};
+const styles = StyleSheet.create({
+  contentWrapper: {
+    marginBottom: 20 * height,
+  },
+  container: {
+    height: '100%',
+    backgroundColor: '#F6F6F9',
+    paddingLeft: 16 * width,
+    paddingRight: 16 * width,
+    paddingTop: 16 * height,
+  },
+  input: {
+    color: '#8B8B8B',
+    fontSize: 14 * scale,
+    fontWeight: '400',
+  },
+  inputbox: {
+    backgroundColor: 'white',
+    height: 47 * height,
+    padding: 12 * scale,
+    borderRadius: 10 * scale,
+    borderWidth: 1 * scale,
+    borderColor: '#D9D9D9',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 16 * scale,
+    color: 'black',
+    fontWeight: '700',
+    marginBottom: 8 * height,
+  },
+  dropdownbox: {
+    backgroundColor: 'white',
+    height: 47 * height,
+    padding: 15,
+    borderRadius: 10 * scale,
+    borderWidth: 1 * scale,
+    borderColor: '#D9D9D9',
+  },
+  dropdown: {
+    borderColor: '#D9D9D9',
+    backgroundColor: 'white',
+  },
+  item: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#D9D9D9',
+  },
+  dropdowntext: {
+    color: '#8B8B8B',
+    // textAlign: 'center',
+  },
+});
+
+export default BookReview;
