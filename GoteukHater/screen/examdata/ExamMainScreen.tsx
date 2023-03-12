@@ -43,14 +43,32 @@ const ExamMainScreen = () => {
         />
       </View>
       <Text style={styles.title}>최근 내가 본 시험</Text>
+      <View>
+        <Card style={styles.myExamCard}>
+          <View style={styles.myExamWrapper}>
+            <View style={styles.myExamWrapper}>
+              <StyledText style={styles.myExamText}>김민수의 사상</StyledText>
+              <ClassBox classification={2} usedScreen="bookInfo" />
+            </View>
+            <Text style={styles.toWrite}>작성하기</Text>
+          </View>
+        </Card>
+        <Card style={styles.myExamCard}>
+          <View style={styles.myExamWrapper}>
+            <View style={styles.myExamWrapper}>
+              <StyledText style={styles.myExamText}>김민수의 사상</StyledText>
+              <ClassBox classification={2} usedScreen="bookInfo" />
+            </View>
+            <Text style={styles.toWrite}>작성하기</Text>
+          </View>
+        </Card>
+      </View>
       <Text style={styles.title}>최근 작성 게시글</Text>
       <View style={styles.reviewCard}>
         <Card style={{width: '100%'}}>
           <View style={styles.revierTitleWrapper}>
-            <View style={{flexDirection: 'row'}}>
-              <StyledText
-                content="김민수의 사상"
-                style={{marginRight: 8}}></StyledText>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <StyledText style={{marginRight: 8}}>김민수의 사상</StyledText>
               <ClassBox classification={2} usedScreen="bookInfo" />
             </View>
             <View style={{backgroundColor: 'black', width: 16, height: 16}} />
@@ -114,6 +132,26 @@ const styles = StyleSheet.create({
   reviewedDate: {
     fontSize: 9,
     marginRight: 4,
+  },
+  myExamWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  myExamCard: {
+    width: '100%',
+    borderRadius: 8,
+    paddingTop: 8,
+    paddingBottom: 8,
+    marginBottom: 4,
+  },
+  myExamText: {
+    fontSize: 14,
+    fontWeight: 700,
+    marginRight: 8,
+  },
+  toWrite: {
+    fontSize: 10,
   },
 });
 export default ExamMainScreen;
