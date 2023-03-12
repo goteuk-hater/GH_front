@@ -43,7 +43,7 @@ const ExamMainScreen = () => {
         />
       </View>
       <Text style={styles.title}>최근 내가 본 시험</Text>
-      <View>
+      <View style={{marginBottom: 24}}>
         <Card style={styles.myExamCard}>
           <View style={styles.myExamWrapper}>
             <View style={styles.myExamWrapper}>
