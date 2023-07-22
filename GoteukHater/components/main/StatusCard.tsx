@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   detailtext: {
     fontSize: 12 * scale,
-    fontWeight: '400',
+    fontWeight: '500',
     color: '#818181',
   },
 });

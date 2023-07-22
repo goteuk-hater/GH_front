@@ -9,6 +9,8 @@ import LinkCard from '../../components/main/LinkCard';
 import Formbtn from '../../components/globalcomponents/Formbtn';
 import {height, scale, width} from '../../config/globalStyles';
 import StyledText from '../../components/globalcomponents/StyledText';
+import CertificationView from './CertificationView';
+import ApplicationStatus from './ApplicationStatus';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -38,41 +40,11 @@ const Main = ({navigation}: Props) => {
                 <StyledText style={styles.listbtn}>전체보기</StyledText>
               </TouchableOpacity>
             </View>
-            <View>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
-                <StatusCard
-                  title={'프로테스탄티즘의 윤리와 자본주의 정신'}
-                  date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
-                  classification={3}
-                />
-                <StatusCard
-                  title={'총균쇠'}
-                  date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
-                  classification={2}
-                />
-              </ScrollView>
-            </View>
+            <ApplicationStatus />
           </View>
           <View style={styles.section}>
             <StyledText style={styles.title}>나의 인증현황</StyledText>
-            <View style={styles.row}>
-              <CertificationCard
-                title={'서양의 역사와 사상'}
-                maxnum={4}
-                mynum={1}
-              />
-              <CertificationCard
-                title={'동양의 역사와 사상'}
-                maxnum={2}
-                mynum={2}
-              />
-            </View>
-            <View style={styles.row}>
-              <CertificationCard title={'과학 사상'} maxnum={1} mynum={0} />
-              <CertificationCard title={'동서양의 문학'} maxnum={3} mynum={3} />
-            </View>
+            <CertificationView />
           </View>
           <View style={styles.section}>
             <StyledText style={styles.title}>바로 가기</StyledText>
@@ -101,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F6F9',
     flex: 1,
   },
-  listbtn: {fontSize: 12 * scale, fontWeight: '400'},
+  listbtn: {fontSize: 12 * scale, fontWeight: '500'},
   content: {
     flex: 1,
     marginTop: 8 * height,
@@ -112,11 +84,7 @@ const styles = StyleSheet.create({
   section: {
     marginBottom: 16 * height,
   },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4 * height,
-  },
+
   title: {
     fontFamily: 'SUITVariable-Regular',
     fontSize: 18 * scale,

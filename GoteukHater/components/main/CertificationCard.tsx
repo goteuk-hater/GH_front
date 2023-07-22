@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   certifiedtext: {
     fontSize: 10 * scale,
-    fontWeight: '400',
+    fontWeight: '500',
     textAlign: 'right',
     color: '#8B8B8B',
     marginBottom: 8 * height,
