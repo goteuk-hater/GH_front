@@ -1,78 +1,67 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {height, scale, width} from '../../config/globalStyles';
+import {globalstyles, height, scale, width} from '../../config/globalStyles';
 import Card from '../globalcomponents/Card';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import StyledText from '../globalcomponents/StyledText';
+import FlexView from '../globalcomponents/FlexView';
+import {useEffect, useState} from 'react';
 interface Propstype {
   time: string;
   maxnumber: number;
   nownumber: number;
+  marginRight: number;
+  isselected: boolean;
+  setSelect: () => void;
 }
 const TimeselectCard: React.FC<Propstype> = props => {
-  const FullBox = () => (
-    <View style={[styles.timebox, styles.full]}>
-      <Ionicons
-        name={'alarm-outline'}
-        size={16}
-        color="white"
-        style={{marginRight: 4 * scale}}
-      />
-      <StyledText style={styles.time}>{props.time}</StyledText>
-    </View>
+  const seats = props.maxnumber - props.nownumber;
+  const [fontcolor, setfontcolor] = useState(seats > 0 ? '#20B358' : '#9F9F9F');
+  const [backgroundcolor, setbackgroundcolor] = useState(
+    seats > 0 ? '#FFFFFF' : '#9F9F9F',
   );
-  const Box = () => (
-    <View style={[styles.timebox]}>
-      <StyledText style={styles.time}>{props.time}</StyledText>
-    </View>
-  );
-
+  const [timecolor, settimecolor] = useState(seats > 0 ? '#000000' : '#9F9F9F');
+  const changestyle = () => {
+    if (props.isselected) {
+      setfontcolor('#FFF500');
+      setbackgroundcolor('#FF6961');
+      settimecolor('#FFFFFF');
+    }
+    if (!props.isselected) {
+      if (seats > 0) {
+        setfontcolor('#20B358');
+        setbackgroundcolor('#FFFFFF');
+        settimecolor('#000000');
+      } else {
+        setbackgroundcolor('#9F9F9F');
+        setfontcolor('#FFFFFF');
+        settimecolor('#FFFFFF');
+      }
+    }
+  };
+  useEffect(() => {
+    changestyle();
+  }, [props.isselected]);
   return (
-    <TouchableOpacity>
-      <Card style={styles.card}>
-        {props.maxnumber === props.nownumber ? <FullBox /> : <Box />}
-        <StyledText style={styles.numinfo}>
-          {props.nownumber}명 / {props.maxnumber}명
-        </StyledText>
+    <TouchableOpacity
+      style={{marginRight: props.marginRight * width}}
+      disabled={seats <= 0}
+      onPress={props.setSelect}>
+      <Card style={{backgroundColor: backgroundcolor, width: 173 * width}}>
+        <FlexView style={[globalstyles.row_spacebetween]}>
+          <StyledText style={[globalstyles.h4, {color: timecolor}]}>
+            {props.time}
+          </StyledText>
+          <StyledText style={[globalstyles.h4, {color: fontcolor}]}>
+            {seats > 0
+              ? `남은자리 : ${props.maxnumber - props.nownumber}`
+              : '예약불가'}
+          </StyledText>
+        </FlexView>
       </Card>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
-  card: {
-    paddingTop: 0,
-    paddingLeft: 0,
-    paddingRight: 0,
-    paddingBottom: 0,
-    width: 114 * scale,
-    marginBottom: 16 * scale,
-  },
-  timebox: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 30 * scale,
-    borderTopLeftRadius: 15 * scale,
-    borderTopRightRadius: 15 * scale,
-    padding: 8 * scale,
-    backgroundColor: '#20B358',
-  },
-  full: {
-    backgroundColor: '#FF6961',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  time: {
-    color: 'white',
-    fontWeight: '700',
-  },
-  numinfo: {
-    textAlign: 'center',
-    fontSize: 10 * scale,
-    fontWeight: '700',
-    color: '#8B8B8B',
-    margin: 4 * scale,
-  },
-});
+const styles = StyleSheet.create({});
 export default TimeselectCard;

@@ -6,11 +6,17 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {height, scale, width} from '../../config/globalStyles';
 import {onClose, onOpen, Picker} from 'react-native-actions-sheet-picker';
 import StyledText from '../../components/globalcomponents/StyledText';
+import Header from '../bookinformation/Header';
+import {BottomSheetModalStackBehavior} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModal';
+import {BottomSheetDefaultHandleProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetHandle/types';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import FlexView from '../../components/globalcomponents/FlexView';
 
 interface Props {
+  route: any;
   navigation: NavigationProp<NavigationState>;
 }
-const ReservationDetail = ({navigation}: Props) => {
+const ReservationDetail = ({route, navigation}: Props) => {
   const bookdata = {
     0: [{name: '분야를 선택해주세요.', key: 0}],
     1: [
@@ -80,54 +86,62 @@ const ReservationDetail = ({navigation}: Props) => {
     setQuery(text);
   };
   const submit = () => {
-    console.log(selected, selectedBook);
+    route.params.close();
+  };
+  const back = () => {
+    navigation.navigate('ReservationHome' as never);
   };
   return (
-    <View style={styles.container}>
-      <StyledText style={[styles.title, {marginTop: 0 * height}]}>
-        날짜
-      </StyledText>
-      <View style={styles.inputbox}>
-        <StyledText style={styles.input}>2023년 02월 28일</StyledText>
-      </View>
-      <StyledText style={styles.title}>시간</StyledText>
-      <View style={styles.inputbox}>
-        <StyledText style={styles.input}>11:00 ~ 11:30</StyledText>
-      </View>
+    <>
+      <Header title="고전시험 예약" next={submit} back={back} nextText="신청" />
+      <View style={styles.container}>
+        <StyledText style={[styles.title, {marginTop: 0 * height}]}>
+          날짜
+        </StyledText>
+        <View style={styles.inputbox}>
+          <StyledText style={styles.input}>2023년 02월 28일</StyledText>
+        </View>
+        <StyledText style={styles.title}>시간</StyledText>
+        <View style={styles.inputbox}>
+          <StyledText style={styles.input}>11:00 ~ 11:30</StyledText>
+        </View>
 
-      <StyledText style={styles.title}>분야</StyledText>
-      <TouchableOpacity
-        style={styles.inputbox}
-        onPress={() => onOpen('certification')}>
-        <StyledText style={styles.input}>{selected.name}</StyledText>
-      </TouchableOpacity>
-      <Picker
-        id="certification"
-        data={certification}
-        setSelected={data => choosecertification(data)}
-        label="분야"
-      />
-      <StyledText style={styles.title}>도서명</StyledText>
-      <TouchableOpacity style={styles.inputbox} onPress={() => onOpen('book')}>
-        <StyledText style={styles.input}>{selectedBook.name}</StyledText>
-      </TouchableOpacity>
-      <Picker
-        id="book"
-        data={filteredData}
-        setSelected={setSelectedBook}
-        label="도서선택"
-        onSearch={onSearch}
-        searchable={true}
-        inputValue={query}
-        noDataFoundText={'책 제목을 확인해 주세요.'}
-      />
-    </View>
+        <StyledText style={styles.title}>분야</StyledText>
+        <TouchableOpacity
+          style={styles.inputbox}
+          onPress={() => onOpen('certification')}>
+          <StyledText style={styles.input}>{selected.name}</StyledText>
+        </TouchableOpacity>
+        <Picker
+          id="certification"
+          data={certification}
+          setSelected={data => choosecertification(data)}
+          label="분야"
+        />
+        <StyledText style={styles.title}>도서명</StyledText>
+        <TouchableOpacity
+          style={styles.inputbox}
+          onPress={() => onOpen('book')}>
+          <StyledText style={styles.input}>{selectedBook.name}</StyledText>
+        </TouchableOpacity>
+        <Picker
+          id="book"
+          data={filteredData}
+          setSelected={setSelectedBook}
+          label="도서선택"
+          onSearch={onSearch}
+          searchable={true}
+          inputValue={query}
+          noDataFoundText={'책 제목을 확인해 주세요.'}
+        />
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    flex: 1,
     backgroundColor: '#F6F6F9',
     paddingLeft: 16 * width,
     paddingRight: 16 * width,

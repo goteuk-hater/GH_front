@@ -6,81 +6,57 @@ import BookInfoScreen from '../bookinformation/BookInfoScreen';
 import BookingListScreen from '../bookinglist/BookingListScreen';
 import ExamMainScreen from '../examdata/ExamMainScreen';
 import Main from './Main';
-import {scale, width} from '../../config/globalStyles';
+import {globalstyles, scale, width} from '../../config/globalStyles';
 import {HeaderTitle} from '@react-navigation/elements';
 import StyledText from '../../components/globalcomponents/StyledText';
-const Home = () => {
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import Formbtn from '../../components/Modal/Formbtn';
+import {
+  NavigationContainer,
+  NavigationProp,
+  NavigationState,
+} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import BtnScreen from '../reservationscreen/BtnScreen';
+import ReservationHome from '../reservationscreen/ReservationHome';
+
+const Home = (props: any) => {
+  interface Props {
+    navigation: NavigationProp<NavigationState>;
+    bottomSheetModalRef: React.RefObject<BottomSheetModal>;
+  }
   type MainStackParamList = {
-    Main: undefined;
+    Main: Props;
     BookingListScreen: undefined;
     BookInfoScreen: undefined;
     BookSearchScreen: undefined;
     ExamMainScreen: undefined;
+    BtnScreen: undefined;
+    ReservationHome: undefined;
   };
   const Stack = createStackNavigator<MainStackParamList>();
+  const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
+  const handlePresentModalPress = React.useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const modalclose = React.useCallback(() => {
+    bottomSheetModalRef.current?.dismiss();
+  }, []);
+
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Main"
-        component={Main}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="BookingListScreen"
-        component={BookingListScreen}
-        options={{
-          headerTitleAlign: 'center',
-          headerTitle: () => {
-            return (
-              <StyledText style={{fontSize: 18 * scale, fontWeight: '700'}}>
-                나의 신청현황
-              </StyledText>
-            );
-          },
-        }}
-      />
-      <Stack.Screen
-        name="BookSearchScreen"
-        component={BookSearchScreen}
-        options={{
-          headerTitleAlign: 'center',
-          headerTitle: () => {
-            return (
-              <StyledText style={{fontSize: 18 * scale, fontWeight: '700'}}>
-                고전도서 정보 게시판
-              </StyledText>
-            );
-          },
-        }}
-      />
-      <Stack.Screen
-        name="BookInfoScreen"
-        component={BookInfoScreen}
-        options={{
-          headerTitleAlign: 'center',
-          headerTitle: () => {
-            return (
-              <StyledText style={{fontSize: 18 * scale, fontWeight: '700'}}>
-                프로테스탄티즘의 윤리와 자본주의 정신
-              </StyledText>
-            );
-          },
-        }}
-      />
-      <Stack.Screen
-        name="ExamMainScreen"
-        component={ExamMainScreen}
-        options={{
-          headerTitleAlign: 'center',
-          headerTitle: () => {
-            return (
-              <StyledText style={{fontSize: 18 * scale, fontWeight: '700'}}>
-                시험 족보
-              </StyledText>
-            );
-          },
-        }}
-      />
+      <Stack.Group screenOptions={{headerShown: false}}>
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen name="BookingListScreen" component={BookingListScreen} />
+        <Stack.Screen name="BookSearchScreen" component={BookSearchScreen} />
+        <Stack.Screen name="BookInfoScreen" component={BookInfoScreen} />
+        <Stack.Screen name="ExamMainScreen" component={ExamMainScreen} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

@@ -4,78 +4,86 @@ import Card from '../../components/globalcomponents/Card';
 import BookCard from '../../components/booksearch/BookCard';
 import StyledText from '../../components/globalcomponents/StyledText';
 import ClassBox from '../../components/globalcomponents/ClassBox';
+import Formbtn from '../../components/Modal/Formbtn';
 
 const BookInfoScreen = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.bookCard}>
-        <BookCard />
-      </View>
-      <View style={styles.reviewWrapper}>
-        <View style={styles.titleWrapper}>
-          <Text style={styles.titleText}>시험 후기</Text>
-          <Text style={styles.subText}> (23)</Text>
+    <>
+      <View style={styles.container}>
+        <View style={styles.bookCard}>
+          <BookCard />
         </View>
-        <View style={styles.reviewCard}>
-          <Card style={{width: '100%'}}>
-            <View style={styles.revierTitleWrapper}>
-              <View style={{flexDirection: 'row'}}>
-                <StyledText
-                  content="김민수의 사상"
-                  style={{marginRight: 8}}></StyledText>
-                <ClassBox classification={2} usedScreen="bookInfo" />
+        <View style={styles.reviewWrapper}>
+          <View style={styles.titleWrapper}>
+            <Text style={styles.titleText}>시험 후기</Text>
+            <Text style={styles.subText}> (23)</Text>
+          </View>
+          <View style={styles.reviewCard}>
+            <Card style={{width: '100%'}}>
+              <View style={styles.revierTitleWrapper}>
+                <View style={{flexDirection: 'row'}}>
+                  <StyledText
+                    content="김민수의 사상"
+                    style={{marginRight: 8}}></StyledText>
+                  <ClassBox classification={2} usedScreen="bookInfo" />
+                </View>
+                <View
+                  style={{backgroundColor: 'black', width: 16, height: 16}}
+                />
               </View>
-              <View style={{backgroundColor: 'black', width: 16, height: 16}} />
-            </View>
-            <Text style={styles.reviewedDate}>2023년 01월 07일</Text>
-            <View
-              style={{
-                backgroundColor: 'black',
-                width: 100,
-                height: 10,
-                marginBottom: 8,
-              }}
-            />
-            <Text style={{fontSize: 12, color: 'black'}}>
-              그냥저냥 공부할만 했던 시험인거 같아요..
-              {'\n'}
-              {'\n'}
-              김민수씨의 사상을 잘 알고있다면 쉽고, 아얘 모르시는 분은 공 부하기
-              어려우실꺼 같아요
-            </Text>
-          </Card>
-        </View>
-        <View style={styles.reviewCard}>
-          <Card style={{width: '100%'}}>
-            <View style={styles.revierTitleWrapper}>
-              <View style={{flexDirection: 'row'}}>
-                <StyledText
-                  content="김민수의 사상"
-                  style={{marginRight: 8}}></StyledText>
-                <ClassBox classification={2} usedScreen="bookInfo" />
+              <Text style={styles.reviewedDate}>2023년 01월 07일</Text>
+              <View
+                style={{
+                  backgroundColor: 'black',
+                  width: 100,
+                  height: 10,
+                  marginBottom: 8,
+                }}
+              />
+              <Text style={{fontSize: 12, color: 'black'}}>
+                그냥저냥 공부할만 했던 시험인거 같아요..
+                {'\n'}
+                {'\n'}
+                김민수씨의 사상을 잘 알고있다면 쉽고, 아얘 모르시는 분은 공
+                부하기 어려우실꺼 같아요
+              </Text>
+            </Card>
+          </View>
+          <View style={styles.reviewCard}>
+            <Card style={{width: '100%'}}>
+              <View style={styles.revierTitleWrapper}>
+                <View style={{flexDirection: 'row'}}>
+                  <StyledText
+                    content="김민수의 사상"
+                    style={{marginRight: 8}}></StyledText>
+                  <ClassBox classification={2} usedScreen="bookInfo" />
+                </View>
+                <View
+                  style={{backgroundColor: 'black', width: 16, height: 16}}
+                />
               </View>
-              <View style={{backgroundColor: 'black', width: 16, height: 16}} />
-            </View>
-            <Text style={styles.reviewedDate}>2023년 01월 07일</Text>
-            <View
-              style={{
-                backgroundColor: 'black',
-                width: 100,
-                height: 10,
-                marginBottom: 8,
-              }}
-            />
-            <Text style={{fontSize: 12, color: 'black'}}>
-              그냥저냥 공부할만 했던 시험인거 같아요..
-              {'\n'}
-              {'\n'}
-              김민수씨의 사상을 잘 알고있다면 쉽고, 아얘 모르시는 분은 공 부하기
-              어려우실꺼 같아요
-            </Text>
-          </Card>
+              <Text style={styles.reviewedDate}>2023년 01월 07일</Text>
+              <View
+                style={{
+                  backgroundColor: 'black',
+                  width: 100,
+                  height: 10,
+                  marginBottom: 8,
+                }}
+              />
+              <Text style={{fontSize: 12, color: 'black'}}>
+                그냥저냥 공부할만 했던 시험인거 같아요..
+                {'\n'}
+                {'\n'}
+                김민수씨의 사상을 잘 알고있다면 쉽고, 아얘 모르시는 분은 공
+                부하기 어려우실꺼 같아요
+              </Text>
+            </Card>
+          </View>
         </View>
       </View>
-    </View>
+      <Formbtn />
+    </>
   );
 };
 

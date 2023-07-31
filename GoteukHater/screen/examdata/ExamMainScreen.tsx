@@ -3,7 +3,7 @@ import {View, StyleSheet, Text} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import Card from '../../components/globalcomponents/Card';
 import ClassBox from '../../components/globalcomponents/ClassBox';
-import Formbtn from '../../components/globalcomponents/Formbtn';
+import Formbtn from '../../components/Modal/Formbtn';
 import StyledText from '../../components/globalcomponents/StyledText';
 import {height} from '../../config/globalStyles';
 const ExamMainScreen = () => {

@@ -1,8 +1,9 @@
 import React, {Children, type PropsWithChildren} from 'react';
 import {Text, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
-import {height, scale, width} from '../../config/globalStyles';
-import Card from '../globalcomponents/Card';
-import StyledText from '../globalcomponents/StyledText';
+import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import Card from '../../globalcomponents/Card';
+import FlexView from '../../globalcomponents/FlexView';
+import StyledText from '../../globalcomponents/StyledText';
 interface CertificationCardProps {
   title: string;
   maxnum: number;
@@ -11,7 +12,7 @@ interface CertificationCardProps {
 const CertificationCard: React.FunctionComponent<
   CertificationCardProps
 > = props => {
-  let rate = (props.mynum / props.maxnum) * 150;
+  let rate = (props.mynum / props.maxnum) * 151 * width;
   let barcolor;
   if (props.maxnum <= props.mynum) {
     barcolor = styles.green;
@@ -23,15 +24,15 @@ const CertificationCard: React.FunctionComponent<
     <Card
       style={{width: 175 * width}}
       children={
-        <View>
-          <StyledText style={styles.certifiedtitle}>{props.title}</StyledText>
-          <StyledText style={styles.certifiedtext}>
+        <FlexView gapVertical={8 * height}>
+          <StyledText style={globalstyles.h3}>{props.title}</StyledText>
+          <StyledText style={[globalstyles.p2, styles.certifiedtext]}>
             {props.mynum}/{props.maxnum}권
           </StyledText>
           <View style={styles.barbox}>
-            <View style={[styles.bar, barcolor, {width: rate}]}></View>
+            <View style={[styles.bar, barcolor, {width: rate}]} />
           </View>
-        </View>
+        </FlexView>
       }
     />
   );
@@ -41,19 +42,15 @@ const styles = StyleSheet.create({
   certifiedtitle: {
     fontSize: 14 * scale,
     fontWeight: '700',
-    marginBottom: 8 * width,
   },
   certifiedtext: {
-    fontSize: 10 * scale,
-    fontWeight: '500',
     textAlign: 'right',
     color: '#8B8B8B',
-    marginBottom: 8 * height,
   },
   barbox: {
     borderRadius: 20 * scale,
     flexDirection: 'row',
-    width: 150 * width,
+    width: 151 * width,
     height: 8 * height,
     backgroundColor: '#EAEEF2',
   },
