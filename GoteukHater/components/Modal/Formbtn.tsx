@@ -8,7 +8,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {onClose} from 'react-native-actions-sheet-picker';
 
 const Formbtn = () => {
-  const snapPoints = React.useMemo(() => [800 * height], []);
+  const snapPoints = React.useMemo(() => ['50%', 800 * height], []);
   const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetModalRef.current?.present();

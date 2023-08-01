@@ -10,11 +10,6 @@ export const fonts = {};
 export const width = WIDTH / FIGMA_WINDOW_WIDTH;
 export const height = HEIGHT / FIGMA_WINDOW_HEIGHT;
 export const scale = Math.sqrt(WIDTH * HEIGHT) / FIGMA_SCALE;
-export const h1 = StyleSheet;
-export const h2 = 16;
-export const p1 = 12;
-export const p2 = 10;
-
 export const globalstyles = StyleSheet.create({
   h1: {
     fontSize: 18 * scale,

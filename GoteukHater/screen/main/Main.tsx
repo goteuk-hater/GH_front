@@ -30,7 +30,7 @@ const Main = ({navigation}: Props) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <FlexView style={styles.content} gapVertical={20 * height}>
+        <FlexView style={styles.content} gapVertical={24 * height}>
           <InformationSection />
           <StatusSection navigation={navigation} />
           <CertificationSection />

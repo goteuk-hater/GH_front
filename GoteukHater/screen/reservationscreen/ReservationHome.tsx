@@ -66,7 +66,6 @@ const ReservationHome = ({navigation}: Props) => {
               예약이 완료된 시간이라도 빈자리 알림 신청을 할 수 있어요.
             </StyledText>
           </FlexView>
-
           <FlatList
             data={DATA}
             numColumns={2}
