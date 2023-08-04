@@ -8,7 +8,7 @@ import {height} from '../../../config/globalStyles';
 import {SafeAreaView} from 'react-native';
 import Formbtn from '../../components/Modal/Formbtn';
 import {StackActions} from '@react-navigation/native';
-import Header from './Header';
+
 interface propsType {
   navigation: NavigationProp<NavigationState>;
 }
@@ -22,7 +22,6 @@ const BookSearchScreen: React.FC<propsType> = props => {
   return (
     <>
       <SafeAreaView style={{flex: 1}}>
-        <Header title="고전도서 정보 게시판" back={back} />
         <View style={styles.container}>
           <View
             style={{

@@ -16,7 +16,6 @@ import FlexView from '../../components/globalcomponents/FlexView';
 import StyledText from '../../components/globalcomponents/StyledText';
 import TimeselectCard from '../../components/reservation/TimeselectCard';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import Header from '../bookinformation/Header';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -38,55 +37,50 @@ const ReservationHome = ({navigation}: Props) => {
   };
   const [selected, setSelected] = React.useState<number>(-1);
   return (
-    <>
-      <Header title="고전시험 예약" next={next} nextText="다음" />
-      <View style={styles.container}>
-        <FlexView gapVertical={20 * height}>
-          <Card style={{width: '100%'}}>
-            <Calendar
-              onDayPress={day => {
-                setSelectedDate(day.dateString);
-              }}
-              style={styles.calendar}
-              theme={{
-                selectedDayTextColor: 'white',
-                selectedDayBackgroundColor: 'gray',
-              }}
-              enableSwipeMonths={true}
-              markedDates={{
-                [selectedDate]: {selected: true},
-                '2023-02-15': {marked: true, dotColor: 'red'},
-                '2023-02-16': {marked: true},
-              }}
-            />
-          </Card>
-          <FlexView>
-            <StyledText style={globalstyles.h1}>시간선택</StyledText>
-            <StyledText style={[globalstyles.p1, styles.titleinfo]}>
-              예약이 완료된 시간이라도 빈자리 알림 신청을 할 수 있어요.
-            </StyledText>
-          </FlexView>
-          <FlatList
-            data={DATA}
-            numColumns={2}
-            scrollEnabled={false}
-            ItemSeparatorComponent={() => (
-              <View style={{height: 12 * height}} />
-            )}
-            renderItem={({item, index}) => (
-              <TimeselectCard
-                time={item.time}
-                maxnumber={item.maxnumber}
-                nownumber={item.nownumber}
-                marginRight={index % 2 == 0 ? 12 : 0}
-                setSelect={() => setSelected(index)}
-                isselected={selected == index}
-              />
-            )}
+    <View style={styles.container}>
+      <FlexView gapVertical={20 * height}>
+        <Card style={{width: '100%'}}>
+          <Calendar
+            onDayPress={day => {
+              setSelectedDate(day.dateString);
+            }}
+            style={styles.calendar}
+            theme={{
+              selectedDayTextColor: 'white',
+              selectedDayBackgroundColor: 'gray',
+            }}
+            enableSwipeMonths={true}
+            markedDates={{
+              [selectedDate]: {selected: true},
+              '2023-02-15': {marked: true, dotColor: 'red'},
+              '2023-02-16': {marked: true},
+            }}
           />
+        </Card>
+        <FlexView>
+          <StyledText style={globalstyles.h1}>시간선택</StyledText>
+          <StyledText style={[globalstyles.p1, styles.titleinfo]}>
+            예약이 완료된 시간이라도 빈자리 알림 신청을 할 수 있어요.
+          </StyledText>
         </FlexView>
-      </View>
-    </>
+        <FlatList
+          data={DATA}
+          numColumns={2}
+          scrollEnabled={false}
+          ItemSeparatorComponent={() => <View style={{height: 12 * height}} />}
+          renderItem={({item, index}) => (
+            <TimeselectCard
+              time={item.time}
+              maxnumber={item.maxnumber}
+              nownumber={item.nownumber}
+              marginRight={index % 2 == 0 ? 12 : 0}
+              setSelect={() => setSelected(index)}
+              isselected={selected == index}
+            />
+          )}
+        />
+      </FlexView>
+    </View>
   );
 };
 

@@ -92,50 +92,45 @@ const ReservationDetail = ({route, navigation}: Props) => {
     navigation.navigate('ReservationHome' as never);
   };
   return (
-    <>
-      <Header title="고전시험 예약" next={submit} back={back} nextText="신청" />
-      <View style={styles.container}>
-        <StyledText style={[styles.title, {marginTop: 0 * height}]}>
-          날짜
-        </StyledText>
-        <View style={styles.inputbox}>
-          <StyledText style={styles.input}>2023년 02월 28일</StyledText>
-        </View>
-        <StyledText style={styles.title}>시간</StyledText>
-        <View style={styles.inputbox}>
-          <StyledText style={styles.input}>11:00 ~ 11:30</StyledText>
-        </View>
-
-        <StyledText style={styles.title}>분야</StyledText>
-        <TouchableOpacity
-          style={styles.inputbox}
-          onPress={() => onOpen('certification')}>
-          <StyledText style={styles.input}>{selected.name}</StyledText>
-        </TouchableOpacity>
-        <Picker
-          id="certification"
-          data={certification}
-          setSelected={data => choosecertification(data)}
-          label="분야"
-        />
-        <StyledText style={styles.title}>도서명</StyledText>
-        <TouchableOpacity
-          style={styles.inputbox}
-          onPress={() => onOpen('book')}>
-          <StyledText style={styles.input}>{selectedBook.name}</StyledText>
-        </TouchableOpacity>
-        <Picker
-          id="book"
-          data={filteredData}
-          setSelected={setSelectedBook}
-          label="도서선택"
-          onSearch={onSearch}
-          searchable={true}
-          inputValue={query}
-          noDataFoundText={'책 제목을 확인해 주세요.'}
-        />
+    <View style={styles.container}>
+      <StyledText style={[styles.title, {marginTop: 0 * height}]}>
+        날짜
+      </StyledText>
+      <View style={styles.inputbox}>
+        <StyledText style={styles.input}>2023년 02월 28일</StyledText>
       </View>
-    </>
+      <StyledText style={styles.title}>시간</StyledText>
+      <View style={styles.inputbox}>
+        <StyledText style={styles.input}>11:00 ~ 11:30</StyledText>
+      </View>
+
+      <StyledText style={styles.title}>분야</StyledText>
+      <TouchableOpacity
+        style={styles.inputbox}
+        onPress={() => onOpen('certification')}>
+        <StyledText style={styles.input}>{selected.name}</StyledText>
+      </TouchableOpacity>
+      <Picker
+        id="certification"
+        data={certification}
+        setSelected={data => choosecertification(data)}
+        label="분야"
+      />
+      <StyledText style={styles.title}>도서명</StyledText>
+      <TouchableOpacity style={styles.inputbox} onPress={() => onOpen('book')}>
+        <StyledText style={styles.input}>{selectedBook.name}</StyledText>
+      </TouchableOpacity>
+      <Picker
+        id="book"
+        data={filteredData}
+        setSelected={setSelectedBook}
+        label="도서선택"
+        onSearch={onSearch}
+        searchable={true}
+        inputValue={query}
+        noDataFoundText={'책 제목을 확인해 주세요.'}
+      />
+    </View>
   );
 };
 

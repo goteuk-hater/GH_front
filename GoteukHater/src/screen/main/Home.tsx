@@ -20,6 +20,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import BtnScreen from '../reservationscreen/BtnScreen';
 import ReservationHome from '../reservationscreen/ReservationHome';
+import Btn from '../../components/globalcomponents/Btn';
 
 const Home = (props: any) => {
   interface Props {
@@ -46,16 +47,72 @@ const Home = (props: any) => {
 
   return (
     <Stack.Navigator>
-      <Stack.Group screenOptions={{headerShown: false}}>
+      <Stack.Group>
         <Stack.Screen
           name="Main"
           component={Main}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="BookingListScreen" component={BookingListScreen} />
-        <Stack.Screen name="BookSearchScreen" component={BookSearchScreen} />
-        <Stack.Screen name="BookInfoScreen" component={BookInfoScreen} />
-        <Stack.Screen name="ExamMainScreen" component={ExamMainScreen} />
+        <Stack.Screen
+          name="BookingListScreen"
+          component={BookingListScreen}
+          options={{
+            title: '나의 신청현황',
+            headerLeft: () => (
+              <Btn
+                Icon="chevron-back"
+                onPress={() => {
+                  props.navigation.navigate('Main' as never);
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="BookSearchScreen"
+          component={BookSearchScreen}
+          options={{
+            title: '고전도서 정보 게시판',
+            headerLeft: () => (
+              <Btn
+                Icon="chevron-back"
+                onPress={() => {
+                  props.navigation.navigate('Main' as never);
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="BookInfoScreen"
+          component={BookInfoScreen}
+          options={{
+            title: 'ㅇㅇㅇㅇㅇㅇㅇ',
+            headerLeft: () => (
+              <Btn
+                Icon="chevron-back"
+                onPress={() => {
+                  props.navigation.navigate('Main' as never);
+                }}
+              />
+            ),
+          }}
+        />
+        {/* <Stack.Screen
+          name="ExamMainScreen"
+          component={ExamMainScreen}
+          options={{
+            title: '라우팅',
+            headerLeft: () => (
+              <Btn
+                Icon="chevron-back"
+                onPress={() => {
+                  props.navigation.navigate('Main' as never);
+                }}
+              />
+            ),
+          }}
+        /> */}
       </Stack.Group>
     </Stack.Navigator>
   );

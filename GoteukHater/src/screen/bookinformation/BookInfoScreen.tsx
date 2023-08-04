@@ -1,5 +1,5 @@
-import React, {type PropsWithChildren} from 'react';
-import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import Card from '../../components/globalcomponents/Card';
 import BookCard from '../../components/booksearch/BookCard';
 import StyledText from '../../components/globalcomponents/StyledText';
@@ -22,9 +22,7 @@ const BookInfoScreen = () => {
             <Card style={{width: '100%'}}>
               <View style={styles.revierTitleWrapper}>
                 <View style={{flexDirection: 'row'}}>
-                  <StyledText
-                    content="김민수의 사상"
-                    style={{marginRight: 8}}></StyledText>
+                  <StyledText style={{marginRight: 8}}></StyledText>
                   <ClassBox classification={2} usedScreen="bookInfo" />
                 </View>
                 <View
@@ -53,9 +51,7 @@ const BookInfoScreen = () => {
             <Card style={{width: '100%'}}>
               <View style={styles.revierTitleWrapper}>
                 <View style={{flexDirection: 'row'}}>
-                  <StyledText
-                    content="김민수의 사상"
-                    style={{marginRight: 8}}></StyledText>
+                  <StyledText style={{marginRight: 8}}></StyledText>
                   <ClassBox classification={2} usedScreen="bookInfo" />
                 </View>
                 <View
@@ -97,7 +93,7 @@ const styles = StyleSheet.create({
   },
   bookCard: {
     width: '100%',
-    ellipsizeMode: 'tail',
+
     flexShrink: 1,
     marginBottom: 20,
   },
@@ -111,7 +107,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 16,
-    fontWeight: 900,
+
     color: 'black',
   },
   subText: {

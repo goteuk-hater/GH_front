@@ -1,10 +1,6 @@
-import {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {BottomSheetModalStackBehavior} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModal';
 import {
-  NavigationContainer,
   NavigationProp,
   NavigationState,
-  StackActions,
   useNavigation,
 } from '@react-navigation/native';
 
@@ -12,6 +8,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import ReservationDetail from './ReservationDetail';
 import ReservationHome from './ReservationHome';
+import Btn from '../../components/globalcomponents/Btn';
+import {height} from '../../../config/globalStyles';
 
 type BtnParamList = {
   ReservationHome: undefined;
@@ -27,19 +25,53 @@ interface Props {
 const Stack = createStackNavigator<BtnParamList>();
 const BtnScreen = (props: Props) => {
   const navigation = useNavigation();
+
   return (
     <Stack.Navigator>
       <Stack.Group
         screenOptions={{
-          headerShown: false,
+          headerStatusBarHeight: 0,
+          headerStyle: {
+            height: 44 * height,
+            backgroundColor: '#F6F6F9',
+          },
         }}>
-        <Stack.Screen name="ReservationHome" component={ReservationHome} />
+        <Stack.Screen
+          name="ReservationHome"
+          component={ReservationHome}
+          options={{
+            title: '고전시험 예약',
+            headerRight: () => (
+              <Btn
+                title="다음"
+                onPress={() => {
+                  navigation.navigate('ReservationDetail' as never);
+                }}
+              />
+            ),
+          }}
+        />
         <Stack.Screen
           name="ReservationDetail"
           component={ReservationDetail}
-          initialParams={{
-            close: props.close,
-            navigation: navigation,
+          options={{
+            title: '고전시험 예약',
+            headerRight: () => (
+              <Btn
+                title="신청"
+                onPress={() => {
+                  props.close();
+                }}
+              />
+            ),
+            headerLeft: () => (
+              <Btn
+                Icon="chevron-back"
+                onPress={() => {
+                  navigation.navigate('ReservationHome' as never);
+                }}
+              />
+            ),
           }}
         />
       </Stack.Group>

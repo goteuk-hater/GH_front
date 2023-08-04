@@ -19,12 +19,13 @@ const LinkSection = ({navigation}: Props) => {
           navigation={navigation}
           link={'BookSearchScreen'}
         />
-        <LinkCard
+        <></>
+        {/* <LinkCard
           title={'고전도서 정보 게시판'}
           text={'고전도서시험에는 어떤 책들이 있는지! 후기는 어떤지!'}
           navigation={navigation}
           link={'BookSearchScreen'}
-        />
+        /> */}
       </FlexView>
     </FlexView>
   );

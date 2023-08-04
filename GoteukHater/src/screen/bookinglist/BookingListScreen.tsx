@@ -8,7 +8,6 @@ import FlexView from '../../components/globalcomponents/FlexView';
 import StyledText from '../../components/globalcomponents/StyledText';
 import StatusCard from '../../components/main/status/StatusCard';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import Header from '../bookinformation/Header';
 interface Props {
   navigation: NavigationProp<NavigationState>;
 }
@@ -18,11 +17,9 @@ const BookingListScreen = ({navigation}: Props) => {
     navigation.goBack();
   };
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Header title="나의 신청현황" back={Back} />
+    <View style={{flex: 1}}>
       <FlatList
         style={{
-          flex: 1,
           paddingLeft: 16 * width,
           paddingRight: 16 * width,
           marginTop: StatusBar.currentHeight || 8,
@@ -57,7 +54,7 @@ const BookingListScreen = ({navigation}: Props) => {
           </Card>
         )}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 export default BookingListScreen;
