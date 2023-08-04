@@ -34,6 +34,11 @@ const BtnScreen = (props: Props) => {
           headerStyle: {
             height: 44 * height,
             backgroundColor: '#F6F6F9',
+            borderBottomWidth: 1,
+            borderBottomColor: '#E5E5E8',
+          },
+          headerTitleStyle: {
+            fontWeight: 'bold',
           },
         }}>
         <Stack.Screen

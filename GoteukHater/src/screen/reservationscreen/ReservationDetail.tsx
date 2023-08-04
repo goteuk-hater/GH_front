@@ -6,7 +6,6 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {height, scale, width} from '../../../config/globalStyles';
 import {onClose, onOpen, Picker} from 'react-native-actions-sheet-picker';
 import StyledText from '../../components/globalcomponents/StyledText';
-import Header from '../bookinformation/Header';
 import {BottomSheetModalStackBehavior} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModal';
 import {BottomSheetDefaultHandleProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetHandle/types';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';

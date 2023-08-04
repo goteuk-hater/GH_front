@@ -15,7 +15,7 @@ const Btn = (props: BtnProps) => {
   return (
     <TouchableOpacity style={styles.btn} onPress={props.onPress}>
       {props.title ? (
-        <StyledText style={[globalstyles.h1, {color: '#007AFF'}]}>
+        <StyledText style={[globalstyles.h2, {color: '#007AFF'}]}>
           {props.title}
         </StyledText>
       ) : (

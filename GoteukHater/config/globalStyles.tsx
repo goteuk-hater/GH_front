@@ -12,31 +12,31 @@ export const height = HEIGHT / FIGMA_WINDOW_HEIGHT;
 export const scale = Math.sqrt(WIDTH * HEIGHT) / FIGMA_SCALE;
 export const globalstyles = StyleSheet.create({
   h1: {
-    fontSize: 18 * scale,
+    fontSize: 20 * scale,
     fontWeight: '700',
   },
   h2: {
-    fontSize: 16 * scale,
+    fontSize: 18 * scale,
     fontWeight: '700',
   },
   h3: {
-    fontSize: 14 * scale,
+    fontSize: 16 * scale,
     fontWeight: '700',
   },
   h4: {
-    fontSize: 12 * scale,
+    fontSize: 14 * scale,
     fontWeight: '700',
   },
   h5: {
-    fontSize: 10 * scale,
+    fontSize: 12 * scale,
     fontWeight: '700',
   },
   p1: {
-    fontSize: 12 * scale,
+    fontSize: 14 * scale,
     fontWeight: '500',
   },
   p2: {
-    fontSize: 10 * scale,
+    fontSize: 12 * scale,
     fontWeight: '500',
   },
   content: {
@@ -52,6 +52,10 @@ export const globalstyles = StyleSheet.create({
   row_spacebetween: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  center: {
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });

@@ -1,6 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {type PropsWithChildren} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import BookSearchScreen from '../bookinformation/BookSearchScreen';
 import BookInfoScreen from '../bookinformation/BookInfoScreen';
 import BookingListScreen from '../bookinglist/BookingListScreen';
@@ -28,9 +28,6 @@ const Home = (props: any) => {
     navigation: NavigationProp<NavigationState>;
     bottomSheetModalRef: React.RefObject<BottomSheetModal>;
   }
-  interface BookInfoScreenProps {
-    title: string;
-  }
 
   const Stack = createStackNavigator<MainStackParamList>();
   const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
@@ -40,13 +37,15 @@ const Home = (props: any) => {
   const modalclose = React.useCallback(() => {
     bottomSheetModalRef.current?.dismiss();
   }, []);
-  const [title, setTitle] = React.useState<string>('');
-  const Updatetitle = (t: string) => {
-    return t;
-  };
+
   return (
     <Stack.Navigator>
-      <Stack.Group>
+      <Stack.Group
+        screenOptions={{
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}>
         <Stack.Screen
           name="Main"
           component={Main}
@@ -71,7 +70,11 @@ const Home = (props: any) => {
           name="BookSearchScreen"
           component={BookSearchScreen}
           options={{
-            title: '고전도서 정보 게시판',
+            headerTitle: () => (
+              <StyledText style={globalstyles.h1}>
+                고전도서 정보 게시판
+              </StyledText>
+            ),
             headerLeft: () => (
               <Btn
                 Icon="chevron-back"
@@ -86,7 +89,7 @@ const Home = (props: any) => {
           name="BookInfoScreen"
           component={BookInfoScreen}
           options={{
-            title: 'ddddd',
+            title: 'dd',
             headerLeft: () => (
               <Btn
                 Icon="chevron-back"

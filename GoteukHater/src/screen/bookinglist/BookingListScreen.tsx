@@ -2,20 +2,12 @@ import {NavigationProp, NavigationState} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import Card from '../../components/globalcomponents/Card';
-import FlexView from '../../components/globalcomponents/FlexView';
 import StyledText from '../../components/globalcomponents/StyledText';
 import StatusCard from '../../components/main/status/StatusCard';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-interface Props {
-  navigation: NavigationProp<NavigationState>;
-}
-const BookingListScreen = ({navigation}: Props) => {
+const BookingListScreen = () => {
   const DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const Back = () => {
-    navigation.goBack();
-  };
   return (
     <View style={{flex: 1}}>
       <FlatList
