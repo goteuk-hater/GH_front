@@ -7,6 +7,7 @@ import Evillcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import Card from '../globalcomponents/Card';
 
 interface ModalButtonProps {
   handlePresentModalPress: () => void;
@@ -14,21 +15,16 @@ interface ModalButtonProps {
 const ModalButton = (props: ModalButtonProps) => {
   return (
     <View style={styles.absolute}>
-      <Shadow
-        offset={[0, 2]}
-        style={styles.reservationbtn}
-        distance={1}
-        startColor="rgba(172, 180, 162, 0.25)">
-        <TouchableOpacity
-          onPress={props.handlePresentModalPress}
-          style={styles.row}>
-          <FlexView style={[styles.row]} gapHorizental={8}>
+      <TouchableOpacity onPress={props.handlePresentModalPress}>
+        <Card style={styles.row}>
+          <View style={styles.row}>
             <Ionicons name="calendar-outline" size={20} color="black" />
-            <StyledText style={globalstyles.h2}>시험 예약하기</StyledText>
-          </FlexView>
-          <Ionicons name="chevron-forward-outline" size={20} color="black" />
-        </TouchableOpacity>
-      </Shadow>
+
+            <StyledText style={globalstyles.h3}>시험 예약하기</StyledText>
+            <Ionicons name="chevron-forward-outline" size={20} color="black" />
+          </View>
+        </Card>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -43,15 +39,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   reservationbtn: {
-    paddingLeft: 16 * width,
-    paddingRight: 8 * width,
-    paddingVertical: 8 * height,
-    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 15 * scale,
-    borderColor: '#F6F6F9',
-    borderWidth: 1 * width,
   },
   row: {
     flexDirection: 'row',

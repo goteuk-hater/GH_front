@@ -40,43 +40,42 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
             }}>
             <StyledText style={globalstyles.p2}>예약 취소</StyledText>
           </TouchableOpacity>
-        ) : (
-          <></>
-        )}
+        ) : null}
       </View>
-      <AlertModal
-        visible={visible}
-        title="예약 취소"
-        description="2023년 8월 4일 11:00 ~ 11:30"
-        confirmText="예약을 취소하시겠습니까?"
-        accpetText="예"
-        rejectText="아니오"
-        onClose={() => {
-          setVisible(false);
-        }}
-        onConfirm={onConfirm}
-      />
-      <AlertModal
-        visible={visible2}
-        description="예약이 취소되었습니다."
-        accpetText="확인"
-        onConfirm={() => {
-          setVisible2(false);
-        }}
-        onClose={() => {
-          setVisible2(false);
-        }}
-      />
+
       <StyledText style={globalstyles.h4}>{props.title}</StyledText>
       <View style={globalstyles.row_spacebetween}>
         <DateBox date={props.date} />
         {props.detail ? (
-          <StyledText style={[globalstyles.p1, {color: '#818181'}]}>
-            광개토관 108B호
-          </StyledText>
-        ) : (
-          <></>
-        )}
+          <>
+            <AlertModal
+              visible={visible}
+              title="예약 취소"
+              description="2023년 8월 4일 11:00 ~ 11:30"
+              confirmText="예약을 취소하시겠습니까?"
+              accpetText="예"
+              rejectText="아니오"
+              onClose={() => {
+                setVisible(false);
+              }}
+              onConfirm={onConfirm}
+            />
+            <AlertModal
+              visible={visible2}
+              description="예약이 취소되었습니다."
+              accpetText="확인"
+              onConfirm={() => {
+                setVisible2(false);
+              }}
+              onClose={() => {
+                setVisible2(false);
+              }}
+            />
+            <StyledText style={[globalstyles.p1, {color: '#818181'}]}>
+              광개토관 108B호
+            </StyledText>
+          </>
+        ) : null}
       </View>
     </Card>
   );

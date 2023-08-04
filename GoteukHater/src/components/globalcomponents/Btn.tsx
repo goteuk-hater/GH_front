@@ -8,6 +8,7 @@ interface BtnProps {
   title?: string;
   onPress?: () => void;
   Icon?: string;
+  color?: string;
   // chevron-back
   // chevron-forward
   // chevron-down
@@ -19,7 +20,7 @@ const Btn = (props: BtnProps) => {
         {props.title ? (
           <StyledText
             style={[
-              globalstyles.h2,
+              globalstyles.h3,
               {color: '#007AFF', marginHorizontal: 5 * scale},
             ]}>
             {props.title}
@@ -28,7 +29,11 @@ const Btn = (props: BtnProps) => {
           <></>
         )}
         {props.Icon ? (
-          <Ionicons name={props.Icon} size={30 * scale} color="#B5B5B5" />
+          <Ionicons
+            name={props.Icon}
+            size={30 * scale}
+            color={props.color ? props.color : '#B5B5B5'}
+          />
         ) : (
           <></>
         )}

@@ -10,7 +10,7 @@ import React from 'react';
 import ReservationDetail from './ReservationDetail';
 import ReservationHome from './ReservationHome';
 import Btn from '../../components/globalcomponents/Btn';
-import {height} from '../../../config/globalStyles';
+import {height, scale} from '../../../config/globalStyles';
 
 type BtnParamList = {
   ReservationHome: undefined;
@@ -36,8 +36,10 @@ const BtnScreen = (props: Props) => {
               borderBottomWidth: 1,
               borderBottomColor: '#E5E5E8',
             },
+            headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold',
+              fontSize: 18 * scale,
+              fontWeight: '700',
             },
           }}>
           <Modal.Screen
@@ -47,7 +49,7 @@ const BtnScreen = (props: Props) => {
               title: '고전시험 예약',
               headerLeft: () => (
                 <Btn
-                  title="종료"
+                  Icon="close"
                   onPress={() => {
                     props.close();
                   }}

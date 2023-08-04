@@ -4,11 +4,11 @@ import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import ModalButton from './ModalButton';
 
 import BtnScreen from '../../screen/reservationscreen/BtnScreen';
-import {height, width} from '../../../config/globalStyles';
+import {height, scale, width} from '../../../config/globalStyles';
 import {Ptsd} from '../../screen/main/Ptsd';
 
 const Formbtn = () => {
-  const snapPoints = React.useMemo(() => [100 * height, 800 * height], []);
+  const snapPoints = React.useMemo(() => [80 * height, 800 * height], []);
   const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
   const [index, setIndex] = React.useState<number>(0);
   const handlePresentModalPress = React.useCallback(() => {
@@ -40,22 +40,25 @@ const Formbtn = () => {
 
 const styles = StyleSheet.create({
   modalbackground: {
-    marginTop: 5 * height,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 1 * width,
-      height: 12 * height,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
-    borderTopRightRadius: 24 * width,
-    borderTopLeftRadius: 24 * width,
-    elevation: 24,
+    // marginTop: 5 * height,
+    // borderTopRightRadius: 24 * width,
+    // borderTopLeftRadius: 24 * width,
+    // elevation: 24,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 1 * width,
+    //   height: 12 * height,
+    // },
+    // shadowOpacity: 0.58,
+    // shadowRadius: 16.0,
+    // evevation: 24,
   },
   handle: {
     backgroundColor: '#F6F6F9',
     borderTopRightRadius: 24,
     borderTopLeftRadius: 24,
+    borderTopColor: 'rgba(163, 158, 158, 0.4)',
+    borderTopWidth: 10 * scale,
   },
 });
 export default Formbtn;
