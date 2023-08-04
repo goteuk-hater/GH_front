@@ -15,9 +15,11 @@ interface propsType {
 
 const BookSearchScreen: React.FC<propsType> = props => {
   const [text, onChangeText] = React.useState('');
-  const popAction = StackActions.pop(1);
-  const back = () => {
-    props.navigation.dispatch(popAction);
+  const book1 = {
+    title: '책 제목1',
+  };
+  const book2 = {
+    title: '책 제목2',
   };
   return (
     <>
@@ -67,8 +69,14 @@ const BookSearchScreen: React.FC<propsType> = props => {
             </View>
           </View>
           <View style={styles.bookCard}>
-            <LinbkedBookCard navigation={props.navigation} />
-            <LinbkedBookCard navigation={props.navigation} />
+            <LinbkedBookCard
+              navigation={props.navigation}
+              title={book1.title}
+            />
+            <LinbkedBookCard
+              navigation={props.navigation}
+              title={book2.title}
+            />
           </View>
         </View>
       </SafeAreaView>

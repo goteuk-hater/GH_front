@@ -1,12 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import Card from '../../components/globalcomponents/Card';
 import BookCard from '../../components/booksearch/BookCard';
 import StyledText from '../../components/globalcomponents/StyledText';
 import ClassBox from '../../components/globalcomponents/ClassBox';
 import Formbtn from '../../components/Modal/Formbtn';
+import {
+  NavigationProp,
+  NavigationState,
+  useNavigation,
+} from '@react-navigation/native';
 
-const BookInfoScreen = () => {
+interface propsType {
+  navigation: NavigationProp<NavigationState>;
+  route: any;
+}
+const BookInfoScreen = (props: propsType) => {
+  useEffect(() => {
+    props.navigation.setOptions({
+      title: props.route.params.title,
+    });
+  }, []);
   return (
     <>
       <View style={styles.container}>

@@ -21,21 +21,17 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import BtnScreen from '../reservationscreen/BtnScreen';
 import ReservationHome from '../reservationscreen/ReservationHome';
 import Btn from '../../components/globalcomponents/Btn';
+import {MainStackParamList} from '../../../config/RouteName';
 
 const Home = (props: any) => {
   interface Props {
     navigation: NavigationProp<NavigationState>;
     bottomSheetModalRef: React.RefObject<BottomSheetModal>;
   }
-  type MainStackParamList = {
-    Main: Props;
-    BookingListScreen: undefined;
-    BookInfoScreen: undefined;
-    BookSearchScreen: undefined;
-    ExamMainScreen: undefined;
-    BtnScreen: undefined;
-    ReservationHome: undefined;
-  };
+  interface BookInfoScreenProps {
+    title: string;
+  }
+
   const Stack = createStackNavigator<MainStackParamList>();
   const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
   const handlePresentModalPress = React.useCallback(() => {
@@ -44,7 +40,10 @@ const Home = (props: any) => {
   const modalclose = React.useCallback(() => {
     bottomSheetModalRef.current?.dismiss();
   }, []);
-
+  const [title, setTitle] = React.useState<string>('');
+  const Updatetitle = (t: string) => {
+    return t;
+  };
   return (
     <Stack.Navigator>
       <Stack.Group>
@@ -87,12 +86,12 @@ const Home = (props: any) => {
           name="BookInfoScreen"
           component={BookInfoScreen}
           options={{
-            title: 'ㅇㅇㅇㅇㅇㅇㅇ',
+            title: 'ddddd',
             headerLeft: () => (
               <Btn
                 Icon="chevron-back"
                 onPress={() => {
-                  props.navigation.navigate('Main' as never);
+                  props.navigation.navigate('BookSearchScreen' as never);
                 }}
               />
             ),

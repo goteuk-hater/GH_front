@@ -1,17 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
 import Card from '../globalcomponents/Card';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {NavigationProp, NavigationState} from '@react-navigation/native';
+import {
+  BookInfoScreenNavigationOptions,
+  MainStackParamList,
+} from '../../../config/RouteName';
+import {
+  NavigationProp,
+  NavigationState,
+  useNavigation,
+} from '@react-navigation/native';
+import BookInfoScreen from '../../screen/bookinformation/BookInfoScreen';
 
 interface propsType {
   navigation: NavigationProp<NavigationState>;
+  title: string;
 }
 
 const LinbkedBookCard: React.FC<propsType> = props => {
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.navigate('BookInfoScreen' as never)}>
+      onPress={() =>
+        props.navigation.navigate(
+          'BookInfoScreen' as never,
+          {
+            title: props.title,
+          } as never,
+        )
+      }>
       <Card style={styles.card}>
         <View style={styles.bookImage} />
         <View style={{width: 245}}>
