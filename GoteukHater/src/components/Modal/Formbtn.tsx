@@ -5,34 +5,35 @@ import ModalButton from './ModalButton';
 
 import BtnScreen from '../../screen/reservationscreen/BtnScreen';
 import {height, width} from '../../../config/globalStyles';
+import {Ptsd} from '../../screen/main/Ptsd';
 
 const Formbtn = () => {
-  const snapPoints = React.useMemo(() => [800 * height], []);
+  const snapPoints = React.useMemo(() => [100 * height, 800 * height], []);
   const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
+  const [index, setIndex] = React.useState<number>(0);
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
   const modalclose = React.useCallback(() => {
     bottomSheetModalRef.current?.dismiss();
   }, []);
+
   return (
     <BottomSheetModalProvider>
       <BottomSheetModal
         ref={bottomSheetModalRef}
-        index={0}
+        index={1}
+        enablePanDownToClose={false}
         enableContentPanningGesture={true}
-        enablePanDownToClose={true}
         animateOnMount={true}
         handleIndicatorStyle={{backgroundColor: 'rgba(60, 60, 67, 0.3)'}}
         backgroundStyle={styles.modalbackground}
         handleStyle={styles.handle}
         snapPoints={snapPoints}>
-        <BtnScreen close={modalclose} />
+        <Ptsd close={modalclose} />
+        {/* <BtnScreen close={modalclose} /> */}
       </BottomSheetModal>
-      <ModalButton
-        handlePresentModalPress={handlePresentModalPress}
-        bottomSheetModalRef={bottomSheetModalRef}
-      />
+      <ModalButton handlePresentModalPress={handlePresentModalPress} />
     </BottomSheetModalProvider>
   );
 };

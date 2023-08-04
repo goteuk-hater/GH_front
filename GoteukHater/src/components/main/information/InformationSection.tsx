@@ -5,7 +5,7 @@ import InformationCard from './InformationCard';
 
 const InformationSection = () => {
   return (
-    <FlexView gapVertical={8 * height}>
+    <FlexView gapVertical={12 * height}>
       <StyledText style={globalstyles.h1}>내 정보</StyledText>
       <InformationCard
         name={'김민수'}

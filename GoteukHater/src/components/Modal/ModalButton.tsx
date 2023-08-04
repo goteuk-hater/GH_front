@@ -10,7 +10,6 @@ import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 
 interface ModalButtonProps {
   handlePresentModalPress: () => void;
-  bottomSheetModalRef: any;
 }
 const ModalButton = (props: ModalButtonProps) => {
   return (

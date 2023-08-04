@@ -12,8 +12,8 @@ const SplashScreen = ({navigation}: Props) => {
         onPress={() => navigation.navigate('Login' as never)}
       />
       <Button
-        title="Home"
-        onPress={() => navigation.navigate('Home' as never)}
+        title="NestPage"
+        onPress={() => navigation.navigate('NestPage' as never)}
       />
     </View>
   );

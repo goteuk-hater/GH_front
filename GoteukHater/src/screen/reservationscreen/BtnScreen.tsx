@@ -1,4 +1,5 @@
 import {
+  NavigationContainer,
   NavigationProp,
   NavigationState,
   useNavigation,
@@ -21,66 +22,57 @@ type BtnParamList = {
 interface Props {
   close: () => void;
 }
-
-const Stack = createStackNavigator<BtnParamList>();
+const Modal = createStackNavigator<BtnParamList>();
 const BtnScreen = (props: Props) => {
-  const navigation = useNavigation();
-
   return (
-    <Stack.Navigator>
-      <Stack.Group
-        screenOptions={{
-          headerStatusBarHeight: 0,
-          headerStyle: {
-            height: 44 * height,
-            backgroundColor: '#F6F6F9',
-            borderBottomWidth: 1,
-            borderBottomColor: '#E5E5E8',
-          },
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}>
-        <Stack.Screen
-          name="ReservationHome"
-          component={ReservationHome}
-          options={{
-            title: '고전시험 예약',
-            headerRight: () => (
-              <Btn
-                title="다음"
-                onPress={() => {
-                  navigation.navigate('ReservationDetail' as never);
-                }}
-              />
-            ),
-          }}
-        />
-        <Stack.Screen
-          name="ReservationDetail"
-          component={ReservationDetail}
-          options={{
-            title: '고전시험 예약',
-            headerRight: () => (
-              <Btn
-                title="신청"
-                onPress={() => {
-                  props.close();
-                }}
-              />
-            ),
-            headerLeft: () => (
-              <Btn
-                Icon="chevron-back"
-                onPress={() => {
-                  navigation.navigate('ReservationHome' as never);
-                }}
-              />
-            ),
-          }}
-        />
-      </Stack.Group>
-    </Stack.Navigator>
+    <NavigationContainer independent={true}>
+      <Modal.Navigator>
+        <Modal.Group
+          screenOptions={{
+            headerStatusBarHeight: 0,
+            headerStyle: {
+              height: 44 * height,
+              backgroundColor: '#F6F6F9',
+              borderBottomWidth: 1,
+              borderBottomColor: '#E5E5E8',
+            },
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}>
+          <Modal.Screen
+            name="ReservationHome"
+            component={ReservationHome}
+            options={{
+              title: '고전시험 예약',
+              headerLeft: () => (
+                <Btn
+                  title="종료"
+                  onPress={() => {
+                    props.close();
+                  }}
+                />
+              ),
+            }}
+          />
+          <Modal.Screen
+            name="ReservationDetail"
+            component={ReservationDetail}
+            options={{
+              title: '고전시험 예약',
+              headerRight: () => (
+                <Btn
+                  title="신청"
+                  onPress={() => {
+                    props.close();
+                  }}
+                />
+              ),
+            }}
+          />
+        </Modal.Group>
+      </Modal.Navigator>
+    </NavigationContainer>
   );
 };
 

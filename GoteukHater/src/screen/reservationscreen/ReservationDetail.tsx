@@ -1,5 +1,5 @@
 import {NavigationProp, NavigationState} from '@react-navigation/native';
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Text, StyleSheet, View, Button} from 'react-native';
 import {SelectList} from 'react-native-dropdown-select-list';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -10,6 +10,7 @@ import {BottomSheetModalStackBehavior} from '@gorhom/bottom-sheet/lib/typescript
 import {BottomSheetDefaultHandleProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetHandle/types';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import FlexView from '../../components/globalcomponents/FlexView';
+import Btn from '../../components/globalcomponents/Btn';
 
 interface Props {
   route: any;
@@ -84,12 +85,16 @@ const ReservationDetail = ({route, navigation}: Props) => {
   const onSearch = text => {
     setQuery(text);
   };
-  const submit = () => {
-    route.params.close();
-  };
+
   const back = () => {
     navigation.navigate('ReservationHome' as never);
   };
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <Btn onPress={back} Icon="chevron-back" />,
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <StyledText style={[styles.title, {marginTop: 0 * height}]}>
