@@ -30,7 +30,7 @@ const CertificationCard: React.FunctionComponent<
     <Card
       style={{width: 175 * width}}
       children={
-        <FlexView gapVertical={8 * height}>
+        <View style={{rowGap: 8 * height}}>
           <StyledText style={globalstyles.h3}>{props.title}</StyledText>
           <StyledText style={[globalstyles.p2, styles.certifiedtext]}>
             {props.mynum}/{props.maxnum}권
@@ -38,7 +38,7 @@ const CertificationCard: React.FunctionComponent<
           <View style={styles.barbox}>
             <View style={[styles.bar, barcolor, {width: rate}]} />
           </View>
-        </FlexView>
+        </View>
       }
     />
   );

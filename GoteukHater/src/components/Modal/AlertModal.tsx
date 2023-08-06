@@ -1,11 +1,7 @@
 import {useEffect} from 'react';
-import {Modal, StyleSheet, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {acc} from 'react-native-reanimated';
-import {Line} from 'react-native-svg';
+import {Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import Card from '../globalcomponents/Card';
-import FlexView from '../globalcomponents/FlexView';
+
 import StyledText from '../globalcomponents/StyledText';
 
 interface Props {
@@ -33,20 +29,18 @@ export const AlertModal = ({
     <Modal visible={visible} transparent={true}>
       <View style={styles.modalBackground}>
         <View style={styles.modal}>
-          <View style={[globalstyles.center, {marginVertical: 20 * height}]}>
-            {title ? (
-              <StyledText style={globalstyles.h1}>{title}</StyledText>
-            ) : (
-              <></>
-            )}
-          </View>
-          <View style={[globalstyles.center, {marginBottom: 20 * height}]}>
-            <StyledText style={globalstyles.p1}>{description}</StyledText>
-            {confirmText ? (
-              <StyledText style={globalstyles.p1}>{confirmText}</StyledText>
-            ) : (
-              <></>
-            )}
+          <View style={styles.modalcontent}>
+            <View style={[globalstyles.center]}>
+              {title ? (
+                <StyledText style={globalstyles.h1}>{title}</StyledText>
+              ) : null}
+            </View>
+            <View style={[globalstyles.center]}>
+              <StyledText style={globalstyles.p1}>{description}</StyledText>
+              {confirmText ? (
+                <StyledText style={globalstyles.p1}>{confirmText}</StyledText>
+              ) : null}
+            </View>
           </View>
 
           <View
@@ -75,18 +69,14 @@ export const AlertModal = ({
                   <StyledText style={globalstyles.h3}>{accpetText}</StyledText>
                 </TouchableOpacity>
               </>
-            ) : (
-              <></>
-            )}
+            ) : null}
             {!rejectText ? (
               <TouchableOpacity
                 style={[styles.modalButton, {width: 300 * width}]}
                 onPress={onConfirm}>
                 <StyledText style={globalstyles.h3}>{accpetText}</StyledText>
               </TouchableOpacity>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </View>
         </View>
       </View>
@@ -109,6 +99,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  modalcontent: {
+    padding: 20 * scale,
+    rowGap: 20 * height,
   },
   modalButton: {
     alignItems: 'center',

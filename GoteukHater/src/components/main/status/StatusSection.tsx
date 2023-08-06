@@ -1,7 +1,6 @@
 import {NavigationProp, NavigationState} from '@react-navigation/native';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {StyleSheet} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {globalstyles, height, width} from '../../../../config/globalStyles';
 import ApplicationStatus from './ApplicationStatus';
 import CertificationView from '../certification/CertificationView';
@@ -14,7 +13,7 @@ interface Props {
 }
 const StatusSection = ({navigation}: Props) => {
   return (
-    <FlexView gapVertical={12 * height}>
+    <View style={{rowGap: 12 * height}}>
       <View style={styles.titlebox}>
         <StyledText style={globalstyles.h1}>나의 신청현황</StyledText>
         <TouchableOpacity
@@ -24,7 +23,7 @@ const StatusSection = ({navigation}: Props) => {
         </TouchableOpacity>
       </View>
       <ApplicationStatus />
-    </FlexView>
+    </View>
   );
 };
 const styles = StyleSheet.create({

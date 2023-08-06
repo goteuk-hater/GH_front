@@ -13,6 +13,8 @@ import {MainStackParamList} from '../../../config/RouteName';
 import {isAndroid} from 'react-native-calendars/src/expandableCalendar/commons';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {Screen} from 'react-native-screens';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import ExamMainScreen from '../examdata/ExamMainScreen';
 
 const Home = () => {
   const Stack = createStackNavigator<MainStackParamList>();
@@ -79,7 +81,7 @@ const Home = () => {
             ),
           }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="ExamMainScreen"
           component={ExamMainScreen}
           options={{
@@ -88,12 +90,12 @@ const Home = () => {
               <Btn
                 Icon="chevron-back"
                 onPress={() => {
-                  props.navigation.navigate('Main' as never);
+                  navigation.navigate('Main' as never);
                 }}
               />
             ),
           }}
-        /> */}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );

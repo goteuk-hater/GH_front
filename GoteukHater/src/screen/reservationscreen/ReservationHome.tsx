@@ -37,18 +37,21 @@ const ReservationHome = ({navigation}: Props) => {
     navigation.navigate('ReservationDetail' as never);
   };
   const [selected, setSelected] = React.useState<number>(-1);
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Btn
-          Icon="chevron-forward"
-          onPress={() => {
-            next();
-          }}
-        />
-      ),
-    });
-  }, [navigation]);
+  const setSelect = () => {
+    navigation.navigate('ReservationDetail' as never);
+  };
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerRight: () => (
+  //       <Btn
+  //         Icon="chevron-forward"
+  //         onPress={() => {
+  //           next();
+  //         }}
+  //       />
+  //     ),
+  //   });
+  // }, [navigation]);
   return (
     <>
       <View style={styles.container}>
@@ -90,7 +93,7 @@ const ReservationHome = ({navigation}: Props) => {
                 maxnumber={item.maxnumber}
                 nownumber={item.nownumber}
                 marginRight={index % 2 == 0 ? 12 : 0}
-                setSelect={() => setSelected(index)}
+                setSelect={() => setSelect()}
                 isselected={selected == index}
               />
             )}

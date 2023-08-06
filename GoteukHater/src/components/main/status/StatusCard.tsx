@@ -1,7 +1,13 @@
 import React from 'react';
-import {View, ViewStyle, StyleProp, Alert, Modal} from 'react-native';
+import {
+  View,
+  ViewStyle,
+  StyleProp,
+  Alert,
+  Modal,
+  TouchableOpacity,
+} from 'react-native';
 import Card from '../../globalcomponents/Card';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {globalstyles, width} from '../../../../config/globalStyles';
 import ClassBox from '../../globalcomponents/ClassBox';
 import StyledText from '../../globalcomponents/StyledText';
@@ -25,6 +31,13 @@ interface StatusProps {
 const StatusCard: React.FunctionComponent<StatusProps> = props => {
   const [visible, setVisible] = React.useState<boolean>(false);
   const [visible2, setVisible2] = React.useState<boolean>(false);
+  const closemodal = () => {
+    setVisible(false);
+  };
+  const closemodal2 = () => {
+    setVisible2(false);
+  };
+
   const onConfirm = () => {
     setVisible(false);
     setVisible2(true);
@@ -55,21 +68,15 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
               confirmText="예약을 취소하시겠습니까?"
               accpetText="예"
               rejectText="아니오"
-              onClose={() => {
-                setVisible(false);
-              }}
+              onClose={closemodal}
               onConfirm={onConfirm}
             />
             <AlertModal
               visible={visible2}
               description="예약이 취소되었습니다."
               accpetText="확인"
-              onConfirm={() => {
-                setVisible2(false);
-              }}
-              onClose={() => {
-                setVisible2(false);
-              }}
+              onConfirm={closemodal2}
+              onClose={closemodal2}
             />
             <StyledText style={[globalstyles.p1, {color: '#818181'}]}>
               광개토관 108B호

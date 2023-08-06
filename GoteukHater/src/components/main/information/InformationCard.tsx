@@ -57,19 +57,19 @@ const InformationCard: React.FunctionComponent<
       //   </View>
       // }
     >
-      <FlexView style={globalstyles.row} gapHorizental={12 * width}>
+      <View style={[globalstyles.row, {columnGap: 12 * width}]}>
         <SvgUri
           width={60 * scale}
           height={60 * scale}
           uri="https://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"
         />
-        <FlexView gapVertical={4 * height}>
+        <View style={{rowGap: 4 * height}}>
           <StyledText style={globalstyles.h2}>{props.name}</StyledText>
           <StyledText style={[globalstyles.h4, {color: '#636570'}]}>
             {props.major} {props.grade}학년 - {props.studentNumber}
           </StyledText>
-        </FlexView>
-      </FlexView>
+        </View>
+      </View>
     </Card>
   );
 };

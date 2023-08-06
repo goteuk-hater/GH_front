@@ -8,6 +8,7 @@ import FlexView from './FlexView';
 interface propsType {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  row?: StyleProp<ViewStyle>;
 }
 const Card = (props: propsType) => {
   const child = Children.toArray(props.children);
@@ -17,7 +18,7 @@ const Card = (props: propsType) => {
       offset={[0, 2]}
       distance={1}
       startColor="rgba(172, 180, 162, 0.25)">
-      <FlexView gapVertical={8 * height}>{child}</FlexView>
+      <View style={[{rowGap: 8 * height}, props.row]}>{child}</View>
     </Shadow>
   );
 };

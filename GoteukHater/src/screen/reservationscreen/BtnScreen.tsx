@@ -55,6 +55,14 @@ const BtnScreen = (props: Props) => {
                   }}
                 />
               ),
+              headerRight: () => (
+                <Btn
+                  title="닫기"
+                  onPress={() => {
+                    props.close();
+                  }}
+                />
+              ),
             }}
           />
           <Modal.Screen
@@ -64,7 +72,7 @@ const BtnScreen = (props: Props) => {
               title: '고전시험 예약',
               headerRight: () => (
                 <Btn
-                  title="신청"
+                  title="닫기"
                   onPress={() => {
                     props.close();
                   }}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, StyleProp, TextStyle} from 'react-native';
+import {Text, StyleSheet, StyleProp, TextStyle, Platform} from 'react-native';
 
 interface propsType {
   style?: StyleProp<TextStyle>;
@@ -16,7 +16,6 @@ const StyledText: React.FunctionComponent<propsType> = props => {
 const styles = StyleSheet.create({
   text: {
     color: 'black',
-    fontFamily: 'SUITVariable-Regular',
   },
 });
 export default StyledText;
