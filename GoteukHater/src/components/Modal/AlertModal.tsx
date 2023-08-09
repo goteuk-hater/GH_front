@@ -59,7 +59,7 @@ export const AlertModal = ({
                 <View
                   style={{
                     backgroundColor: '#EFEFF0',
-                    width: 1 * scale,
+                    width: 2 * scale,
                     height: 50 * scale,
                   }}
                 />
@@ -72,7 +72,7 @@ export const AlertModal = ({
             ) : null}
             {!rejectText ? (
               <TouchableOpacity
-                style={[styles.modalButton, {width: 300 * width}]}
+                style={styles.modalbigButton}
                 onPress={onConfirm}>
                 <StyledText style={globalstyles.h3}>{accpetText}</StyledText>
               </TouchableOpacity>
@@ -90,10 +90,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
-  modalcontainer: {
-    width: 300 * scale,
-    height: 300 * scale,
-  },
   modal: {
     backgroundColor: 'white',
     borderRadius: 10,
@@ -107,7 +103,13 @@ const styles = StyleSheet.create({
   modalButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 150 * scale,
+    width: 134 * scale,
+    height: 50 * scale,
+  },
+  modalbigButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 270 * width,
     height: 50 * scale,
   },
 });

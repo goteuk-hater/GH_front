@@ -1,6 +1,6 @@
 import {NavigationProp, NavigationState} from '@react-navigation/native';
 import React, {useCallback, useEffect, useRef} from 'react';
-import {Text, StyleSheet, View, FlatList} from 'react-native';
+import {Text, StyleSheet, View, FlatList, Platform} from 'react-native';
 import {
   Agenda,
   AgendaList,
@@ -52,34 +52,66 @@ const ReservationHome = ({navigation}: Props) => {
   //     ),
   //   });
   // }, [navigation]);
+
   return (
     <>
       <View style={styles.container}>
-        <FlexView gapVertical={20 * height}>
+        <View style={{rowGap: 20 * height}}>
           <Card style={{width: '100%'}}>
             <Calendar
               onDayPress={day => {
                 setSelectedDate(day.dateString);
+                console.log(day.dateString);
               }}
               style={styles.calendar}
               theme={{
                 selectedDayTextColor: 'white',
-                selectedDayBackgroundColor: 'gray',
+                selectedDayBackgroundColor: '#8A8A8E',
+                textDayStyle: {
+                  fontSize: 16 * scale,
+                  ...Platform.select({
+                    android: {
+                      fontFamily: 'SUIT-Bold',
+                    },
+                    ios: {
+                      fontWeight: '700',
+                      fontFamily: 'SUITVariable-Regular',
+                    },
+                  }),
+                },
               }}
               enableSwipeMonths={true}
               markedDates={{
                 [selectedDate]: {selected: true},
-                '2023-02-15': {marked: true, dotColor: 'red'},
-                '2023-02-16': {marked: true},
+              }}
+              renderArrow={direction => (
+                <Btn
+                  Icon={
+                    direction == 'left' ? 'chevron-back' : 'chevron-forward'
+                  }
+                  color="#8A8A8E"
+                />
+              )}
+              renderHeader={date => {
+                const header = date.toString('yyyy년 MM월');
+                return (
+                  <View
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <StyledText style={globalstyles.h2}>{header}</StyledText>
+                  </View>
+                );
               }}
             />
           </Card>
-          <FlexView>
+          <View style={{rowGap: 4 * height}}>
             <StyledText style={globalstyles.h1}>시간선택</StyledText>
             <StyledText style={[globalstyles.p1, styles.titleinfo]}>
               예약이 완료된 시간이라도 빈자리 알림 신청을 할 수 있어요.
             </StyledText>
-          </FlexView>
+          </View>
           <FlatList
             data={DATA}
             numColumns={2}
@@ -98,7 +130,7 @@ const ReservationHome = ({navigation}: Props) => {
               />
             )}
           />
-        </FlexView>
+        </View>
       </View>
     </>
   );

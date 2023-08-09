@@ -7,11 +7,13 @@ import SplashScreen from './SplashScreen';
 import Login from './login/Login';
 import Home from './main/Home';
 import NestPage from './main/NestPage';
+import Counter from '../redux/Counter';
 type RootStackParamList = {
   Login: undefined;
   SplashScreen: undefined;
   NestPage: undefined;
   Home: undefined;
+  Counter: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -34,6 +36,7 @@ const Root = () => {
         {/* 로그인 */}
         <Stack.Group screenOptions={{headerShown: false}}>
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Counter" component={Counter} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

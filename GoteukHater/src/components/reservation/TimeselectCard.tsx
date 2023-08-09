@@ -48,7 +48,7 @@ const TimeselectCard: React.FC<Propstype> = props => {
       disabled={seats <= 0}
       onPress={props.setSelect}>
       <Card style={{backgroundColor: backgroundcolor, width: 173 * width}}>
-        <FlexView style={[globalstyles.row_spacebetween]}>
+        <View style={[globalstyles.row_spacebetween]}>
           <StyledText style={[globalstyles.h4, {color: timecolor}]}>
             {props.time}
           </StyledText>
@@ -57,11 +57,10 @@ const TimeselectCard: React.FC<Propstype> = props => {
               ? `남은자리 : ${props.maxnumber - props.nownumber}`
               : '예약불가'}
           </StyledText>
-        </FlexView>
+        </View>
       </Card>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({});
 export default TimeselectCard;
