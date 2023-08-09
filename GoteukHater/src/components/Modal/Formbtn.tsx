@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, View, Platform} from 'react-native';
+import {Text, StyleSheet, View, Platform, SafeAreaView} from 'react-native';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import ModalButton from './ModalButton';
 
@@ -18,22 +18,24 @@ const Formbtn = () => {
   }, []);
   return (
     <BottomSheetModalProvider>
-      <BottomSheetModal
-        ref={bottomSheetModalRef}
-        index={0}
-        enablePanDownToClose={true}
-        enableContentPanningGesture={true}
-        handleIndicatorStyle={{
-          backgroundColor: 'rgba(60, 60, 67, 0.3)',
-        }}
-        style={styles.modalbackground}
-        backgroundStyle={styles.modalbackground}
-        handleStyle={styles.handle}
-        snapPoints={snapPoints}
-        handleComponent={() => <SheetHandle />}>
-        <BtnScreen close={modalclose} />
-      </BottomSheetModal>
-      <ModalButton handlePresentModalPress={handlePresentModalPress} />
+      <SafeAreaView>
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          index={0}
+          enablePanDownToClose={true}
+          enableContentPanningGesture={true}
+          handleIndicatorStyle={{
+            backgroundColor: 'rgba(60, 60, 67, 0.3)',
+          }}
+          style={styles.modalbackground}
+          backgroundStyle={styles.modalbackground}
+          handleStyle={styles.handle}
+          snapPoints={snapPoints}
+          handleComponent={() => <SheetHandle />}>
+          <BtnScreen close={modalclose} />
+        </BottomSheetModal>
+        <ModalButton handlePresentModalPress={handlePresentModalPress} />
+      </SafeAreaView>
     </BottomSheetModalProvider>
   );
 };

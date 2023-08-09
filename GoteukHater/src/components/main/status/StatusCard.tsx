@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Card from '../../globalcomponents/Card';
-import {globalstyles, width} from '../../../../config/globalStyles';
+import {globalstyles, height, width} from '../../../../config/globalStyles';
 import ClassBox from '../../globalcomponents/ClassBox';
 import StyledText from '../../globalcomponents/StyledText';
 import DateBox from './DateBox';
@@ -43,7 +43,7 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
     setVisible2(true);
   };
   return (
-    <Card style={[props.style, {minWidth: 220 * width}]}>
+    <Card style={[props.style, {minWidth: 240 * width}]}>
       <View style={globalstyles.row_spacebetween}>
         <ClassBox classification={props.classification} usedScreen="main" />
         {props.detail ? (
@@ -55,8 +55,9 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
           </TouchableOpacity>
         ) : null}
       </View>
-
-      <StyledText style={globalstyles.h4}>{props.title}</StyledText>
+      <View>
+        <StyledText style={globalstyles.h4}>{props.title}</StyledText>
+      </View>
       <View style={globalstyles.row_spacebetween}>
         <DateBox date={props.date} />
         {props.detail ? (
