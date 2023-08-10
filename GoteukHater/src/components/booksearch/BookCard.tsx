@@ -1,62 +1,88 @@
 import React from 'react';
-import {Text, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  View,
+  StyleProp,
+  ViewStyle,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import Card from '../globalcomponents/Card';
-import {NavigationProp, NavigationState} from '@react-navigation/native';
+import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 
-const BookCard: React.FC = () => {
+import StyledText from '../globalcomponents/StyledText';
+import ClassBox from '../globalcomponents/ClassBox';
+import BookDetailModal from './BookDetailModal';
+
+interface Book {
+  title: string;
+  author: string;
+  publisher: string;
+  type: string;
+}
+interface Props {
+  Book: Book;
+}
+
+const BookCard = (props: Props) => {
+  const URL = {
+    uri: 'https://classic.sejong.ac.kr/home/book/book_01.jpg',
+  };
+  const [isModalVisible, setModalVisible] = React.useState(false);
+  const onCancel = () => {
+    setModalVisible(false);
+  };
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   return (
-    <View>
+    <TouchableOpacity onPress={toggleModal}>
       <Card style={styles.card}>
-        <View style={styles.bookImage} />
-        <View style={{width: 245}}>
-          <Text numberOfLines={1} style={styles.bookTitle}>
-            프로테스탄티즘의 윤리와 자본주의 정신
-          </Text>
-          <Text style={styles.bookSubject}>막스 베버 (문예출판사 2010)</Text>
-          <View style={styles.starCover}>
-            <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-            <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-            <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-            <View style={{backgroundColor: 'black', width: 10, height: 10}} />
-            <View style={{backgroundColor: 'black', width: 10, height: 10}} />
+        <Image
+          source={URL}
+          style={{
+            height: 120 * height,
+            width: 80 * width,
+            marginBottom: 4 * height,
+          }}
+        />
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            rowGap: 4 * height,
+          }}>
+          <View>
+            <ClassBox classification={props.Book.type} usedScreen="main" />
           </View>
-          <Text style={styles.review}>후기 6</Text>
+          <View>
+            <StyledText style={[globalstyles.h2, {textAlign: 'center'}]}>
+              {props.Book.title}
+            </StyledText>
+            <StyledText style={[globalstyles.p1, {textAlign: 'center'}]}>
+              {props.Book.author}
+            </StyledText>
+          </View>
         </View>
       </Card>
-    </View>
+
+      <BookDetailModal
+        visible={isModalVisible}
+        onCancel={onCancel}
+        book={props.Book}
+      />
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: 'row',
-    width: '100%',
-  },
-  bookImage: {
-    width: 79,
-    height: 118,
-    backgroundColor: 'black',
-    marginRight: 10,
-  },
-  bookTitle: {
-    color: 'black',
-    fontSize: 16,
-    fontWeight: 'bold',
-    width: '100%',
-    marginBottom: 4,
-  },
-  bookSubject: {
-    fontSize: 10,
-    color: 'black',
-    marginBottom: 8,
-  },
-  starCover: {
-    flexDirection: 'row',
-    marginBottom: 4,
-  },
-  review: {
-    fontSize: 10,
-    color: '#B0B0B0',
+    width: 172 * width,
+    marginRight: 14 * width,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16 * scale,
   },
 });
 

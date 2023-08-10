@@ -26,7 +26,7 @@ export const AlertModal = ({
   onClose,
 }: Props) => {
   return (
-    <Modal visible={visible} transparent={true}>
+    <Modal animationType="fade" visible={visible} transparent={true}>
       <View style={styles.modalBackground}>
         <View style={styles.modal}>
           <View style={styles.modalcontent}>

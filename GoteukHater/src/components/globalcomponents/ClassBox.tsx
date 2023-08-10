@@ -3,7 +3,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import {scale, width} from '../../../config/globalStyles';
 interface propsType {
   classification: number;
-  usedScreen: string;
+  usedScreen?: string;
 }
 
 const ClassBox: React.FC<propsType> = props => {

@@ -4,16 +4,20 @@ import LinbkedBookCard from '../../components/booksearch/LinkedBookCard';
 import {NavigationProp, NavigationState} from '@react-navigation/native';
 import {Dimensions} from 'react-native';
 import {ScreenStackHeaderSubview} from 'react-native-screens';
-import {height} from '../../../config/globalStyles';
+import {globalstyles, height, width} from '../../../config/globalStyles';
 import {SafeAreaView} from 'react-native';
-import Formbtn from '../../components/Modal/Formbtn';
-import {StackActions} from '@react-navigation/native';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {FlatList} from 'react-native-gesture-handler';
+import Card from '../../components/globalcomponents/Card';
+import BookCard from '../../components/booksearch/BookCard';
 
 interface propsType {
   navigation: NavigationProp<NavigationState>;
 }
 
 const BookSearchScreen: React.FC<propsType> = props => {
+  const DATA = [1, 2, 3, 4];
   const [text, onChangeText] = React.useState('');
   const book1 = {
     title: '책 제목1',
@@ -22,97 +26,69 @@ const BookSearchScreen: React.FC<propsType> = props => {
     title: '책 제목2',
   };
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 12 * height,
-            backgroundColor: '#FFFFFF',
-            borderRadius: 15,
-            width: 358,
-          }}>
-          <View
-            style={{
-              width: 10,
-              height: 10,
-              backgroundColor: 'black',
-              marginLeft: 12,
-              marginRight: 8,
-            }}
-          />
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeText}
-            value={text}
-            placeholder="검색어를 입력해 주세요."
-          />
-          <View
-            style={{
-              width: 10,
-              height: 10,
-              backgroundColor: 'black',
-              marginRight: 12,
-            }}
-          />
+    <View style={styles.container}>
+      <View style={styles.searchbox}>
+        <EvilIcons name="search" size={20} color="black" />
+        <TextInput
+          style={[globalstyles.p2, styles.input]}
+          onChangeText={onChangeText}
+          value={text}
+          placeholder="검색어를 입력해 주세요."
+        />
+        <EvilIcons name="close" size={20} color="black" />
+      </View>
+      <View style={globalstyles.row_spacebetween}>
+        <View style={[globalstyles.row_spacebetween, {columnGap: 4 * width}]}>
+          <Text style={globalstyles.h4}>영역</Text>
+          <AntDesign name="down" size={15} color="black" />
         </View>
-        <View style={styles.catalogList}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={styles.catalog}>영역</Text>
-            <View style={{width: 13, height: 13, backgroundColor: 'black'}} />
-          </View>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={styles.catalog}>최신순</Text>
-            <View style={{width: 13, height: 13, backgroundColor: 'black'}} />
-          </View>
-        </View>
-        <View style={styles.bookCard}>
-          <LinbkedBookCard navigation={props.navigation} title={book1.title} />
-          <LinbkedBookCard navigation={props.navigation} title={book2.title} />
+        <View style={globalstyles.row_spacebetween}>
+          <Text style={globalstyles.h4}>최신순</Text>
+          <AntDesign name="down" size={15} color="black" />
         </View>
       </View>
-    </SafeAreaView>
+      <View style={{justifyContent: 'space-between'}}>
+        <FlatList
+          data={DATA}
+          numColumns={2}
+          scrollEnabled={false}
+          ItemSeparatorComponent={() => <View style={{height: 8 * height}} />}
+          renderItem={({item, index}) => (
+            <BookCard
+              Book={{
+                title: '책 제목',
+                author: '책 저자',
+                publisher: '출판사',
+                type: 1,
+              }}
+            />
+          )}
+        />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: 12,
-    paddingRight: 16,
-    paddingLeft: 16,
+    marginTop: 12 * height,
+    paddingHorizontal: 16 * width,
+    rowGap: 20 * height,
   },
-  catalogList: {
+
+  searchbox: {
     flexDirection: 'row',
-    paddingTop: 10,
-    paddingBottom: 10,
     justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: 8,
-  },
-  catalog: {
-    // fontFamily: 'SUITVariable-Regular',
-    color: 'black',
-    fontSize: 14,
-    marginRight: 4,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 15,
+    paddingHorizontal: 12 * width,
+    alignItems: 'center',
   },
   input: {
-    fontFamily: 'SUITVariable-Regular',
     height: 40 * height,
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginRight: 8,
+    width: 285 * width,
     color: '#818181',
-    borderRadius: 15,
-    width: 300,
-  },
-  bookCard: {
-    width: '100%',
-    ellipsizeMode: 'tail',
-    flexShrink: 1,
   },
 });
 
