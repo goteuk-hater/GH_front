@@ -39,20 +39,20 @@ const BookCard = (props: Props) => {
   return (
     <TouchableOpacity onPress={toggleModal}>
       <Card style={styles.card}>
-        <Image
-          source={URL}
-          style={{
-            height: 120 * height,
-            width: 80 * width,
-            marginBottom: 4 * height,
-          }}
-        />
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            rowGap: 4 * height,
-          }}>
+        <View style={styles.imgbox}>
+          <Image
+            source={URL}
+            style={{
+              height: 120 * height,
+              width: 80 * width,
+              marginBottom: 4 * height,
+              borderWidth: 1,
+              borderColor: '#E5E5E5',
+            }}
+            resizeMode="cover"
+          />
+        </View>
+        <View style={styles.textbox}>
           <View>
             <ClassBox classification={props.Book.type} usedScreen="main" />
           </View>
@@ -83,6 +83,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16 * scale,
+  },
+  imgbox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textbox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    rowGap: 4 * height,
   },
 });
 

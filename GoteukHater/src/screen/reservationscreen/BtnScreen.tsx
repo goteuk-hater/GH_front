@@ -12,14 +12,8 @@ import ReservationHome from './ReservationHome';
 import Btn from '../../components/globalcomponents/Btn';
 import {globalstyles, height, scale} from '../../../config/globalStyles';
 import StyledText from '../../components/globalcomponents/StyledText';
+import {BtnParamList} from '../../../config/RouteName';
 
-type BtnParamList = {
-  ReservationHome: undefined;
-  ReservationDetail: {
-    close: () => void;
-    navigation: NavigationProp<NavigationState>;
-  };
-};
 interface Props {
   close: () => void;
 }

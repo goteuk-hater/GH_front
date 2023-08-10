@@ -1,4 +1,8 @@
-import {NavigationProp, NavigationState} from '@react-navigation/native';
+import {
+  NavigationProp,
+  NavigationState,
+  useNavigation,
+} from '@react-navigation/native';
 import React, {useEffect, useMemo, useState} from 'react';
 import {Text, StyleSheet, View, Button} from 'react-native';
 import {SelectList} from 'react-native-dropdown-select-list';
@@ -6,17 +10,12 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {height, scale, width} from '../../../config/globalStyles';
 import {onClose, onOpen, Picker} from 'react-native-actions-sheet-picker';
 import StyledText from '../../components/globalcomponents/StyledText';
-import {BottomSheetModalStackBehavior} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModal';
-import {BottomSheetDefaultHandleProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetHandle/types';
 import {BottomSheetModal, useBottomSheetModal} from '@gorhom/bottom-sheet';
-import FlexView from '../../components/globalcomponents/FlexView';
 import Btn from '../../components/globalcomponents/Btn';
+import {BtnParamList} from '../../../config/RouteName';
 
-interface Props {
-  route: any;
-  navigation: NavigationProp<NavigationState>;
-}
-const ReservationDetail = ({route, navigation}: Props) => {
+const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
+  const navigation = useNavigation();
   const bookdata = {
     0: [{name: '분야를 선택해주세요.', key: 0}],
     1: [
@@ -87,7 +86,7 @@ const ReservationDetail = ({route, navigation}: Props) => {
   };
 
   const back = () => {
-    navigation.navigate('ReservationHome' as never);
+    navigation.goBack();
   };
   const {dismiss, dismissAll} = useBottomSheetModal();
   useEffect(() => {
@@ -96,18 +95,18 @@ const ReservationDetail = ({route, navigation}: Props) => {
       headerRight: () => <Btn onPress={dismiss} title="신청하기" />,
     });
   }, []);
-
+  5;
   return (
     <View style={styles.container}>
       <StyledText style={[styles.title, {marginTop: 0 * height}]}>
         날짜
       </StyledText>
       <View style={styles.inputbox}>
-        <StyledText style={styles.input}>2023년 02월 28일</StyledText>
+        <StyledText style={styles.input}>{props.route.params.date}</StyledText>
       </View>
       <StyledText style={styles.title}>시간</StyledText>
       <View style={styles.inputbox}>
-        <StyledText style={styles.input}>11:00 ~ 11:30</StyledText>
+        <StyledText style={styles.input}>{props.route.params.time}</StyledText>
       </View>
 
       <StyledText style={styles.title}>분야</StyledText>

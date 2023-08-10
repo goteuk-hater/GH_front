@@ -17,3 +17,14 @@ export type MainStackParamList = {
 export type BookInfoScreenNavigationOptions = {
   title: string;
 };
+export type BtnParamList = {
+  ReservationHome: undefined;
+  ReservationDetail: {
+    route: {
+      params: {
+        date: string;
+        time: string;
+      };
+    };
+  };
+};

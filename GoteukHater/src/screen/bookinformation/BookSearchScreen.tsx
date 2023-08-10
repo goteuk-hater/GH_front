@@ -56,10 +56,10 @@ const BookSearchScreen: React.FC<propsType> = props => {
           renderItem={({item, index}) => (
             <BookCard
               Book={{
-                title: '책 제목',
-                author: '책 저자',
-                publisher: '출판사',
-                type: 1,
+                title: '프로탄스텐티즘의 윤리와 자본주의 정신',
+                author: '막스 베버',
+                publisher: '민수출판사 (2022)',
+                type: '서양의 역사와 사상',
               }}
             />
           )}
