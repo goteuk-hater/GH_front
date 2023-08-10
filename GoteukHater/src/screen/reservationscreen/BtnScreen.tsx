@@ -10,7 +10,8 @@ import React from 'react';
 import ReservationDetail from './ReservationDetail';
 import ReservationHome from './ReservationHome';
 import Btn from '../../components/globalcomponents/Btn';
-import {height, scale} from '../../../config/globalStyles';
+import {globalstyles, height, scale} from '../../../config/globalStyles';
+import StyledText from '../../components/globalcomponents/StyledText';
 
 type BtnParamList = {
   ReservationHome: undefined;
@@ -37,39 +38,25 @@ const BtnScreen = (props: Props) => {
               borderBottomColor: '#E5E5E8',
             },
             headerTitleAlign: 'center',
-            headerTitleStyle: {
-              fontSize: 18 * scale,
-              fontWeight: '700',
-            },
           }}>
           <Modal.Screen
             name="ReservationHome"
             component={ReservationHome}
             options={{
-              title: '고전시험 예약',
-              headerLeft: () => (
-                <Btn
-                  Icon="close"
-                  onPress={() => {
-                    props.close();
-                  }}
-                />
+              headerTitle: () => (
+                <StyledText style={globalstyles.h2}>고전시험 예약</StyledText>
               ),
-              headerRight: () => (
-                <Btn
-                  title="닫기"
-                  onPress={() => {
-                    props.close();
-                  }}
-                />
-              ),
+              headerLeft: () => null,
+              headerRight: () => null,
             }}
           />
           <Modal.Screen
             name="ReservationDetail"
             component={ReservationDetail}
             options={{
-              title: '고전시험 예약',
+              headerTitle: () => (
+                <StyledText style={globalstyles.h2}>고전시험 예약</StyledText>
+              ),
               headerRight: () => (
                 <Btn
                   title="닫기"

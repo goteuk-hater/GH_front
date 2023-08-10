@@ -15,6 +15,7 @@ import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {Screen} from 'react-native-screens';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import ExamMainScreen from '../examdata/ExamMainScreen';
+import {Platform} from 'react-native';
 
 const Home = () => {
   const Stack = createStackNavigator<MainStackParamList>();
@@ -23,9 +24,7 @@ const Home = () => {
     <Stack.Navigator>
       <Stack.Group
         screenOptions={{
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerTitleAlign: 'center',
         }}>
         <Stack.Screen
           name="Main"
@@ -36,7 +35,9 @@ const Home = () => {
           name="BookingListScreen"
           component={BookingListScreen}
           options={{
-            title: '나의 신청현황',
+            headerTitle: () => (
+              <StyledText style={globalstyles.h2}>나의 신청현황</StyledText>
+            ),
             headerLeft: () => (
               <Btn
                 Icon="chevron-back"
@@ -52,7 +53,7 @@ const Home = () => {
           component={BookSearchScreen}
           options={{
             headerTitle: () => (
-              <StyledText style={globalstyles.h1}>
+              <StyledText style={globalstyles.h2}>
                 고전도서 정보 게시판
               </StyledText>
             ),
@@ -70,7 +71,11 @@ const Home = () => {
           name="BookInfoScreen"
           component={BookInfoScreen}
           options={{
-            title: 'dd',
+            headerTitle: () => (
+              <StyledText style={globalstyles.h1}>
+                고전도서 정보 게시판
+              </StyledText>
+            ),
             headerLeft: () => (
               <Btn
                 Icon="chevron-back"

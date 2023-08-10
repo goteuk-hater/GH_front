@@ -8,7 +8,7 @@ import {onClose, onOpen, Picker} from 'react-native-actions-sheet-picker';
 import StyledText from '../../components/globalcomponents/StyledText';
 import {BottomSheetModalStackBehavior} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModal';
 import {BottomSheetDefaultHandleProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetHandle/types';
-import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import {BottomSheetModal, useBottomSheetModal} from '@gorhom/bottom-sheet';
 import FlexView from '../../components/globalcomponents/FlexView';
 import Btn from '../../components/globalcomponents/Btn';
 
@@ -89,9 +89,11 @@ const ReservationDetail = ({route, navigation}: Props) => {
   const back = () => {
     navigation.navigate('ReservationHome' as never);
   };
+  const {dismiss, dismissAll} = useBottomSheetModal();
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <Btn onPress={back} Icon="chevron-back" />,
+      headerRight: () => <Btn onPress={dismiss} title="신청하기" />,
     });
   }, []);
 
