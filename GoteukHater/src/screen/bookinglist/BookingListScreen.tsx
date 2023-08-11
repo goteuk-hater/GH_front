@@ -9,7 +9,7 @@ import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 const BookingListScreen = () => {
   const DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: '#F6F6F9'}}>
       <FlatList
         style={{
           paddingLeft: 16 * width,

@@ -7,10 +7,9 @@ import {
   View,
 } from 'react-native';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import StyledText from '../globalcomponents/StyledText';
-import {onClose} from 'react-native-actions-sheet-picker';
+
 interface Props {
   book: Book;
   visible: boolean;

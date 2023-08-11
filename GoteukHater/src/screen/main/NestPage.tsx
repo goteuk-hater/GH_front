@@ -19,10 +19,10 @@ import {create} from 'react-test-renderer';
 
 const NestPage = (props: any) => {
   return (
-    <>
+    <View style={{flex: 1, backgroundColor: '#F6F6F9'}}>
       <Home />
       <Formbtn />
-    </>
+    </View>
   );
 };
 export default NestPage;
