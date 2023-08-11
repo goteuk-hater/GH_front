@@ -12,22 +12,22 @@ const ApplicationStatus = () => {
         <StatusCard
           title={'프로테스탄티즘의 윤리와 자본주의 정신'}
           date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
-          classification={2}
+          classification="서양의 역사와 사상"
         />
         <StatusCard
           title={'총균쇠'}
           date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
-          classification={2}
+          classification="서양의 역사와 사상"
         />
         <StatusCard
           title={'총균쇠'}
           date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
-          classification={2}
+          classification="서양의 역사와 사상"
         />
         <StatusCard
           title={'총균쇠'}
           date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
-          classification={2}
+          classification="서양의 역사와 사상"
         />
       </View>
     </ScrollView>

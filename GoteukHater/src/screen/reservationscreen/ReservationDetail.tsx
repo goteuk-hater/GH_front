@@ -1,16 +1,12 @@
-import {
-  NavigationProp,
-  NavigationState,
-  useNavigation,
-} from '@react-navigation/native';
-import React, {useEffect, useMemo, useState} from 'react';
-import {Text, StyleSheet, View, Button} from 'react-native';
-import {SelectList} from 'react-native-dropdown-select-list';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useMemo} from 'react';
+import {StyleSheet, View} from 'react-native';
+
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {height, scale, width} from '../../../config/globalStyles';
-import {onClose, onOpen, Picker} from 'react-native-actions-sheet-picker';
+import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import {onOpen, Picker} from 'react-native-actions-sheet-picker';
 import StyledText from '../../components/globalcomponents/StyledText';
-import {BottomSheetModal, useBottomSheetModal} from '@gorhom/bottom-sheet';
+import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 import Btn from '../../components/globalcomponents/Btn';
 import {BtnParamList} from '../../../config/RouteName';
 
@@ -58,21 +54,12 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
     {name: '동서양의 문학', key: 3},
     {name: '과학사', key: 4},
   ]);
-  const [selected, setSelected] = React.useState({
-    name: '분야를 선택해주세요.',
-    key: 0,
-  });
-  const [selectedBook, setSelectedBook] = React.useState({
-    name: '책을 선택해주세요.',
-    key: 0,
-  });
+  const [selected, setSelected] = React.useState({});
+  const [selectedBook, setSelectedBook] = React.useState({});
   const [booklist, setBooklist] = React.useState(bookdata[0]);
   const choosecertification = data => {
     setSelected(data);
-    setSelectedBook({
-      name: '책을 선택해주세요.',
-      key: 0,
-    });
+    setSelectedBook({});
     setBooklist(bookdata[data.key]);
   };
   const [query, setQuery] = React.useState('');
@@ -102,28 +89,48 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
         날짜
       </StyledText>
       <View style={styles.inputbox}>
-        <StyledText style={styles.input}>{props.route.params.date}</StyledText>
+        <StyledText style={globalstyles.p1}>
+          {props.route.params.date}
+        </StyledText>
       </View>
       <StyledText style={styles.title}>시간</StyledText>
       <View style={styles.inputbox}>
-        <StyledText style={styles.input}>{props.route.params.time}</StyledText>
+        <StyledText style={globalstyles.p1}>
+          {props.route.params.time}
+        </StyledText>
       </View>
 
       <StyledText style={styles.title}>분야</StyledText>
       <TouchableOpacity
         style={styles.inputbox}
         onPress={() => onOpen('certification')}>
-        <StyledText style={styles.input}>{selected.name}</StyledText>
+        {selected.name == undefined ? (
+          <StyledText style={[globalstyles.p1, {color: 'gray'}]}>
+            분야를 선택해 주세요.
+          </StyledText>
+        ) : (
+          <StyledText style={globalstyles.p1}>{selected.name}</StyledText>
+        )}
+        <Picker
+          id="certification"
+          data={certification}
+          setSelected={data => choosecertification(data)}
+          label="분야를 선택해 주세요."
+          placeholderTextColor="#8B8B8B"
+          placeholderText="분야를 선택해 주세요."
+          height={500 * height}
+        />
       </TouchableOpacity>
-      <Picker
-        id="certification"
-        data={certification}
-        setSelected={data => choosecertification(data)}
-        label="분야"
-      />
+
       <StyledText style={styles.title}>도서명</StyledText>
       <TouchableOpacity style={styles.inputbox} onPress={() => onOpen('book')}>
-        <StyledText style={styles.input}>{selectedBook.name}</StyledText>
+        {selectedBook.name == undefined ? (
+          <StyledText style={[globalstyles.p1, {color: 'gray'}]}>
+            도서를 선택해 주세요.
+          </StyledText>
+        ) : (
+          <StyledText style={globalstyles.p1}>{selectedBook.name}</StyledText>
+        )}
       </TouchableOpacity>
       <Picker
         id="book"
@@ -147,11 +154,7 @@ const styles = StyleSheet.create({
     paddingRight: 16 * width,
     paddingTop: 16 * height,
   },
-  input: {
-    color: '#8B8B8B',
-    fontSize: 14 * scale,
-    fontWeight: '400',
-  },
+
   inputbox: {
     backgroundColor: 'white',
     height: 47 * height,

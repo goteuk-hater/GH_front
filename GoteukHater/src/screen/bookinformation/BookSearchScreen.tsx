@@ -1,27 +1,18 @@
-import React, {type PropsWithChildren} from 'react';
+import React from 'react';
 import {
   View,
-  Text,
   TextInput,
   StyleSheet,
-  Image,
-  Button,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import LinbkedBookCard from '../../components/booksearch/LinkedBookCard';
 import {NavigationProp, NavigationState} from '@react-navigation/native';
-import {Dimensions} from 'react-native';
-import {ScreenStackHeaderSubview} from 'react-native-screens';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import {SafeAreaView} from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {FlatList} from 'react-native-gesture-handler';
-import Card from '../../components/globalcomponents/Card';
 import BookCard from '../../components/booksearch/BookCard';
 import StyledText from '../../components/globalcomponents/StyledText';
-import {Picker} from '@react-native-picker/picker';
 import TagModal from '../../components/booksearch/TagModal';
 
 interface propsType {
@@ -126,8 +117,7 @@ const BookSearchScreen: React.FC<propsType> = props => {
           style={{marginBottom: 120 * height}}
           ItemSeparatorComponent={() => <View style={{height: 8 * height}} />}
           renderItem={({item, index}) =>
-            (tagList.includes(item.type as unknown as {name: string}) ||
-              tagList.length === 0) &&
+            (tagList.includes(item.type) || tagList.length === 0) &&
             (item.title.includes(text) || text === '') ? (
               <BookCard Book={item} key={item.title} />
             ) : null

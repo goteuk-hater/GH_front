@@ -1,7 +1,7 @@
 import {NavigationProp, NavigationState} from '@react-navigation/native';
 import React from 'react';
-import {StatusBar, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList, StatusBar, View} from 'react-native';
+
 import Card from '../../components/globalcomponents/Card';
 import StyledText from '../../components/globalcomponents/StyledText';
 import StatusCard from '../../components/main/status/StatusCard';
@@ -22,12 +22,12 @@ const BookingListScreen = () => {
         indicatorStyle={'black'}
         renderItem={({item}) => (
           <StatusCard
-            title={'프로테스탄티즘의 윤리와 자본주의 정신'}
+            title="프로테스탄티즘의 윤리와 자본주의 정신"
             date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
-            classification={3}
+            classification="서양의 역사와 사상"
             detail={true}
             style={{width: 358 * width, marginBottom: 8 * height}}
-            location={'광개토관 108B호'}
+            location="광개토관 108B호"
             key={item.toString()}
           />
         )}

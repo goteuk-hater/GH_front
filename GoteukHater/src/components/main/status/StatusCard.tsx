@@ -22,7 +22,7 @@ interface StatusProps {
     day: number;
     time: string;
   };
-  classification: number;
+  classification: string;
   detail?: boolean;
   style?: StyleProp<ViewStyle>;
   location?: string;

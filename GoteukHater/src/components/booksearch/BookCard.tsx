@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  View,
-  StyleProp,
-  ViewStyle,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import Card from '../globalcomponents/Card';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 

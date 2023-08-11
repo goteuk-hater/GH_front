@@ -2,20 +2,22 @@ import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {scale, width} from '../../../config/globalStyles';
 interface propsType {
-  classification: number;
+  classification: string;
   usedScreen?: string;
 }
 
 const ClassBox: React.FC<propsType> = props => {
   let classtext;
-  if (props.classification === 1) {
+  if (props.classification === '서양의 역사와 사상') {
     classtext = '서양';
-  } else if (props.classification === 2) {
+  } else if (props.classification === '동양의 역사와 사상') {
     classtext = '동양';
-  } else if (props.classification === 3) {
+  } else if (props.classification === '동서양의 문학') {
+    classtext = '동서양';
+  } else if (props.classification === '과학사') {
     classtext = '과학사';
   } else {
-    classtext = '동서양';
+    classtext = '오류';
   }
 
   return (
@@ -43,11 +45,11 @@ const dstyles = (props: propsType) =>
       paddingTop: props.usedScreen === 'main' ? 4 : 2,
       paddingBottom: props.usedScreen === 'main' ? 4 : 2,
       backgroundColor:
-        props.classification === 1
+        props.classification === '서양의 역사와 사상'
           ? '#FFAA70'
-          : props.classification === 2
+          : props.classification === '동양의 역사와 사상'
           ? '#59ADF6'
-          : props.classification === 3
+          : props.classification === '동서양의 문학'
           ? '#C780E8'
           : '#3ABD91',
     },
