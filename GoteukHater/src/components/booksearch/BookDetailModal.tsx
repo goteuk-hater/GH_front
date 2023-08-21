@@ -34,7 +34,7 @@ const BookDetailModal = (props: Props) => {
       <View style={styles.container}>
         <View style={styles.modalheader}>
           <TouchableOpacity onPress={props.onCancel}>
-            <FontAwesome name="close" size={20} color="black" />
+            <FontAwesome name="close" size={15} color="black" />
           </TouchableOpacity>
         </View>
         <View style={styles.modalcontent}>

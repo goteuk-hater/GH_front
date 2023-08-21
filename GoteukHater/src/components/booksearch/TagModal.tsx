@@ -22,7 +22,7 @@ const TagModal = ({visible, addTag}: Props) => {
   return (
     <Modal
       visible={visible}
-      animationType="fade"
+      animationType="slide"
       transparent={true}
       onRequestClose={() => addTag('')}>
       <TouchableWithoutFeedback onPress={() => addTag('')}>
@@ -31,6 +31,7 @@ const TagModal = ({visible, addTag}: Props) => {
       <View style={styles.container}>
         <View style={[styles.modalView, {rowGap: 20 * height}]}>
           <StyledText style={globalstyles.h1}>태그를 선택해 주세요.</StyledText>
+
           <View style={styles.tagContainer}>
             {Tag.map((tag, index) => (
               <TouchableOpacity
