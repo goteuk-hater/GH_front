@@ -52,12 +52,19 @@ const TagModal = ({visible, closeModal, submit, tagList}: Props) => {
     return (
       <TouchableOpacity onPress={togglefunction}>
         <View style={styles.tag}>
-          {newtagList.includes(title) ? (
-            <FontAwesome name="check-square-o" size={20} color="black" />
-          ) : (
-            <FontAwesome name="square-o" size={20} color="black" />
-          )}
-          <StyledText style={styles.modalText}>{title}</StyledText>
+          <StyledText style={styles.modalText}>
+            {newtagList.includes(title) ? (
+              <FontAwesome
+                name="check-square-o"
+                size={16 * scale}
+                color="black"
+              />
+            ) : (
+              <FontAwesome name="square-o" size={16 * scale} color="black" />
+            )}
+            {'  '}
+            {title}
+          </StyledText>
         </View>
       </TouchableOpacity>
     );
@@ -101,7 +108,7 @@ const TagModal = ({visible, closeModal, submit, tagList}: Props) => {
             })}
           </View>
           <View style={styles.btnbox}>
-            <SubmitBtn fn={closeModal} content="취소" width={200 * width} />
+            <SubmitBtn fn={closeModal} content="취소" />
             <SubmitBtn fn={submitfunction} content="적용" />
           </View>
         </View>
@@ -135,8 +142,8 @@ const styles = StyleSheet.create({
   },
   tag: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
     columnGap: 10 * width,
+    alignItems: 'center',
   },
   btnbox: {
     justifyContent: 'space-between',

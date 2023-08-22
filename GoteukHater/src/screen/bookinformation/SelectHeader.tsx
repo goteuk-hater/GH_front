@@ -32,8 +32,9 @@ export const SelectHeader = ({
     <View style={styles.container}>
       <TouchableOpacity onPress={openModal}>
         <View style={styles.modalbtn}>
-          <StyledText style={[globalstyles.h4]}>영역</StyledText>
-          <AntDesign name="down" size={15} color="black" />
+          <StyledText style={[globalstyles.h4]}>
+            영역 <AntDesign name="caretdown" size={14 * scale} color="black" />
+          </StyledText>
         </View>
       </TouchableOpacity>
       {tagList.map((tag, index) => {
@@ -60,12 +61,12 @@ const styles = StyleSheet.create({
   container: {
     ...globalstyles.row,
     columnGap: 8 * width,
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     alignItems: 'center',
   },
   modalbtn: {
     ...globalstyles.row,
-    columnGap: 4 * width,
-    marginVertical: 4 * height,
+    paddingVertical: 4 * height,
+    alignItems: 'center',
   },
 });

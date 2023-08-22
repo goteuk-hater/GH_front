@@ -104,6 +104,7 @@ const BookSearchScreen: React.FC<propsType> = props => {
           numColumns={2}
           style={{marginBottom: 120 * height}}
           ItemSeparatorComponent={() => <View style={{height: 8 * height}} />}
+          showsVerticalScrollIndicator={false}
           renderItem={({item, index}) =>
             (tagList.includes(item.type) || tagList.length === 0) &&
             (item.title.includes(text) || text === '') ? (

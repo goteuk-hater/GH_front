@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {globalstyles, scale, width} from '../../../config/globalStyles';
+import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 interface propsType {
   classification: string;
   usedScreen?: string;
@@ -30,7 +30,7 @@ const ClassBox: React.FC<propsType> = props => {
 const styles = StyleSheet.create({
   text: {
     color: 'white',
-    ...globalstyles.p1,
+    ...globalstyles.h4,
   },
 });
 
@@ -38,11 +38,11 @@ const dstyles = (props: propsType) =>
   StyleSheet.create({
     classbox: {
       borderRadius: 10 * scale,
-      alignSelf: 'flex-start',
+      alignItems: 'center',
+      justifyContent: 'center',
       paddingRight: 8 * width,
       paddingLeft: 8 * width,
-      paddingTop: props.usedScreen === 'main' ? 4 : 2,
-      paddingBottom: props.usedScreen === 'main' ? 4 : 2,
+      paddingVertical: props.usedScreen === 'main' ? 4 * height : 2 * height,
       backgroundColor:
         props.classification === '서양의 역사와 사상'
           ? '#FFAA70'
