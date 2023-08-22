@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   TextInput,
@@ -14,12 +14,37 @@ import {FlatList} from 'react-native-gesture-handler';
 import BookCard from '../../components/booksearch/BookCard';
 import StyledText from '../../components/globalcomponents/StyledText';
 import TagModal from '../../components/booksearch/TagModal';
+import {SelectHeader} from './SelectHeader';
 
 interface propsType {
   navigation: NavigationProp<NavigationState>;
 }
 
+const booktype = {
+  1: '서양의 역사와 사상',
+  2: '동양의 역사와 사상',
+  3: '동서양의 문학',
+  4: '과학사',
+};
+
 const BookSearchScreen: React.FC<propsType> = props => {
+  const [tagList, setTagList] = useState<string[]>([]);
+  const addtag = (tag: string) => {
+    let newtagList = [...tagList];
+    if (newtagList.includes(tag)) {
+      return;
+    }
+    newtagList.push(tag);
+    setTagList(newtagList);
+  };
+  const removetag = (tag: string) => {
+    let newtagList = [...tagList];
+    if (!newtagList.includes(tag)) {
+      return;
+    }
+    newtagList.splice(newtagList.indexOf(tag), 1);
+    setTagList(newtagList);
+  };
   const DATA = [
     {
       title: '프로탄스텐티즘의 윤리와 자본주의 정신',
@@ -53,23 +78,6 @@ const BookSearchScreen: React.FC<propsType> = props => {
     },
   ];
   const [text, onChangeText] = React.useState('');
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [tagList, setTagList] = React.useState([] as Array<string>);
-  const addtag = (tag: string) => {
-    if (tag == '') {
-      setModalVisible(false);
-      return;
-    }
-    let newtagList = [...tagList];
-    newtagList.push(tag);
-    setTagList(newtagList);
-    setModalVisible(false);
-  };
-  const removetag = (index: number) => {
-    let newtagList = [...tagList];
-    newtagList.splice(index, 1);
-    setTagList(newtagList);
-  };
   return (
     <View style={styles.container}>
       <View style={styles.searchbox}>
@@ -80,36 +88,16 @@ const BookSearchScreen: React.FC<propsType> = props => {
           value={text}
           placeholder="검색어를 입력해 주세요."
         />
-        <EvilIcons name="close" size={20} color="black" />
-      </View>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <ScrollView horizontal={true}>
-          {tagList.map((tag, index) => (
-            <TouchableOpacity
-              key={index}
-              style={{
-                backgroundColor: '#E5E5E5',
-                borderRadius: 10 * scale,
-                padding: 10 * scale,
-                marginRight: 4 * scale,
-              }}
-              onPress={tag => {
-                removetag(index);
-              }}>
-              <StyledText style={globalstyles.p2}>{tag}</StyledText>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-        <TouchableOpacity
-          style={[globalstyles.row, {columnGap: 4 * width}]}
-          onPress={() => {
-            setModalVisible(true);
-          }}>
-          <StyledText style={globalstyles.h4}>영역</StyledText>
-          <AntDesign name="down" size={15} color="black" />
+        <TouchableOpacity onPress={() => onChangeText('')}>
+          <EvilIcons name="close" size={20} color="black" />
         </TouchableOpacity>
       </View>
-      <TagModal visible={modalVisible} addTag={addtag} />
+      <SelectHeader
+        tagList={tagList}
+        addtag={addtag}
+        removetag={removetag}
+        setTagList={setTagList}
+      />
       <View style={globalstyles.row_spacebetween}>
         <FlatList
           data={DATA}
@@ -133,10 +121,9 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 12 * height,
     paddingHorizontal: 16 * width,
-    rowGap: 20 * height,
+    rowGap: 12 * height,
     backgroundColor: '#F6F6F9',
   },
-
   searchbox: {
     flexDirection: 'row',
     justifyContent: 'space-between',

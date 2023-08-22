@@ -82,7 +82,8 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
       headerRight: () => <Btn onPress={dismiss} title="신청하기" />,
     });
   }, []);
-  5;
+  console.log(selected);
+  console.log(selectedBook);
   return (
     <View style={styles.container}>
       <StyledText style={[styles.title, {marginTop: 0 * height}]}>

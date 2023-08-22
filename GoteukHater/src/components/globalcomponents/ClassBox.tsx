@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {scale, width} from '../../../config/globalStyles';
+import {globalstyles, scale, width} from '../../../config/globalStyles';
 interface propsType {
   classification: string;
   usedScreen?: string;
@@ -30,8 +30,7 @@ const ClassBox: React.FC<propsType> = props => {
 const styles = StyleSheet.create({
   text: {
     color: 'white',
-    fontSize: 12 * scale,
-    fontWeight: 'bold',
+    ...globalstyles.p1,
   },
 });
 
