@@ -9,20 +9,19 @@ import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import SheetHandle from '../globalcomponents/SheetHandle';
 import StyledText from '../globalcomponents/StyledText';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {useDispatch, useSelector} from 'react-redux';
-import {addTag, selectTag} from '../../redux/reducer/tagSlice';
+
 import {useEffect, useState} from 'react';
 interface Props {
-  visible: boolean;
   closeModal: () => void;
   submit: (tagList: string[]) => void;
   tagList: string[];
+  reset: () => void;
 }
 interface TagbtnProps {
   title: string;
 }
 
-const TagModal = ({visible, closeModal, submit, tagList}: Props) => {
+const TagModal = ({closeModal, submit, tagList, reset}: Props) => {
   const tag = [
     '동양의 역사와 사상',
     '서양의 역사와 사상',
@@ -84,55 +83,35 @@ const TagModal = ({visible, closeModal, submit, tagList}: Props) => {
     );
   };
   return (
-    <Modal
-      visible={visible}
-      animationType="fade"
-      transparent={true}
-      onRequestClose={closeModal}>
-      <View style={styles.container}>
-        <View style={[styles.modalView, {rowGap: 20 * height}]}>
-          <View style={globalstyles.row_spacebetween}>
-            <StyledText style={globalstyles.h1}>
-              태그를 선택해 주세요.
-            </StyledText>
-            {/* <FontAwesome
+    <View style={[styles.modalView, {rowGap: 20 * height}]}>
+      <View style={globalstyles.row_spacebetween}>
+        <StyledText style={globalstyles.h1}>태그를 선택해 주세요.</StyledText>
+        {/* <FontAwesome
               name="close"
               size={20}
               color="black"
               onPress={closeModal}
             /> */}
-          </View>
-          <View style={styles.tagContainer}>
-            {tag.map((tag, index) => {
-              return <TagBtn key={index} title={tag} />;
-            })}
-          </View>
-          <View style={styles.btnbox}>
-            <SubmitBtn fn={closeModal} content="취소" />
-            <SubmitBtn fn={submitfunction} content="적용" />
-          </View>
-        </View>
       </View>
-    </Modal>
+      <View style={styles.tagContainer}>
+        {tag.map((tag, index) => {
+          return <TagBtn key={index} title={tag} />;
+        })}
+      </View>
+      <View style={styles.btnbox}>
+        <SubmitBtn fn={reset} content="초기화" />
+        <SubmitBtn fn={submitfunction} content="적용" />
+      </View>
+    </View>
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    top: '60%',
-    height: '40%',
-    justifyContent: 'flex-end',
-    borderWidth: 1,
-    borderTopLeftRadius: 20 * scale,
-    borderTopRightRadius: 20 * scale,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
-  },
   modalView: {
+    flex: 1,
     backgroundColor: 'white',
     borderTopLeftRadius: 20 * scale,
     borderTopRightRadius: 20 * scale,
     padding: 20 * scale,
-    width: '100%',
-    height: '100%',
   },
   modalText: {
     ...globalstyles.h3,

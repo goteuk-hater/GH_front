@@ -1,6 +1,6 @@
 import {NavigationProp, NavigationState} from '@react-navigation/native';
 import React from 'react';
-import {FlatList, StatusBar, View} from 'react-native';
+import {FlatList, StatusBar, StyleSheet, View} from 'react-native';
 
 import Card from '../../components/globalcomponents/Card';
 import StyledText from '../../components/globalcomponents/StyledText';
@@ -9,14 +9,9 @@ import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 const BookingListScreen = () => {
   const DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   return (
-    <View style={{flex: 1, backgroundColor: '#F6F6F9'}}>
+    <View style={styles.container}>
       <FlatList
-        style={{
-          paddingLeft: 16 * width,
-          paddingRight: 16 * width,
-          marginTop: StatusBar.currentHeight || 8,
-          marginBottom: 16 * height,
-        }}
+        style={styles.flatlist}
         data={DATA}
         showsVerticalScrollIndicator={true}
         indicatorStyle={'black'}
@@ -49,4 +44,14 @@ const BookingListScreen = () => {
     </View>
   );
 };
+const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: '#F6F6F9'},
+  flatlist: {
+    paddingLeft: 16 * width,
+    paddingRight: 16 * width,
+    marginTop: StatusBar.currentHeight || 8,
+    marginBottom: 16 * height,
+  },
+});
+
 export default BookingListScreen;

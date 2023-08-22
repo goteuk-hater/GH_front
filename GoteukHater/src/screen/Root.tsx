@@ -15,30 +15,32 @@ type RootStackParamList = {
   Home: undefined;
   Counter: undefined;
 };
-
+import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 const Stack = createStackNavigator<RootStackParamList>();
 const Root = () => {
   const [modalVisible, setModalVisible] = React.useState(false);
   return (
     <NavigationContainer>
-      <StatusBar
-        barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
-      />
-      <Stack.Navigator>
-        <Stack.Group>
-          <Stack.Screen name="SplashScreen" component={SplashScreen} />
-          <Stack.Screen
-            name="NestPage"
-            component={NestPage}
-            options={{headerShown: false, gestureEnabled: false}}
-          />
-        </Stack.Group>
-        {/* 로그인 */}
-        <Stack.Group screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Counter" component={Counter} />
-        </Stack.Group>
-      </Stack.Navigator>
+      <BottomSheetModalProvider>
+        <StatusBar
+          barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
+        />
+        <Stack.Navigator>
+          <Stack.Group>
+            <Stack.Screen name="SplashScreen" component={SplashScreen} />
+            <Stack.Screen
+              name="NestPage"
+              component={NestPage}
+              options={{headerShown: false, gestureEnabled: false}}
+            />
+          </Stack.Group>
+          {/* 로그인 */}
+          <Stack.Group screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Counter" component={Counter} />
+          </Stack.Group>
+        </Stack.Navigator>
+      </BottomSheetModalProvider>
     </NavigationContainer>
   );
 };

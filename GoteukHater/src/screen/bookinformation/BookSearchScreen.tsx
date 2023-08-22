@@ -14,7 +14,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import BookCard from '../../components/booksearch/BookCard';
 import StyledText from '../../components/globalcomponents/StyledText';
 import TagModal from '../../components/booksearch/TagModal';
-import {SelectHeader} from './SelectHeader';
+import {SelectHeader} from '../../components/booksearch/SelectHeader';
 
 interface propsType {
   navigation: NavigationProp<NavigationState>;
