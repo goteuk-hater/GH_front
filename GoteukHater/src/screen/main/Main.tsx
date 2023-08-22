@@ -22,14 +22,12 @@ interface Props {
 const Main = ({navigation}: Props) => {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={[styles.content, {rowGap: 20 * height}]}>
-          <InformationSection />
-          <StatusSection navigation={navigation} />
-          <CertificationSection />
-          <LinkSection navigation={navigation} />
-        </View>
-      </ScrollView>
+      <View style={[styles.content, {rowGap: 20 * height}]}>
+        <InformationSection />
+        <StatusSection navigation={navigation} />
+        <CertificationSection />
+        <LinkSection navigation={navigation} />
+      </View>
     </SafeAreaView>
   );
 };

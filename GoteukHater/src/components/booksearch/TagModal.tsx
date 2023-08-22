@@ -62,10 +62,17 @@ const TagModal = ({visible, closeModal, submit, tagList}: Props) => {
       </TouchableOpacity>
     );
   };
-  const SubmitBtn = () => {
+  interface SubmitBtnProps {
+    fn?: () => void;
+    content: string;
+  }
+  const SubmitBtn = ({fn, content}: SubmitBtnProps) => {
+    let btnstyle,
+      textstyle = styles.btntext;
+    content === '적용' ? (btnstyle = styles.btn) : (btnstyle = styles.closebtn);
     return (
-      <TouchableOpacity style={styles.btn} onPress={submitfunction}>
-        <StyledText style={styles.modalText}>확인</StyledText>
+      <TouchableOpacity style={btnstyle} onPress={fn}>
+        <StyledText style={textstyle}>{content}</StyledText>
       </TouchableOpacity>
     );
   };
@@ -77,14 +84,25 @@ const TagModal = ({visible, closeModal, submit, tagList}: Props) => {
       onRequestClose={closeModal}>
       <View style={styles.container}>
         <View style={[styles.modalView, {rowGap: 20 * height}]}>
-          <StyledText style={globalstyles.h1}>태그를 선택해 주세요.</StyledText>
+          <View style={globalstyles.row_spacebetween}>
+            <StyledText style={globalstyles.h1}>
+              태그를 선택해 주세요.
+            </StyledText>
+            {/* <FontAwesome
+              name="close"
+              size={20}
+              color="black"
+              onPress={closeModal}
+            /> */}
+          </View>
           <View style={styles.tagContainer}>
             {tag.map((tag, index) => {
               return <TagBtn key={index} title={tag} />;
             })}
           </View>
           <View style={styles.btnbox}>
-            <SubmitBtn />
+            <SubmitBtn fn={closeModal} content="취소" width={200 * width} />
+            <SubmitBtn fn={submitfunction} content="적용" />
           </View>
         </View>
       </View>
@@ -121,16 +139,30 @@ const styles = StyleSheet.create({
     columnGap: 10 * width,
   },
   btnbox: {
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   btn: {
-    width: 300 * width,
+    width: 180 * width,
     height: 50 * height,
-    backgroundColor: '#FF533A',
+    backgroundColor: '#209edd',
     borderRadius: 10 * scale,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  closebtn: {
+    width: 140 * width,
+    height: 50 * height,
+    backgroundColor: '#bbbaba',
+    borderRadius: 10 * scale,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btntext: {
+    ...globalstyles.h2,
+    letterSpacing: 3 * width,
+    color: '#FFFFFF',
   },
 });
 export default TagModal;
