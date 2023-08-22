@@ -21,6 +21,7 @@ interface Props {
 }
 interface TagbtnProps {
   title: string;
+  selected: string;
 }
 
 const BooksearchModal = ({
@@ -30,10 +31,6 @@ const BooksearchModal = ({
   title,
   selected,
 }: Props) => {
-  const submitfunction = (state: string) => {
-    setState(state);
-    closeModal();
-  };
   const TagBtn = ({title}: TagbtnProps) => {
     return (
       <TouchableOpacity
