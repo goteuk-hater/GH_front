@@ -69,6 +69,7 @@ export const SelectHeader = ({
           submit={setTagList}
           tagList={tagList}
           reset={reset}
+          title="태그를 선택해 주세요."
         />
       </BottomSheetModal>
     </View>

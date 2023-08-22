@@ -87,6 +87,7 @@ const BookSearchScreen: React.FC<propsType> = props => {
           onChangeText={onChangeText}
           value={text}
           placeholder="검색어를 입력해 주세요."
+          placeholderTextColor={'#818181'}
         />
         <TouchableOpacity onPress={() => onChangeText('')}>
           <EvilIcons name="close" size={20} color="black" />

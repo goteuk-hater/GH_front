@@ -16,12 +16,13 @@ interface Props {
   submit: (tagList: string[]) => void;
   tagList: string[];
   reset: () => void;
+  title: string;
 }
 interface TagbtnProps {
   title: string;
 }
 
-const TagModal = ({closeModal, submit, tagList, reset}: Props) => {
+const TagModal = ({closeModal, submit, tagList, reset, title}: Props) => {
   const tag = [
     '동양의 역사와 사상',
     '서양의 역사와 사상',
@@ -85,13 +86,7 @@ const TagModal = ({closeModal, submit, tagList, reset}: Props) => {
   return (
     <View style={[styles.modalView, {rowGap: 20 * height}]}>
       <View style={globalstyles.row_spacebetween}>
-        <StyledText style={globalstyles.h1}>태그를 선택해 주세요.</StyledText>
-        {/* <FontAwesome
-              name="close"
-              size={20}
-              color="black"
-              onPress={closeModal}
-            /> */}
+        <StyledText style={globalstyles.h1}>{title}</StyledText>
       </View>
       <View style={styles.tagContainer}>
         {tag.map((tag, index) => {
