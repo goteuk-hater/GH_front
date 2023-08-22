@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -9,81 +9,85 @@ import StyledText from '../../components/globalcomponents/StyledText';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 import Btn from '../../components/globalcomponents/Btn';
 import {BtnParamList} from '../../../config/RouteName';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import SheetHandle from '../../components/globalcomponents/SheetHandle';
+import TagModal from '../../components/booksearch/TagModal';
+import BooksearchModal from '../../components/reservation/BooksearchModal';
 
 const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
   const navigation = useNavigation();
   const bookdata = {
-    0: [{name: '분야를 선택해주세요.', key: 0}],
-    1: [
-      {name: '플라톤의 국가', key: 1},
-      {name: '정치학', key: 2},
-      {name: '키케로의 의무론', key: 3},
+    '분야를 선택해주세요.': ['도서를 선택해주세요.'],
+    '동서양의 문학': ['플라톤의 국가', '정치학', '키케로의 의무론'],
+    '서양의 역사와 사상': ['성학십도', '북학의', '조선상고사'],
+    '동양의 역사와 사상': [
+      '젊은 예술가의 초상',
+      '구토',
+      '실락원',
+      '젊은 예술가의 초상',
+      '구토',
+      '실락원',
+      '젊은 예술가의 초상',
+      '실락원',
+      '젊은 예술가의 초상',
+      '구토',
+      '실락원',
+      '실락원',
     ],
-    2: [
-      {name: '성학십도', key: 1},
-      {name: '북학의', key: 2},
-      {name: '조선상고사', key: 3},
-    ],
-    3: [
-      {name: '젊은 예술가의 초상', key: 1},
-      {name: '구토', key: 2},
-      {name: '실락원', key: 3},
-      {name: '젊은 예술가의 초상', key: 4},
-      {name: '구토', key: 5},
-      {name: '실락원', key: 6},
-      {name: '젊은 예술가의 초상', key: 7},
-      {name: '구토', key: 8},
-      {name: '실락원', key: 9},
-      {name: '젊은 예술가의 초상', key: 10},
-      {name: '구토', key: 11},
-      {name: '실락원', key: 12},
-      {name: '젊은 예술가의 초상', key: 13},
-      {name: '구토', key: 14},
-      {name: '실락원', key: 15},
-    ],
-    4: [
-      {name: '통섭', key: 1},
-      {name: '종의 기원', key: 2},
-      {name: '부분과 전체', key: 3},
-    ],
+    과학사: ['통섭', '종의 기원', '부분과 전체'],
   };
 
-  const [certification, setCertification] = React.useState([
-    {name: '서양의 역사와 사상', key: 1},
-    {name: '동양의 역사와 사상', key: 2},
-    {name: '동서양의 문학', key: 3},
-    {name: '과학사', key: 4},
-  ]);
-  const [selected, setSelected] = React.useState({});
-  const [selectedBook, setSelectedBook] = React.useState({});
-  const [booklist, setBooklist] = React.useState(bookdata[0]);
-  const choosecertification = data => {
-    setSelected(data);
-    setSelectedBook({});
-    setBooklist(bookdata[data.key]);
-  };
-  const [query, setQuery] = React.useState('');
-  const filteredData = useMemo(() => {
-    if (booklist && booklist.length > 0) {
-      return booklist.filter(item => item.name.includes(query));
-    }
-  }, [booklist, query]);
-  const onSearch = text => {
-    setQuery(text);
-  };
-
+  const certificationlist = [
+    '동서양의 문학',
+    '서양의 역사와 사상',
+    '동양의 역사와 사상',
+    '과학사',
+  ];
+  const [selected, setSelected] = React.useState('분야를 선택해주세요.');
+  const [selectedBook, setSelectedBook] =
+    React.useState('도서를 선택해 주세요.');
+  const [booklist, setBooklist] = React.useState<string[]>(
+    bookdata['분야를 선택해주세요.'],
+  );
   const back = () => {
     navigation.goBack();
   };
-  const {dismiss, dismissAll} = useBottomSheetModal();
+  const {dismiss} = useBottomSheetModal();
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <Btn onPress={back} Icon="chevron-back" />,
       headerRight: () => <Btn onPress={dismiss} title="신청하기" />,
     });
   }, []);
-  console.log(selected);
-  console.log(selectedBook);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const bottomSheetModalRef2 = useRef<BottomSheetModal>(null);
+  // variables
+  const snapPoints = useMemo(() => [350 * height], []);
+  // callbacks
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef2.current?.close();
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const modalclose = () => {
+    bottomSheetModalRef.current?.close();
+  };
+  const handlepresentModalPress2 = useCallback(() => {
+    bottomSheetModalRef.current?.close();
+    bottomSheetModalRef2.current?.present();
+  }, []);
+  const modalclose2 = () => {
+    bottomSheetModalRef2.current?.close();
+  };
+  const selectcategory = (str: string) => {
+    setSelected(str);
+    setBooklist(bookdata[str]);
+    setSelectedBook('도서를 선택해 주세요.');
+    modalclose();
+  };
+  const selectbook = (str: string) => {
+    setSelectedBook(str);
+    modalclose2();
+  };
   return (
     <View style={styles.container}>
       <StyledText style={[styles.title, {marginTop: 0 * height}]}>
@@ -104,45 +108,61 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
       <StyledText style={styles.title}>분야</StyledText>
       <TouchableOpacity
         style={styles.inputbox}
-        onPress={() => onOpen('certification')}>
-        {selected.name == undefined ? (
-          <StyledText style={[globalstyles.p1, {color: 'gray'}]}>
-            분야를 선택해 주세요.
-          </StyledText>
-        ) : (
-          <StyledText style={globalstyles.p1}>{selected.name}</StyledText>
-        )}
-        <Picker
-          id="certification"
-          data={certification}
-          setSelected={data => choosecertification(data)}
-          label="분야를 선택해 주세요."
-          placeholderTextColor="#8B8B8B"
-          placeholderText="분야를 선택해 주세요."
-          height={500 * height}
-        />
+        onPress={handlePresentModalPress}>
+        <StyledText
+          style={[
+            globalstyles.p1,
+            {
+              color: selected === '분야를 선택해주세요.' ? 'gray' : 'black',
+            },
+          ]}>
+          {selected}
+        </StyledText>
       </TouchableOpacity>
 
       <StyledText style={styles.title}>도서명</StyledText>
-      <TouchableOpacity style={styles.inputbox} onPress={() => onOpen('book')}>
-        {selectedBook.name == undefined ? (
-          <StyledText style={[globalstyles.p1, {color: 'gray'}]}>
-            도서를 선택해 주세요.
-          </StyledText>
-        ) : (
-          <StyledText style={globalstyles.p1}>{selectedBook.name}</StyledText>
-        )}
+      <TouchableOpacity
+        style={styles.inputbox}
+        onPress={handlepresentModalPress2}>
+        <StyledText
+          style={[
+            globalstyles.p1,
+            {
+              color:
+                selectedBook === '도서를 선택해 주세요.' ? 'gray' : 'black',
+            },
+          ]}>
+          {selectedBook}
+        </StyledText>
       </TouchableOpacity>
-      <Picker
-        id="book"
-        data={filteredData}
-        setSelected={setSelectedBook}
-        label="도서선택"
-        onSearch={onSearch}
-        searchable={true}
-        inputValue={query}
-        noDataFoundText={'책 제목을 확인해 주세요.'}
-      />
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={0}
+        snapPoints={snapPoints}
+        stackBehavior="push"
+        handleComponent={SheetHandle}>
+        <BooksearchModal
+          closeModal={modalclose}
+          setState={selectcategory}
+          list={certificationlist}
+          title="분야"
+          selected={selected}
+        />
+      </BottomSheetModal>
+      <BottomSheetModal
+        ref={bottomSheetModalRef2}
+        index={0}
+        snapPoints={snapPoints}
+        stackBehavior="push"
+        handleComponent={SheetHandle}>
+        <BooksearchModal
+          closeModal={modalclose2}
+          setState={selectbook}
+          list={booklist}
+          title="도서명"
+          selected={selectedBook}
+        />
+      </BottomSheetModal>
     </View>
   );
 };
