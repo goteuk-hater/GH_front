@@ -66,6 +66,20 @@ const ReservationHome = ({navigation}: Props) => {
       }),
     );
   };
+  //내일 날짜
+  const today = new Date();
+  const tomorrow = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() + 1,
+  );
+  const nextmonth = new Date(
+    today.getFullYear(),
+    today.getMonth() + 1,
+    today.getDate(),
+  );
+  const mindate = tomorrow.toISOString().slice(0, 10);
+  const maxdate = nextmonth.toISOString().slice(0, 10);
 
   return (
     <ScrollView style={styles.container}>
@@ -76,6 +90,8 @@ const ReservationHome = ({navigation}: Props) => {
               setSelectedDate(day.dateString);
             }}
             style={styles.calendar}
+            minDate={mindate}
+            maxDate={maxdate}
             theme={{
               selectedDayTextColor: 'white',
               selectedDayBackgroundColor: '#8A8A8E',
@@ -118,9 +134,9 @@ const ReservationHome = ({navigation}: Props) => {
         </Card>
         <View style={{rowGap: 4 * height}}>
           <StyledText style={globalstyles.h1}>시간선택</StyledText>
-          <StyledText style={[globalstyles.p1, styles.titleinfo]}>
+          {/* <StyledText style={[globalstyles.p1, styles.titleinfo]}>
             예약이 완료된 시간이라도 빈자리 알림 신청을 할 수 있어요.
-          </StyledText>
+          </StyledText> */}
         </View>
         <FlatList
           data={DATA}

@@ -33,9 +33,7 @@ export const SelectHeader = ({
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
   }, []);
-  const reset = () => {
-    setTagList([]);
-  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handlePresentModalPress}>
@@ -68,7 +66,6 @@ export const SelectHeader = ({
           closeModal={modalclose}
           submit={setTagList}
           tagList={tagList}
-          reset={reset}
           title="태그를 선택해 주세요."
         />
       </BottomSheetModal>

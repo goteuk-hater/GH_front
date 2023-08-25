@@ -15,14 +15,13 @@ interface Props {
   closeModal: () => void;
   submit: (tagList: string[]) => void;
   tagList: string[];
-  reset: () => void;
   title: string;
 }
 interface TagbtnProps {
   title: string;
 }
 
-const TagModal = ({closeModal, submit, tagList, reset, title}: Props) => {
+const TagModal = ({closeModal, submit, tagList, title}: Props) => {
   const tag = [
     '동양의 역사와 사상',
     '서양의 역사와 사상',
@@ -37,6 +36,9 @@ const TagModal = ({closeModal, submit, tagList, reset, title}: Props) => {
   useEffect(() => {
     setNewTagList(tagList);
   }, [tagList]);
+  const reset = () => {
+    setNewTagList([]);
+  };
   const TagBtn = ({title}: TagbtnProps) => {
     const togglefunction = () => {
       if (newtagList.includes(title)) {
