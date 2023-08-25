@@ -14,7 +14,7 @@ const ClassBox: React.FC<propsType> = props => {
     classtext = '동양';
   } else if (props.classification === '동서양의 문학') {
     classtext = '동서양';
-  } else if (props.classification === '과학사') {
+  } else if (props.classification === '과학 사상') {
     classtext = '과학사';
   } else {
     classtext = '오류';

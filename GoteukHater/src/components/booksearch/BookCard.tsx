@@ -1,11 +1,19 @@
 import React from 'react';
-import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import Card from '../globalcomponents/Card';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 
 import StyledText from '../globalcomponents/StyledText';
 import ClassBox from '../globalcomponents/ClassBox';
 import BookDetailModal from './BookDetailModal';
+import {useNavigation} from '@react-navigation/native';
+import {MainStackParamList} from '../../../config/RouteName';
 
 interface Book {
   title: string;
@@ -19,7 +27,7 @@ interface Props {
 
 const BookCard = (props: Props) => {
   const URL = {
-    uri: 'https://classic.sejong.ac.kr/home/book/book_01.jpg',
+    uri: props.Book.image,
   };
   const [isModalVisible, setModalVisible] = React.useState(false);
   const onCancel = () => {
@@ -28,15 +36,20 @@ const BookCard = (props: Props) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  const navigation = useNavigation<MainStackParamList['BookInfoScreen']>();
+
   return (
-    <TouchableOpacity onPress={toggleModal}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('BookInfoScreen', {book: props.Book});
+      }}>
       <Card style={styles.card}>
         <View style={styles.imgbox}>
           <Image
             source={URL}
             style={{
-              height: 120 * height,
-              width: 80 * width,
+              height: 180 * height,
+              width: 120 * width,
               marginBottom: 4 * height,
               borderWidth: 1,
               borderColor: '#E5E5E5',

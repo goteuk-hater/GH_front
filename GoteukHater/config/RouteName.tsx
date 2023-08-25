@@ -7,7 +7,17 @@ export type MainStackParamList = {
     bottomSheetModalRef: React.RefObject<BottomSheetModal>;
   };
   BookingListScreen: undefined;
-  BookInfoScreen: {title: string};
+  BookInfoScreen: {
+    book: {
+      title: string;
+      author: string;
+      publisher: string;
+      type: string;
+      image: string;
+    };
+
+    navigate: (screen: string) => void;
+  };
   BookSearchScreen: undefined;
   ExamMainScreen: undefined;
   BtnScreen: undefined;
