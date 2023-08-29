@@ -1,25 +1,27 @@
 import React from 'react';
-import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import Card from '../globalcomponents/Card';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 
 import StyledText from '../globalcomponents/StyledText';
 import ClassBox from '../globalcomponents/ClassBox';
 import BookDetailModal from './BookDetailModal';
+import {useNavigation} from '@react-navigation/native';
+import {Book, MainStackParamList} from '../../../config/Type';
 
-interface Book {
-  title: string;
-  author: string;
-  publisher: string;
-  type: string;
-}
 interface Props {
   Book: Book;
 }
 
 const BookCard = (props: Props) => {
   const URL = {
-    uri: 'https://classic.sejong.ac.kr/home/book/book_01.jpg',
+    uri: 'https://image.aladin.co.kr/product/8126/15/cover500/s432636514_1.jpg',
   };
   const [isModalVisible, setModalVisible] = React.useState(false);
   const onCancel = () => {
@@ -28,15 +30,22 @@ const BookCard = (props: Props) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  const navigation = useNavigation<MainStackParamList['BookInfoScreen']>();
+  const book = props.Book;
   return (
-    <TouchableOpacity onPress={toggleModal}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('BookInfoScreen', {
+          book: book,
+        });
+      }}>
       <Card style={styles.card}>
         <View style={styles.imgbox}>
           <Image
             source={URL}
             style={{
-              height: 120 * height,
-              width: 80 * width,
+              height: 180 * height,
+              width: 120 * width,
               marginBottom: 4 * height,
               borderWidth: 1,
               borderColor: '#E5E5E5',
@@ -46,14 +55,17 @@ const BookCard = (props: Props) => {
         </View>
         <View style={styles.textbox}>
           <View>
-            <ClassBox classification={props.Book.type} usedScreen="main" />
+            <ClassBox
+              classification={book.category.category}
+              usedScreen="main"
+            />
           </View>
           <View>
             <StyledText style={[globalstyles.h2, {textAlign: 'center'}]}>
-              {props.Book.title}
+              {book.title}
             </StyledText>
             <StyledText style={[globalstyles.p1, {textAlign: 'center'}]}>
-              {props.Book.author}
+              {book.author}
             </StyledText>
           </View>
         </View>
@@ -62,7 +74,7 @@ const BookCard = (props: Props) => {
       <BookDetailModal
         visible={isModalVisible}
         onCancel={onCancel}
-        book={props.Book}
+        book={book}
       />
     </TouchableOpacity>
   );

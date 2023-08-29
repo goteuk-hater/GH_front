@@ -8,7 +8,7 @@ import {onOpen, Picker} from 'react-native-actions-sheet-picker';
 import StyledText from '../../components/globalcomponents/StyledText';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 import Btn from '../../components/globalcomponents/Btn';
-import {BtnParamList} from '../../../config/RouteName';
+import {BtnParamList} from '../../../config/Type';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import SheetHandle from '../../components/globalcomponents/SheetHandle';
 import TagModal from '../../components/booksearch/TagModal';

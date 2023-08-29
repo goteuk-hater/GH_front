@@ -4,7 +4,14 @@ import {
   NavigationState,
 } from '@react-navigation/native';
 import React, {useCallback, useEffect, useRef} from 'react';
-import {Text, StyleSheet, View, FlatList, Platform} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  View,
+  FlatList,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import {
   Agenda,
   AgendaList,
@@ -22,7 +29,7 @@ import TimeselectCard from '../../components/reservation/TimeselectCard';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import Btn from '../../components/globalcomponents/Btn';
 import {ModalHeader} from '../../components/reservation/ModalHeader';
-import {BtnParamList} from '../../../config/RouteName';
+import {BtnParamList} from '../../../config/Type';
 import {createStackNavigator} from '@react-navigation/stack';
 
 interface Props {
@@ -50,9 +57,25 @@ interface Navi {
 }
 
 const ReservationHome = ({navigation}: Props) => {
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date().toISOString().slice(0, 10),
+  //내일 날짜
+  const today = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate() + 1,
   );
+  const tomorrow = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() + 1,
+  );
+  const nextmonth = new Date(
+    tomorrow.getFullYear(),
+    tomorrow.getMonth() + 1,
+    tomorrow.getDate(),
+  );
+  const mindate = tomorrow.toISOString().slice(0, 10);
+  const maxdate = nextmonth.toISOString().slice(0, 10);
+  const [selectedDate, setSelectedDate] = React.useState('');
   const [selected, setSelected] = React.useState<number>(-1);
   const [selectedTime, setSelectedTime] = React.useState<string>('');
   const setSelect = async (time: string) => {
@@ -67,11 +90,13 @@ const ReservationHome = ({navigation}: Props) => {
     );
   };
 
+  // mindate부터 maxdate까지 getday가 0,6인 날짜만 뽑아서 배열에 넣기
   return (
     <ScrollView style={styles.container}>
       <View style={{rowGap: 20 * height, marginTop: 16 * height}}>
         <Card style={{width: '100%'}}>
           <Calendar
+            initialDate={mindate}
             onDayPress={day => {
               setSelectedDate(day.dateString);
             }}
@@ -79,6 +104,7 @@ const ReservationHome = ({navigation}: Props) => {
             theme={{
               selectedDayTextColor: 'white',
               selectedDayBackgroundColor: '#8A8A8E',
+
               textDayStyle: {
                 fontSize: 16 * scale,
                 ...Platform.select({
@@ -91,6 +117,52 @@ const ReservationHome = ({navigation}: Props) => {
                   },
                 }),
               },
+            }}
+            dayComponent={({date, state}) => {
+              let strdate = date?.dateString;
+              let day = new Date(strdate).getDay();
+              if (day === 0 || day === 6) {
+                state = 'disabled';
+              }
+              if (mindate <= strdate && strdate <= maxdate) {
+                state = 'enabled';
+              } else {
+                state = 'disabled';
+              }
+              return (
+                <TouchableOpacity
+                  onPress={state => {
+                    if (state === 'disabled') {
+                      return;
+                    }
+                    setSelectedDate(date.dateString);
+                  }}>
+                  <View
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: state === 'disabled' ? 'white' : 'white',
+                      width: 40 * scale,
+                      height: 40 * scale,
+                      borderRadius: 20 * scale,
+                    }}>
+                    <StyledText
+                      style={[
+                        globalstyles.h4,
+                        {
+                          color:
+                            state === 'disabled'
+                              ? 'gray'
+                              : date.dateString === selectedDate
+                              ? 'blue'
+                              : 'black',
+                        },
+                      ]}>
+                      {date.day}
+                    </StyledText>
+                  </View>
+                </TouchableOpacity>
+              );
             }}
             enableSwipeMonths={true}
             markedDates={{
@@ -118,9 +190,9 @@ const ReservationHome = ({navigation}: Props) => {
         </Card>
         <View style={{rowGap: 4 * height}}>
           <StyledText style={globalstyles.h1}>시간선택</StyledText>
-          <StyledText style={[globalstyles.p1, styles.titleinfo]}>
+          {/* <StyledText style={[globalstyles.p1, styles.titleinfo]}>
             예약이 완료된 시간이라도 빈자리 알림 신청을 할 수 있어요.
-          </StyledText>
+          </StyledText> */}
         </View>
         <FlatList
           data={DATA}

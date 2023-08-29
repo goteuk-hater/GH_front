@@ -9,7 +9,7 @@ import {globalstyles, scale, width} from '../../../config/globalStyles';
 import StyledText from '../../components/globalcomponents/StyledText';
 
 import Btn from '../../components/globalcomponents/Btn';
-import {MainStackParamList} from '../../../config/RouteName';
+import {MainStackParamList} from '../../../config/Type';
 import {isAndroid} from 'react-native-calendars/src/expandableCalendar/commons';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {Screen} from 'react-native-screens';
