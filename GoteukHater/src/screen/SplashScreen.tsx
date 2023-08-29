@@ -1,11 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {NavigationProp, NavigationState} from '@react-navigation/native';
+import {
+  NavigationProp,
+  NavigationState,
+  useNavigation,
+} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {View, Text, TouchableOpacity, Button, Alert} from 'react-native';
-interface Props {
-  navigation: NavigationProp<NavigationState>;
-}
-const SplashScreen = ({navigation}: Props) => {
+import {View, Button, Alert} from 'react-native';
+
+const SplashScreen = () => {
+  const navigation = useNavigation();
   const Restore = async () => {
     try {
       const a = await AsyncStorage.getItem('id');
@@ -22,6 +25,7 @@ const SplashScreen = ({navigation}: Props) => {
   useEffect(() => {
     // Restore();
   }, []);
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Button
@@ -31,10 +35,6 @@ const SplashScreen = ({navigation}: Props) => {
       <Button
         title="NestPage"
         onPress={() => navigation.navigate('NestPage' as never)}
-      />
-      <Button
-        title="Counter"
-        onPress={() => navigation.navigate('Counter' as never)}
       />
     </View>
   );

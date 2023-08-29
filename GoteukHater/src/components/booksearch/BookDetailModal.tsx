@@ -9,23 +9,19 @@ import {
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import StyledText from '../globalcomponents/StyledText';
+import {Book} from '../../../config/Type';
 
 interface Props {
   book: Book;
   visible: boolean;
   onCancel: () => void;
 }
-interface Book {
-  title: string;
-  author: string;
-  publisher: string;
-  type: string;
-}
+
 const BookDetailModal = (props: Props) => {
   const URL = {
-    uri: 'https://classic.sejong.ac.kr/home/book/book_01.jpg',
+    uri: 'https://classic.sejong.ac.kr/home/book/book_03.jpg',
   };
-
+  const book = props.book;
   return (
     <Modal visible={props.visible} transparent={true} animationType="fade">
       <TouchableWithoutFeedback onPress={props.onCancel}>
@@ -41,13 +37,11 @@ const BookDetailModal = (props: Props) => {
           <Image source={URL} style={styles.img} resizeMode="cover" />
           <View style={styles.modalbody}>
             <StyledText style={[globalstyles.p1, {color: 'gray'}]}>
-              {props.book.type}
+              {book.category.category}
             </StyledText>
-            <StyledText style={globalstyles.h2}>{props.book.title}</StyledText>
-            <StyledText style={globalstyles.h3}>{props.book.author}</StyledText>
-            <StyledText style={globalstyles.p2}>
-              {props.book.publisher}
-            </StyledText>
+            <StyledText style={globalstyles.h2}>{book.title}</StyledText>
+            <StyledText style={globalstyles.h3}>{book.author}</StyledText>
+            <StyledText style={globalstyles.p2}>{book.publisher}</StyledText>
           </View>
         </View>
       </View>

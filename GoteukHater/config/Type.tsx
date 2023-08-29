@@ -38,3 +38,16 @@ export type BtnParamList = {
     };
   };
 };
+
+export interface Category {
+  id: number;
+  category: string;
+}
+
+export interface Book {
+  id: number;
+  title: string;
+  author: string;
+  publisher: string;
+  category: Category;
+}

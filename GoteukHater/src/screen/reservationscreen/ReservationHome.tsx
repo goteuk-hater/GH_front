@@ -29,7 +29,7 @@ import TimeselectCard from '../../components/reservation/TimeselectCard';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import Btn from '../../components/globalcomponents/Btn';
 import {ModalHeader} from '../../components/reservation/ModalHeader';
-import {BtnParamList} from '../../../config/RouteName';
+import {BtnParamList} from '../../../config/Type';
 import {createStackNavigator} from '@react-navigation/stack';
 
 interface Props {

@@ -11,10 +11,13 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import {Book} from '../../../config/Type';
 
 interface propsType {
   navigation: NavigationProp<NavigationState>;
-  route: any;
+  route: {
+    params: Book;
+  };
 }
 const BookInfoScreen = (props: propsType) => {
   const navigation = useNavigation();
@@ -31,21 +34,25 @@ const BookInfoScreen = (props: propsType) => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={{uri: book.image}}
+        source={{
+          uri: 'https://image.aladin.co.kr/product/8126/15/cover500/s432636514_1.jpg',
+        }}
         style={{width: '100%', height: '100%'}}
         blurRadius={10}
         resizeMode="cover">
         <View style={styles.container}>
           <View style={styles.modalcontent}>
             <Image
-              source={{uri: book.image}}
+              source={{
+                uri: 'https://image.aladin.co.kr/product/8126/15/cover500/s432636514_1.jpg',
+              }}
               style={styles.img}
               resizeMode="cover"
             />
           </View>
           <View style={styles.modalbody}>
             <StyledText style={[globalstyles.p1, {color: 'gray'}]}>
-              {book.type}
+              {book.category.category}
             </StyledText>
             <StyledText style={globalstyles.h2}>{book.title}</StyledText>
             <View

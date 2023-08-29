@@ -12,7 +12,7 @@ import ReservationHome from './ReservationHome';
 import Btn from '../../components/globalcomponents/Btn';
 import {globalstyles, height, scale} from '../../../config/globalStyles';
 import StyledText from '../../components/globalcomponents/StyledText';
-import {BtnParamList} from '../../../config/RouteName';
+import {BtnParamList} from '../../../config/Type';
 
 interface Props {
   close: () => void;

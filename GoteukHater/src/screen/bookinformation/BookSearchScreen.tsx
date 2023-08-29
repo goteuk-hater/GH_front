@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+// https://classic.sejong.ac.kr/home/book/book_03.jpg
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
+  VirtualizedList,
 } from 'react-native';
-import {NavigationProp, NavigationState} from '@react-navigation/native';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -15,20 +15,14 @@ import BookCard from '../../components/booksearch/BookCard';
 import StyledText from '../../components/globalcomponents/StyledText';
 import TagModal from '../../components/booksearch/TagModal';
 import {SelectHeader} from '../../components/booksearch/SelectHeader';
+import axios from 'axios';
+import {SERVER_URL} from '@env';
+import {Book} from '../../../config/Type';
 
-interface propsType {
-  navigation: NavigationProp<NavigationState>;
-}
-
-const booktype = {
-  1: '서양의 역사와 사상',
-  2: '동양의 역사와 사상',
-  3: '동서양의 문학',
-  4: '과학사',
-};
-
-const BookSearchScreen: React.FC<propsType> = props => {
+const BookSearchScreen = () => {
   const [tagList, setTagList] = useState<string[]>([]);
+  const [text, onChangeText] = React.useState('');
+  const [loading, setLoading] = useState(true);
   const addtag = (tag: string) => {
     let newtagList = [...tagList];
     if (newtagList.includes(tag)) {
@@ -45,65 +39,44 @@ const BookSearchScreen: React.FC<propsType> = props => {
     newtagList.splice(newtagList.indexOf(tag), 1);
     setTagList(newtagList);
   };
-  const DATA = [
-    {
-      title: '플라톤의 국가',
-      author: '플라톤',
-      publisher: '서광사(2005)',
-      type: '서양의 역사와 사상',
-      image: 'https://classic.sejong.ac.kr/home/book/book_01.jpg',
-    },
-    {
-      title: '키케로의 의무론',
-      author: '키케로',
-      publisher: '서광사(2006)',
-      type: '서양의 역사와 사상',
-      image: 'https://classic.sejong.ac.kr/home/book/book_03.jpg',
-    },
-    {
-      title: '성학십도',
-      author: '이황',
-      publisher: '홍익출판사(2001)',
-      type: '동양의 역사와 사상',
-      image: 'https://classic.sejong.ac.kr/home/book/book_41.jpg',
-    },
-    {
-      title: '장자',
-      author: '장자',
-      publisher: '현암사(2010)',
-      type: '동양의 역사와 사상',
-      image: 'https://classic.sejong.ac.kr/home/book/book_47.jpg',
-    },
-    {
-      title: '젊은 예술가의 초상',
-      author: '제임스 조이스',
-      publisher: '열린책들(2011)',
-      type: '동서양의 문학',
-      image: 'https://classic.sejong.ac.kr/home/book/book_58.jpg',
-    },
-    {
-      title: '실락원',
-      author: '밀턴',
-      publisher: '일신서적출판사(1994)',
-      type: '동서양의 문학',
-      image: 'https://classic.sejong.ac.kr/home/book/book_60.jpg',
-    },
-    {
-      title: '카오스',
-      author: '제이스 글리크',
-      publisher: '누림book(2006)',
-      type: '과학 사상',
-      image: 'https://classic.sejong.ac.kr/home/book/book_94.jpg',
-    },
-    {
-      title: '통섭',
-      author: '장대익, 최재천',
-      publisher: '사이언스북스(2005)',
-      type: '과학 사상',
-      image: 'https://classic.sejong.ac.kr/home/book/book_103.jpg',
-    },
-  ];
-  const [text, onChangeText] = React.useState('');
+  const [data, setData] = useState(Array<Book>);
+  const fetchdata = async () => {
+    setLoading(true);
+    const response = await axios.get(`${SERVER_URL}books/book_data`);
+    setData(response.data.data);
+    setFilteredData(response.data.data);
+    setLoading(false);
+  };
+  const [filteredData, setFilteredData] = useState(Array<Book>);
+
+  const renderItem = (book: Book) => {
+    console.log(book);
+    return <BookCard Book={book} />;
+  };
+  const itemseparater = () => {
+    return <View style={{height: 8 * height}} />;
+  };
+  useEffect(() => {
+    setFilteredData(
+      data.filter((item: any) => {
+        if (tagList.length > 0) {
+          if (!tagList.includes(item.category.category)) {
+            return false;
+          }
+        }
+        if (text.length > 0) {
+          if (!item.title.includes(text)) {
+            return false;
+          }
+        }
+        return true;
+      }),
+    );
+  }, [tagList, text]);
+
+  useEffect(() => {
+    fetchdata();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.searchbox}>
@@ -126,19 +99,18 @@ const BookSearchScreen: React.FC<propsType> = props => {
         setTagList={setTagList}
       />
       <View style={globalstyles.row_spacebetween}>
-        <FlatList
-          data={DATA}
-          numColumns={2}
-          style={{marginBottom: 120 * height}}
-          ItemSeparatorComponent={() => <View style={{height: 8 * height}} />}
-          showsVerticalScrollIndicator={false}
-          renderItem={({item, index}) =>
-            (tagList.includes(item.type) || tagList.length === 0) &&
-            (item.title.includes(text) || text === '') ? (
-              <BookCard Book={item} key={item.title} />
-            ) : null
-          }
-        />
+        {loading ? (
+          <StyledText style={globalstyles.p2}>로딩중...</StyledText>
+        ) : (
+          <FlatList
+            data={filteredData}
+            numColumns={2}
+            style={{marginBottom: 120 * height}}
+            ItemSeparatorComponent={itemseparater}
+            showsVerticalScrollIndicator={false}
+            renderItem={({item}) => renderItem(item)}
+          />
+        )}
       </View>
     </View>
   );
