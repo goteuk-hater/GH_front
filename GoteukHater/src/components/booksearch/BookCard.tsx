@@ -14,6 +14,7 @@ import ClassBox from '../globalcomponents/ClassBox';
 import BookDetailModal from './BookDetailModal';
 import {useNavigation} from '@react-navigation/native';
 import {Book, MainStackParamList} from '../../../config/Type';
+import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 
 interface Props {
   Book: Book;
@@ -30,11 +31,13 @@ const BookCard = (props: Props) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  const {dismiss} = useBottomSheetModal();
   const navigation = useNavigation<MainStackParamList['BookInfoScreen']>();
   const book = props.Book;
   return (
     <TouchableOpacity
       onPress={() => {
+        dismiss();
         navigation.navigate('BookInfoScreen', {
           book: book,
         });

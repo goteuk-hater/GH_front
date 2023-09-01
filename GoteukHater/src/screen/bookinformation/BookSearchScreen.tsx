@@ -1,28 +1,28 @@
 // https://classic.sejong.ac.kr/home/book/book_03.jpg
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
 import {
   View,
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  VirtualizedList,
+  ScrollView,
+  Keyboard,
 } from 'react-native';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {FlatList} from 'react-native-gesture-handler';
 import BookCard from '../../components/booksearch/BookCard';
 import StyledText from '../../components/globalcomponents/StyledText';
-import TagModal from '../../components/booksearch/TagModal';
 import {SelectHeader} from '../../components/booksearch/SelectHeader';
 import axios from 'axios';
 import {SERVER_URL} from '@env';
 import {Book} from '../../../config/Type';
+import {FlatList} from 'react-native';
+import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 
 const BookSearchScreen = () => {
   const [tagList, setTagList] = useState<string[]>([]);
-  const [text, onChangeText] = React.useState('');
-  const [loading, setLoading] = useState(true);
+  const [text, setText] = React.useState('');
+  const [loading, setLoading] = useState(false);
   const addtag = (tag: string) => {
     let newtagList = [...tagList];
     if (newtagList.includes(tag)) {
@@ -30,6 +30,7 @@ const BookSearchScreen = () => {
     }
     newtagList.push(tag);
     setTagList(newtagList);
+    Keyboard.dismiss();
   };
   const removetag = (tag: string) => {
     let newtagList = [...tagList];
@@ -38,57 +39,80 @@ const BookSearchScreen = () => {
     }
     newtagList.splice(newtagList.indexOf(tag), 1);
     setTagList(newtagList);
+    Keyboard.dismiss();
   };
   const [data, setData] = useState(Array<Book>);
-  const fetchdata = async () => {
-    setLoading(true);
-    const response = await axios.get(`${SERVER_URL}books/book_data`);
-    setData(response.data.data);
-    setFilteredData(response.data.data);
-    setLoading(false);
-  };
   const [filteredData, setFilteredData] = useState(Array<Book>);
-
-  const renderItem = (book: Book) => {
-    console.log(book);
-    return <BookCard Book={book} />;
+  const filter = () => {
+    let newdata = [...data];
+    if (tagList.length === 0 && text === '') {
+      setFilteredData(newdata);
+      return;
+    }
+    if (tagList.length !== 0) {
+      newdata = newdata.filter(book => {
+        return tagList.includes(book.category.category);
+      });
+    }
+    if (text !== '') {
+      newdata = newdata.filter(book => {
+        return book.title.includes(text);
+      });
+    }
+    setFilteredData(newdata);
   };
-  const itemseparater = () => {
-    return <View style={{height: 8 * height}} />;
+  const {dismissAll} = useBottomSheetModal();
+  const flatListRef = React.useRef<FlatList>(null);
+  const scrollToTop = () => {
+    flatListRef.current?.scrollToOffset({offset: 0});
   };
   useEffect(() => {
-    setFilteredData(
-      data.filter((item: any) => {
-        if (tagList.length > 0) {
-          if (!tagList.includes(item.category.category)) {
-            return false;
-          }
-        }
-        if (text.length > 0) {
-          if (!item.title.includes(text)) {
-            return false;
-          }
-        }
-        return true;
-      }),
-    );
-  }, [tagList, text]);
+    scrollToTop();
+  }, [filteredData]);
+  const fetchdata = async () => {
+    setLoading(true);
+    const response = await axios
+      .get(`${SERVER_URL}books/book_data`)
+      .then(response => {
+        setData(response.data.data);
+        setFilteredData(response.data.data);
+        setLoading(false);
+      });
+  };
+
+  const itemseparater = useCallback(() => {
+    return <View style={{height: 12 * height}} />;
+  }, []);
+  const renderItem = useCallback(({item}: {item: Book}) => {
+    return <BookCard Book={item} key={item.id.toString()} />;
+  }, []);
 
   useEffect(() => {
     fetchdata();
   }, []);
+  useEffect(() => {
+    filter();
+  }, [tagList, text]);
   return (
     <View style={styles.container}>
       <View style={styles.searchbox}>
         <EvilIcons name="search" size={20} color="black" />
         <TextInput
           style={[globalstyles.p2, styles.input]}
-          onChangeText={onChangeText}
+          onChangeText={text => {
+            setText(text);
+          }}
+          onFocus={() => {
+            dismissAll();
+          }}
           value={text}
           placeholder="검색어를 입력해 주세요."
           placeholderTextColor={'#818181'}
         />
-        <TouchableOpacity onPress={() => onChangeText('')}>
+        <TouchableOpacity
+          onPress={() => {
+            setText('');
+          }}>
           <EvilIcons name="close" size={20} color="black" />
         </TouchableOpacity>
       </View>
@@ -98,17 +122,24 @@ const BookSearchScreen = () => {
         removetag={removetag}
         setTagList={setTagList}
       />
-      <View style={globalstyles.row_spacebetween}>
+      <View>
         {loading ? (
           <StyledText style={globalstyles.p2}>로딩중...</StyledText>
         ) : (
           <FlatList
+            ref={flatListRef}
             data={filteredData}
+            renderItem={renderItem}
             numColumns={2}
-            style={{marginBottom: 120 * height}}
+            getItemLayout={(data, index) => ({
+              length: 300 * height,
+              offset: 300 * height * index,
+              index,
+            })}
             ItemSeparatorComponent={itemseparater}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => renderItem(item)}
+            keyExtractor={(item: Book) => item.id.toString()}
+            ListFooterComponent={<View style={{height: 100 * height}} />}
+            onEndReachedThreshold={0.1}
           />
         )}
       </View>

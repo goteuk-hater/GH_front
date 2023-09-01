@@ -23,10 +23,10 @@ interface TagbtnProps {
 
 const TagModal = ({closeModal, submit, tagList, title}: Props) => {
   const tag = [
-    '동양의 역사와 사상',
     '서양의 역사와 사상',
+    '동양의 역사와 사상',
     '동서양의 문학',
-    '과학사',
+    '과학 사상',
   ];
   const submitfunction = () => {
     submit(newtagList);

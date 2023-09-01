@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Keyboard, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import StyledText from '../globalcomponents/StyledText';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -25,14 +25,12 @@ export const SelectHeader = ({
   const snapPoints = useMemo(() => [350 * height], []);
   // callbacks
   const handlePresentModalPress = useCallback(() => {
+    Keyboard.dismiss();
     bottomSheetModalRef.current?.present();
   }, []);
   const modalclose = () => {
     bottomSheetModalRef.current?.close();
   };
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -60,8 +58,7 @@ export const SelectHeader = ({
         index={0}
         snapPoints={snapPoints}
         stackBehavior="push"
-        handleComponent={SheetHandle}
-        onChange={handleSheetChanges}>
+        handleComponent={SheetHandle}>
         <TagModal
           closeModal={modalclose}
           submit={setTagList}
