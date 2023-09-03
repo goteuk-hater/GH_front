@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -122,7 +123,10 @@ const BookSearchScreen = () => {
         removetag={removetag}
         setTagList={setTagList}
       />
-      <View>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Keyboard.dismiss();
+        }}>
         {loading ? (
           <StyledText style={globalstyles.p2}>로딩중...</StyledText>
         ) : (
@@ -142,7 +146,7 @@ const BookSearchScreen = () => {
             onEndReachedThreshold={0.1}
           />
         )}
-      </View>
+      </TouchableWithoutFeedback>
     </View>
   );
 };

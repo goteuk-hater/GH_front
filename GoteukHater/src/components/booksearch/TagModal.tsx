@@ -86,8 +86,8 @@ const TagModal = ({closeModal, submit, tagList, title}: Props) => {
     );
   };
   return (
-    <View style={[styles.modalView, {rowGap: 20 * height}]}>
-      <View style={globalstyles.row_spacebetween}>
+    <View style={styles.modalView}>
+      <View style={[globalstyles.row_spacebetween, styles.title]}>
         <StyledText style={globalstyles.h1}>{title}</StyledText>
       </View>
       <View style={styles.tagContainer}>
@@ -108,7 +108,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopLeftRadius: 20 * scale,
     borderTopRightRadius: 20 * scale,
-    padding: 20 * scale,
+    paddingHorizontal: 20 * width,
+    rowGap: 14 * height,
   },
   modalText: {
     ...globalstyles.h3,
@@ -146,6 +147,11 @@ const styles = StyleSheet.create({
     ...globalstyles.h2,
     letterSpacing: 3 * width,
     color: '#FFFFFF',
+  },
+  title: {
+    borderBottomWidth: 1 * height,
+    borderBottomColor: '#E5E5E5',
+    paddingBottom: 14 * height,
   },
 });
 export default TagModal;

@@ -3,6 +3,7 @@ import CertificationView from './CertificationView';
 import FlexView from '../../globalcomponents/FlexView';
 import StyledText from '../../globalcomponents/StyledText';
 import {View} from 'react-native';
+import {useEffect} from 'react';
 
 const CertificationSection = () => {
   return (

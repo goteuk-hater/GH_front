@@ -42,12 +42,9 @@ const BooksearchModal = ({
             style={[
               styles.modalText,
               {
-                color: selected === title ? '#FF533A' : '#000000',
+                color: selected === title ? '#FF6961' : '#000000',
               },
             ]}>
-            {selected === title ? (
-              <FontAwesome name="check" size={14 * scale} color="#FF533A" />
-            ) : null}
             {title}
           </StyledText>
         </View>
@@ -56,8 +53,8 @@ const BooksearchModal = ({
   };
 
   return (
-    <View style={[styles.modalView, {rowGap: 20 * height}]}>
-      <View style={globalstyles.row_spacebetween}>
+    <View style={styles.modalView}>
+      <View style={[globalstyles.row_spacebetween, styles.title]}>
         <StyledText style={globalstyles.h1}>{title}</StyledText>
       </View>
       <ScrollView>
@@ -76,7 +73,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopLeftRadius: 20 * scale,
     borderTopRightRadius: 20 * scale,
-    padding: 20 * scale,
+    paddingHorizontal: 20 * width,
+    rowGap: 14 * height,
   },
   modalText: {
     ...globalstyles.h3,
@@ -88,6 +86,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     columnGap: 10 * width,
     alignItems: 'center',
+  },
+  title: {
+    borderBottomWidth: 1 * height,
+    borderBottomColor: '#E5E5E5',
+    paddingBottom: 14 * height,
   },
 });
 export default BooksearchModal;

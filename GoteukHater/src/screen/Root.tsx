@@ -20,9 +20,7 @@ const Root = () => {
   return (
     <NavigationContainer>
       <BottomSheetModalProvider>
-        <StatusBar
-          barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
-        />
+        <StatusBar />
         <Stack.Navigator>
           <Stack.Group>
             <Stack.Screen name="SplashScreen" component={SplashScreen} />

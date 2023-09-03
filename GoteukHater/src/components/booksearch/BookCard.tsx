@@ -12,7 +12,7 @@ import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import StyledText from '../globalcomponents/StyledText';
 import ClassBox from '../globalcomponents/ClassBox';
 import BookDetailModal from './BookDetailModal';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import {Book, MainStackParamList} from '../../../config/Type';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 
@@ -22,7 +22,7 @@ interface Props {
 
 const BookCard = (props: Props) => {
   const URL = {
-    uri: 'https://image.aladin.co.kr/product/8126/15/cover500/s432636514_1.jpg',
+    uri: props.Book.image_url,
   };
   const [isModalVisible, setModalVisible] = React.useState(false);
   const onCancel = () => {
@@ -32,14 +32,15 @@ const BookCard = (props: Props) => {
     setModalVisible(!isModalVisible);
   };
   const {dismiss} = useBottomSheetModal();
-  const navigation = useNavigation<MainStackParamList['BookInfoScreen']>();
+  const navigation = useNavigation<MainStackParamList['BookSearchScreen']>();
   const book = props.Book;
   return (
     <TouchableOpacity
       onPress={() => {
         dismiss();
+
         navigation.navigate('BookInfoScreen', {
-          book: book,
+          book,
         });
       }}>
       <Card style={styles.card}>

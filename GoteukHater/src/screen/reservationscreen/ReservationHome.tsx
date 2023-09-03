@@ -58,11 +58,10 @@ interface Navi {
 
 const ReservationHome = ({navigation}: Props) => {
   //내일 날짜
-  const today = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    new Date().getDate() + 1,
-  );
+  const today = new Date();
+  // new Date().getFullYear(),
+  // new Date().getMonth(),
+  // new Date().getDate() + 1,
   const tomorrow = new Date(
     today.getFullYear(),
     today.getMonth(),
@@ -104,7 +103,6 @@ const ReservationHome = ({navigation}: Props) => {
             theme={{
               selectedDayTextColor: 'white',
               selectedDayBackgroundColor: '#8A8A8E',
-
               textDayStyle: {
                 fontSize: 16 * scale,
                 ...Platform.select({
@@ -119,15 +117,47 @@ const ReservationHome = ({navigation}: Props) => {
               },
             }}
             dayComponent={({date, state}) => {
-              let strdate = date?.dateString;
+              let strdate = date.dateString;
               let day = new Date(strdate).getDay();
-              if (day === 0 || day === 6) {
-                state = 'disabled';
-              }
-              if (mindate <= strdate && strdate <= maxdate) {
+
+              if (
+                mindate <= strdate &&
+                strdate <= maxdate &&
+                day != 0 &&
+                day != 6
+              ) {
                 state = 'enabled';
               } else {
                 state = 'disabled';
+              }
+              if (state === 'disabled') {
+                return (
+                  <View
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor:
+                        selectedDate === date.dateString ? '#8A8A8E' : 'white',
+                      width: 40 * scale,
+                      height: 40 * scale,
+                      borderRadius: 20 * scale,
+                    }}>
+                    <StyledText
+                      style={[
+                        globalstyles.h4,
+                        {
+                          color:
+                            state === 'disabled'
+                              ? 'gray'
+                              : date.dateString === selectedDate
+                              ? 'white'
+                              : 'black',
+                        },
+                      ]}>
+                      {date.day}
+                    </StyledText>
+                  </View>
+                );
               }
               return (
                 <TouchableOpacity
@@ -141,7 +171,8 @@ const ReservationHome = ({navigation}: Props) => {
                     style={{
                       justifyContent: 'center',
                       alignItems: 'center',
-                      backgroundColor: state === 'disabled' ? 'white' : 'white',
+                      backgroundColor:
+                        selectedDate === date.dateString ? '#8A8A8E' : 'white',
                       width: 40 * scale,
                       height: 40 * scale,
                       borderRadius: 20 * scale,
@@ -154,7 +185,7 @@ const ReservationHome = ({navigation}: Props) => {
                             state === 'disabled'
                               ? 'gray'
                               : date.dateString === selectedDate
-                              ? 'blue'
+                              ? 'white'
                               : 'black',
                         },
                       ]}>

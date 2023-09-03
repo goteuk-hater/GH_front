@@ -69,7 +69,7 @@ const Home = () => {
         />
         <Stack.Screen
           name="BookInfoScreen"
-          component={BookInfoScreen}
+          component={BookInfoScreen as never}
           options={{
             headerTitle: () => (
               <StyledText style={globalstyles.h1}>

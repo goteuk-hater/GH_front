@@ -1,29 +1,39 @@
+import {SERVER_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   NavigationProp,
   NavigationState,
   useNavigation,
 } from '@react-navigation/native';
+import axios from 'axios';
 import React, {useEffect} from 'react';
 import {View, Button, Alert} from 'react-native';
 
 const SplashScreen = () => {
   const navigation = useNavigation();
-  const Restore = async () => {
+  const fetchuser = async () => {
+    const id = await AsyncStorage.getItem('id');
+    const password = await AsyncStorage.getItem('password');
+    if (id == null || password == null) {
+      navigation.navigate('Login' as never);
+      return;
+    }
     try {
-      const a = await AsyncStorage.getItem('id');
-      const b = await AsyncStorage.getItem('password');
-      if (a == null || b == null) {
-        navigation.navigate('Login' as never);
-      } else {
-        navigation.navigate('NestPage' as never);
-      }
+      const res = await axios.post(`${SERVER_URL}user/user_info`, {
+        id: id,
+        password: password,
+      });
+      navigation.navigate('NestPage' as never);
     } catch (e) {
-      Alert.alert('저장된 정보가 없습니다.');
+      Alert.alert('회원 정보가 변경되었습니다.\n다시 로그인 해주세요.');
+      AsyncStorage.removeItem('id');
+      AsyncStorage.removeItem('password');
+      navigation.navigate('Login' as never);
     }
   };
+
   useEffect(() => {
-    // Restore();
+    fetchuser();
   }, []);
 
   return (

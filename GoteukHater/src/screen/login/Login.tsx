@@ -9,27 +9,50 @@ import FlexView from '../../components/globalcomponents/FlexView';
 import StyledText from '../../components/globalcomponents/StyledText';
 import {globalstyles, height, scale} from '../../../config/globalStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import {SERVER_URL} from '@env';
+import {useNavigation} from '@react-navigation/native';
 
 const Login = () => {
   const [id, setId] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const navigation = useNavigation();
   const Loginfunction = async () => {
+    if (id === '' || password === '') {
+      Alert.alert('아이디와 비밀번호를 입력해주세요.');
+      return;
+    }
+    if (id.length !== 8) {
+      Alert.alert('아이디는 8자리입니다.');
+      return;
+    }
+    // setPhone(
+    //   '18011485',
+    //   '"gAAAAABk8u3o1l-eqocF4AvI0nGU23DqXr8xzMMIEsROsILp8MxROCOrZPzgemKCJMAApjz7W4AzVjq6XK09pFCN5RRSThV_DQ=="',
+    // );
+    try {
+      const res = await axios.post(`${SERVER_URL}user/login`, {
+        id: id,
+        password: password,
+      });
+      if (res.status === 200) {
+        console.log(res.data);
+        if (res.data === 'false') {
+          Alert.alert('로그인 실패');
+        } else {
+          setPhone(id, res.data);
+          navigation.navigate('NestPage' as never);
+        }
+      }
+    } catch (e) {
+      Alert.alert('아이디 비밀번호를 확인해주세요.');
+    }
+  };
+
+  const setPhone = async (id: string, password: string) => {
     try {
       await AsyncStorage.setItem('id', id);
       await AsyncStorage.setItem('password', password);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const Restore = async () => {
-    try {
-      const a = await AsyncStorage.getItem('id');
-      const b = await AsyncStorage.getItem('password');
-      if (a == null || b == null) {
-        Alert.alert('저장된 정보가 없습니다.');
-        return;
-      }
-      Alert.alert(a, b);
     } catch (e) {
       console.log(e);
     }
@@ -89,7 +112,7 @@ const Login = () => {
             <StyledText style={globalstyles.h1}>로그인</StyledText>
           </Card>
         </TouchableOpacity>
-        <TouchableOpacity onPress={Restore}>
+        {/* <TouchableOpacity onPress={Restore}>
           <Card
             style={{
               backgroundColor: '#D9D9D9',
@@ -99,7 +122,7 @@ const Login = () => {
             }}>
             <StyledText style={globalstyles.h1}>저장됐니?</StyledText>
           </Card>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </FlexView>
     </SafeAreaView>
   );

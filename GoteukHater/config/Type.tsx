@@ -51,3 +51,15 @@ export interface Book {
   publisher: string;
   category: Category;
 }
+
+export interface Certification {
+  [key: string]: string; // 여러 과목과 그에 따른 권수를 다룰 수 있도록 문자열 맵을 사용합니다.
+}
+
+export interface Student {
+  grade: string;
+  major: string;
+  name: string;
+  read_certification: Certification;
+  status: string;
+}

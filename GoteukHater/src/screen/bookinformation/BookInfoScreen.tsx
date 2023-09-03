@@ -1,5 +1,12 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, Image, ImageBackground} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  SafeAreaView,
+} from 'react-native';
 import Card from '../../components/globalcomponents/Card';
 import BookCard from '../../components/booksearch/BookCard';
 import StyledText from '../../components/globalcomponents/StyledText';
@@ -32,10 +39,10 @@ const BookInfoScreen = (props: propsType) => {
   }, []);
   const book = props.route.params.book;
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ImageBackground
         source={{
-          uri: 'https://image.aladin.co.kr/product/8126/15/cover500/s432636514_1.jpg',
+          uri: book.image_url,
         }}
         style={{width: '100%', height: '100%'}}
         blurRadius={10}
@@ -44,7 +51,7 @@ const BookInfoScreen = (props: propsType) => {
           <View style={styles.modalcontent}>
             <Image
               source={{
-                uri: 'https://image.aladin.co.kr/product/8126/15/cover500/s432636514_1.jpg',
+                uri: book.image_url,
               }}
               style={styles.img}
               resizeMode="cover"
@@ -68,7 +75,7 @@ const BookInfoScreen = (props: propsType) => {
           </View>
         </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
@@ -97,7 +104,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalbody: {
-    backgroundColor: '#F6F6F9',
+    backgroundColor: '#f6f6f9',
     rowGap: 12 * height,
     height: 200 * height,
     borderRadius: 16 * scale,
