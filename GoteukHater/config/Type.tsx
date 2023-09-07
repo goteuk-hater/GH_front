@@ -63,3 +63,10 @@ export interface Student {
   read_certification: Certification;
   status: string;
 }
+export interface BookReservation {
+  book_name: string;
+  date: string;
+  location: string;
+  reserve_id: string;
+  time: string;
+}

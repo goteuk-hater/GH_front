@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SERVER_URL} from '@env';
 import axios from 'axios';
 import {Student} from '../../../config/Type';
+import {Fetchuser} from '../../../hooks/Hooks';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -46,13 +47,12 @@ const Main = ({navigation}: Props) => {
     read_certification: {},
     status: '',
   });
-  const fetchuser = async () => {
-    const id = await AsyncStorage.getItem('id');
-    const password = await AsyncStorage.getItem('password');
+  const fetchinfo = async () => {
+    const user = await Fetchuser();
     try {
       const res = await axios.post(`${SERVER_URL}user/user_info`, {
-        id: id,
-        password: password,
+        id: user.id,
+        password: user.password,
       });
       setMyData(res.data);
     } catch (e) {
@@ -62,18 +62,33 @@ const Main = ({navigation}: Props) => {
       navigation.navigate('Login' as never);
     }
   };
+  const [statusData, setStatusData] = useState<[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const fetchstatusData = async () => {
+    const user = await Fetchuser();
+    const res = await axios
+      .post(`${SERVER_URL}user/reserve_status`, {
+        id: user.id,
+        password: user.password,
+      })
+      .then(res => {
+        setStatusData(res.data);
+        setLoading(false);
+      })
+      .catch(e => {
+        setStatusData([]);
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
-    fetchuser();
+    fetchinfo();
+    fetchstatusData();
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.content, {rowGap: 20 * height}]}>
-        <InformationSection user={myData} />
-        <StatusSection navigation={navigation} />
-        <CertificationSection />
-        <LinkSection navigation={navigation} />
         <Button
           title="Logout"
           onPress={() => {
@@ -82,6 +97,14 @@ const Main = ({navigation}: Props) => {
             navigation.navigate('Login' as never);
           }}
         />
+        <InformationSection user={myData} />
+        <StatusSection
+          navigation={navigation}
+          statusData={statusData}
+          fetchstatusData={fetchstatusData}
+        />
+        <CertificationSection />
+        <LinkSection navigation={navigation} />
       </View>
     </SafeAreaView>
   );

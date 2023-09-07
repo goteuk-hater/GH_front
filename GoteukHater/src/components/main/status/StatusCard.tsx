@@ -13,19 +13,20 @@ import ClassBox from '../../globalcomponents/ClassBox';
 import StyledText from '../../globalcomponents/StyledText';
 import DateBox from './DateBox';
 import {AlertModal} from '../../Modal/AlertModal';
+import {Fetchuser} from '../../../../hooks/Hooks';
+import axios from 'axios';
+import {SERVER_URL} from '@env';
 
 interface StatusProps {
   title: string;
-  date: {
-    year: number;
-    month: string;
-    day: number;
-    time: string;
-  };
+  date: string;
+  time: string;
   classification: string;
   detail?: boolean;
   style?: StyleProp<ViewStyle>;
   location?: string;
+  reserve_id?: string;
+  fetchdata: () => void;
 }
 
 const StatusCard: React.FunctionComponent<StatusProps> = props => {
@@ -34,13 +35,36 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
   const closemodal = () => {
     setVisible(false);
   };
-  const closemodal2 = () => {
+  const closemodal2 = async () => {
+    props.fetchdata();
     setVisible2(false);
   };
 
-  const onConfirm = () => {
+  const onCancel = async () => {
+    const user = await Fetchuser();
+    console.log({
+      id: user.id,
+      password: user.password,
+      reserve_id: props.reserve_id,
+    });
+    console.log(user.id, user.password, props.reserve_id);
+    const res = await axios
+      .post(`${SERVER_URL}user/cancle`, {
+        id: user.id,
+        password: user.password,
+        reserve_id: props.reserve_id,
+      })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(e => {
+        console.log(e.response.data);
+      });
+  };
+  const onConfirm = async () => {
+    await onCancel();
     setVisible(false);
-    setVisible2(true);
+    await closemodal2();
   };
   return (
     <Card style={[props.style, {minWidth: 240 * width}]}>
@@ -59,7 +83,7 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
         <StyledText style={globalstyles.h4}>{props.title}</StyledText>
       </View>
       <View style={globalstyles.row_spacebetween}>
-        <DateBox date={props.date} />
+        <DateBox date={props.date} time={props.time} />
         {props.detail ? (
           <>
             <AlertModal

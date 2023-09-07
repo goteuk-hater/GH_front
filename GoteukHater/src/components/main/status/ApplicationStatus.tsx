@@ -1,34 +1,53 @@
-import React from 'react';
+import {SERVER_URL} from '@env';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {height, width} from '../../../../config/globalStyles';
+import {
+  globalstyles,
+  height,
+  scale,
+  width,
+} from '../../../../config/globalStyles';
+import {BookReservation} from '../../../../config/Type';
+import {Fetchuser} from '../../../../hooks/Hooks';
+import Card from '../../globalcomponents/Card';
 import FlexView from '../../globalcomponents/FlexView';
+import StyledText from '../../globalcomponents/StyledText';
 import StatusCard from './StatusCard';
-
-const ApplicationStatus = () => {
+interface Props {
+  statusData: [];
+  fetchstatusData: () => void;
+}
+const ApplicationStatus = ({statusData, fetchstatusData}: Props) => {
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
       <View style={styles.container}>
-        <StatusCard
-          title={'프로테스탄티즘의 윤리와 자본주의 정신'}
-          date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
-          classification="서양의 역사와 사상"
-        />
-        <StatusCard
-          title={'총균쇠'}
-          date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
-          classification="서양의 역사와 사상"
-        />
-        <StatusCard
-          title={'총균쇠'}
-          date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
-          classification="서양의 역사와 사상"
-        />
-        <StatusCard
-          title={'총균쇠'}
-          date={{year: 2022, month: 'Jan', day: 12, time: '11:30'}}
-          classification="서양의 역사와 사상"
-        />
+        {statusData?.length === 0 ? (
+          <View>
+            <Card
+              style={{
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 32 * scale,
+              }}>
+              <StyledText style={globalstyles.h3}>
+                예약한 시험이 없습니다.
+              </StyledText>
+            </Card>
+          </View>
+        ) : (
+          statusData?.map((item: BookReservation) => (
+            <StatusCard
+              title={item.book_name}
+              date={item.date}
+              time={item.time}
+              classification="서양의 역사와 사상"
+              fetchdata={fetchstatusData}
+            />
+          ))
+        )}
       </View>
     </ScrollView>
   );

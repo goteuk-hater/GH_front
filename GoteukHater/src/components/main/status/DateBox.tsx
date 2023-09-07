@@ -7,12 +7,10 @@ import FlexView from '../../globalcomponents/FlexView';
 import StyledText from '../../globalcomponents/StyledText';
 
 interface DateProps {
-  year: number;
-  month: string;
-  day: number;
+  date: string;
   time: string;
 }
-const DateBox = ({date}: {date: DateProps}) => {
+const DateBox = (props: DateProps) => {
   return (
     <FlexView
       style={[globalstyles.row, styles.datebox]}
@@ -20,13 +18,13 @@ const DateBox = ({date}: {date: DateProps}) => {
       <FlexView style={globalstyles.row} gapHorizental={4 * width}>
         <Calendar name="calendar" size={14 * scale} color="#B1B3C5" />
         <StyledText style={[globalstyles.h5, styles.timetext]}>
-          {date.month} {date.day}th, {date.year}
+          {props.date}
         </StyledText>
       </FlexView>
       <FlexView style={globalstyles.row} gapHorizental={4 * width}>
         <Clock name="schedule" size={14 * scale} color="#B1B3C5" />
         <StyledText style={[globalstyles.h5, styles.timetext]}>
-          {date.time}
+          {props.time}
         </StyledText>
       </FlexView>
     </FlexView>

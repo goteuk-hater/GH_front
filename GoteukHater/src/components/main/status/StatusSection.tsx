@@ -10,8 +10,10 @@ import CertificationCard from '../certification/CertificationCard';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
+  statusData: [];
+  fetchstatusData: () => void;
 }
-const StatusSection = ({navigation}: Props) => {
+const StatusSection = ({navigation, statusData, fetchstatusData}: Props) => {
   return (
     <View style={{rowGap: 12 * height}}>
       <View style={styles.titlebox}>
@@ -22,7 +24,10 @@ const StatusSection = ({navigation}: Props) => {
           <StyledText style={globalstyles.p1}>전체보기</StyledText>
         </TouchableOpacity>
       </View>
-      <ApplicationStatus />
+      <ApplicationStatus
+        statusData={statusData}
+        fetchstatusData={fetchstatusData}
+      />
     </View>
   );
 };

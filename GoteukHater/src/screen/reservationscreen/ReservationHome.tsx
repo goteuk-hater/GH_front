@@ -31,10 +31,22 @@ import Btn from '../../components/globalcomponents/Btn';
 import {ModalHeader} from '../../components/reservation/ModalHeader';
 import {BtnParamList} from '../../../config/Type';
 import {createStackNavigator} from '@react-navigation/stack';
+import axios from 'axios';
+import {SERVER_URL} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Fetchuser} from '../../../hooks/Hooks';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
 }
+interface ReservationInfo {
+  available_seats: string;
+  date: string;
+  time: string;
+  total_seats: string;
+}
+
+// 예약 일정을 담는 타입
 
 const DATA = [
   {time: '10:00 AM', maxnumber: 16, nownumber: 16},
@@ -65,18 +77,23 @@ const ReservationHome = ({navigation}: Props) => {
   const tomorrow = new Date(
     today.getFullYear(),
     today.getMonth(),
-    today.getDate() + 1,
+    today.getDate() + 2,
   );
   const nextmonth = new Date(
     tomorrow.getFullYear(),
     tomorrow.getMonth() + 1,
     tomorrow.getDate(),
   );
+  console.log(tomorrow);
   const mindate = tomorrow.toISOString().slice(0, 10);
   const maxdate = nextmonth.toISOString().slice(0, 10);
   const [selectedDate, setSelectedDate] = React.useState('');
   const [selected, setSelected] = React.useState<number>(-1);
   const [selectedTime, setSelectedTime] = React.useState<string>('');
+
+  const [ReservationSchedule, setReservationSchedule] = React.useState<
+    ReservationInfo[]
+  >([]);
   const setSelect = async (time: string) => {
     navigation.dispatch(
       CommonActions.navigate({
@@ -88,6 +105,18 @@ const ReservationHome = ({navigation}: Props) => {
       }),
     );
   };
+  const fetchdata = async () => {
+    const user = await Fetchuser();
+    const res = await axios.post(`${SERVER_URL}user/calender`, {
+      id: user.id,
+      password: user.password,
+    });
+    // console.log(res.data);
+    setReservationSchedule(res.data);
+  };
+  useEffect(() => {
+    fetchdata();
+  }, []);
 
   // mindate부터 maxdate까지 getday가 0,6인 날짜만 뽑아서 배열에 넣기
   return (
@@ -118,8 +147,8 @@ const ReservationHome = ({navigation}: Props) => {
             }}
             dayComponent={({date, state}) => {
               let strdate = date.dateString;
+              console.log(strdate);
               let day = new Date(strdate).getDay();
-
               if (
                 mindate <= strdate &&
                 strdate <= maxdate &&
