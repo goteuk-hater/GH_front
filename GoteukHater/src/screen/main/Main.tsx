@@ -16,22 +16,18 @@ import StatusSection from '../../components/main/status/StatusSection';
 import CertificationSection from '../../components/main/certification/CertificationSection';
 import LinkSection from '../../components/main/Link/LinkSection';
 import {View} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {SERVER_URL} from '@env';
-import axios from 'axios';
-import {Student} from '../../../config/Type';
-import {FetchStatus, Fetchuser} from '../../hooks/Hooks';
+
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../../store/RootReducer';
-import {setUser, setUserInfo} from '../../store/slice/UserSlice';
+
 import {asyncStatusFetch} from '../../store/slice/StatusSlice';
+import {AppDispatch} from '../../store/store';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
 }
 
 const Main = ({navigation}: Props) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   dispatch(asyncStatusFetch());
   return (
     <SafeAreaView style={styles.container}>

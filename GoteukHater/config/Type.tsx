@@ -34,6 +34,7 @@ export type BtnParamList = {
       params: {
         date: string;
         time: string;
+        id: string;
       };
     };
   };
@@ -53,10 +54,12 @@ export interface Book {
 }
 
 export interface Certification {
-  [key: string]: string; // 여러 과목과 그에 따른 권수를 다룰 수 있도록 문자열 맵을 사용합니다.
+  [key: string]: string;
 }
 
-export interface Student {
+export interface UserInfo {
+  id: string;
+  password: string;
   grade: string;
   major: string;
   name: string;

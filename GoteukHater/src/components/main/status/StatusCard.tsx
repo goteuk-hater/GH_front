@@ -18,7 +18,7 @@ import axios from 'axios';
 import {SERVER_URL} from '@env';
 import {FetchStatus, Fetchuser} from '../../../hooks/Hooks';
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../../../store/store';
+import {AppDispatch, RootState} from '../../../store/store';
 import {asyncStatusFetch} from '../../../store/slice/StatusSlice';
 
 interface StatusProps {
@@ -33,7 +33,7 @@ interface StatusProps {
 }
 
 const StatusCard: React.FunctionComponent<StatusProps> = props => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [visible, setVisible] = React.useState<boolean>(false);
   const [visible2, setVisible2] = React.useState<boolean>(false);
   const closemodal = () => {
@@ -45,16 +45,28 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
   };
   const user = useSelector((state: RootState) => state.User);
   const onCancel = async () => {
-    const res = await axios.post(`${SERVER_URL}user/cancle`, {
+    console.log({
       id: user.id,
       password: user.password,
       reserve_id: props.reserve_id,
     });
+    const res = await axios
+      .post(`${SERVER_URL}user/cancle`, {
+        id: user.id,
+        password: user.password,
+        reserve_id: props.reserve_id,
+      })
+      .then(res => {
+        setVisible(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
-  const onConfirm = async () => {
-    await onCancel();
-    setVisible(false);
-    await closemodal2();
+  const onConfirm = () => {
+    onCancel().then(res => {
+      setVisible2(true);
+    });
   };
   return (
     <Card style={[props.style, {minWidth: 240 * width}]}>

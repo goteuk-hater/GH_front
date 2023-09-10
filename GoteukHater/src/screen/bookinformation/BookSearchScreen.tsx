@@ -19,11 +19,14 @@ import {SERVER_URL} from '@env';
 import {Book} from '../../../config/Type';
 import {FlatList} from 'react-native';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../store/RootReducer';
 
 const BookSearchScreen = () => {
   const [tagList, setTagList] = useState<string[]>([]);
   const [text, setText] = React.useState('');
   const [loading, setLoading] = useState(false);
+  const data = useSelector((state: RootState) => state.Books.data);
   const addtag = (tag: string) => {
     let newtagList = [...tagList];
     if (newtagList.includes(tag)) {
@@ -42,7 +45,7 @@ const BookSearchScreen = () => {
     setTagList(newtagList);
     Keyboard.dismiss();
   };
-  const [data, setData] = useState(Array<Book>);
+
   const [filteredData, setFilteredData] = useState(Array<Book>);
   const filter = () => {
     let newdata = [...data];
@@ -70,16 +73,6 @@ const BookSearchScreen = () => {
   useEffect(() => {
     scrollToTop();
   }, [filteredData]);
-  const fetchdata = async () => {
-    setLoading(true);
-    const response = await axios
-      .get(`${SERVER_URL}books/book_data`)
-      .then(response => {
-        setData(response.data.data);
-        setFilteredData(response.data.data);
-        setLoading(false);
-      });
-  };
 
   const itemseparater = useCallback(() => {
     return <View style={{height: 12 * height}} />;
@@ -88,9 +81,6 @@ const BookSearchScreen = () => {
     return <BookCard Book={item} key={item.id.toString()} />;
   }, []);
 
-  useEffect(() => {
-    fetchdata();
-  }, []);
   useEffect(() => {
     filter();
   }, [tagList, text]);
@@ -127,25 +117,22 @@ const BookSearchScreen = () => {
         onPress={() => {
           Keyboard.dismiss();
         }}>
-        {loading ? (
-          <StyledText style={globalstyles.p2}>로딩중...</StyledText>
-        ) : (
-          <FlatList
-            ref={flatListRef}
-            data={filteredData}
-            renderItem={renderItem}
-            numColumns={2}
-            getItemLayout={(data, index) => ({
-              length: 300 * height,
-              offset: 300 * height * index,
-              index,
-            })}
-            ItemSeparatorComponent={itemseparater}
-            keyExtractor={(item: Book) => item.id.toString()}
-            ListFooterComponent={<View style={{height: 100 * height}} />}
-            onEndReachedThreshold={0.1}
-          />
-        )}
+        <FlatList
+          ref={flatListRef}
+          data={filteredData}
+          renderItem={renderItem}
+          numColumns={2}
+          // getItemLayout={(data, index) => ({
+          //   length: 300 * height,
+          //   offset: 300 * height * index,
+          //   index,
+          // })}
+          ItemSeparatorComponent={itemseparater}
+          keyExtractor={(item: Book) => item.id.toString()}
+          ListFooterComponent={<View style={{height: 100 * height}} />}
+          onEndReachedThreshold={0.1}
+          maxToRenderPerBatch={6}
+        />
       </TouchableWithoutFeedback>
     </View>
   );

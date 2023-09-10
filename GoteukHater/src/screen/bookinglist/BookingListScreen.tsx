@@ -15,7 +15,7 @@ import {RootState} from '../../store/store';
 
 const BookingListScreen = () => {
   const data = useSelector((state: RootState) => state.Status);
-  console.log(data);
+
   if (data.status == 'loading') {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

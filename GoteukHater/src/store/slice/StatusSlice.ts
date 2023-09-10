@@ -1,10 +1,9 @@
 import {SERVER_URL} from '@env';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {act, create} from 'react-test-renderer';
+
 import {Fetchuser} from '../../hooks/Hooks';
 
-// User에서 관리해야하는 Slice
 const initialState = {
   data: [],
   status: '',

@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20 * scale,
     paddingHorizontal: 20 * width,
     rowGap: 14 * height,
+    marginBottom: 40 * height,
   },
   modalText: {
     ...globalstyles.h3,

@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {UserInfo} from '../../../config/Type';
 
 // User에서 관리해야하는 Slice
 const initialState = {
@@ -9,7 +10,7 @@ const initialState = {
   name: '',
   read_certification: {},
   status: '',
-};
+} as UserInfo;
 
 export const UserSlice = createSlice({
   name: 'User',

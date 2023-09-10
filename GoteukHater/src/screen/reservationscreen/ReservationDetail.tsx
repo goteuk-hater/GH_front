@@ -8,57 +8,89 @@ import {onOpen, Picker} from 'react-native-actions-sheet-picker';
 import StyledText from '../../components/globalcomponents/StyledText';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 import Btn from '../../components/globalcomponents/Btn';
-import {BtnParamList} from '../../../config/Type';
+import {Book, BtnParamList} from '../../../config/Type';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import SheetHandle from '../../components/globalcomponents/SheetHandle';
 import TagModal from '../../components/booksearch/TagModal';
 import BooksearchModal from '../../components/reservation/BooksearchModal';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../../store/RootReducer';
+import axios from 'axios';
+import {SERVER_URL} from '@env';
+import {AlertModal} from '../../components/Modal/AlertModal';
+import {AppDispatch} from '../../store/store';
+import {asyncStatusFetch} from '../../store/slice/StatusSlice';
+const certificationlist = [
+  '동서양의 문학',
+  '서양의 역사와 사상',
+  '동양의 역사와 사상',
+  '과학 사상',
+];
 const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
+  const dispatch = useDispatch<AppDispatch>();
   const navigation = useNavigation();
-  const bookdata = {
-    '분야를 선택해주세요.': ['도서를 선택해주세요.'],
-    '동서양의 문학': ['플라톤의 국가', '정치학', '키케로의 의무론'],
-    '서양의 역사와 사상': ['성학십도', '북학의', '조선상고사'],
-    '동양의 역사와 사상': [
-      '젊은 예술가의 초상',
-      '구토',
-      '실락원',
-      '젊은 예술가의 초상',
-      '구토',
-      '실락원',
-      '젊은 예술가의 초상',
-      '실락원',
-      '젊은 예술가의 초상',
-      '구토',
-      '실락원',
-      '실락원',
-    ],
-    과학사: ['통섭', '종의 기원', '부분과 전체'],
+  const bookdata = useSelector((state: RootState) => state.Books.data);
+  const user = useSelector((state: RootState) => state.User);
+  const [visible, setVisible] = React.useState<boolean>(false);
+  const closemodal = () => {
+    setVisible(false);
+    dispatch(asyncStatusFetch());
+    dismiss();
   };
-
-  const certificationlist = [
-    '동서양의 문학',
-    '서양의 역사와 사상',
-    '동양의 역사와 사상',
-    '과학사',
-  ];
+  const [description, setDescription] = React.useState<string>('');
   const [selected, setSelected] = React.useState('분야를 선택해주세요.');
   const [selectedBook, setSelectedBook] =
     React.useState('도서를 선택해 주세요.');
-  const [booklist, setBooklist] = React.useState<string[]>(
-    bookdata['분야를 선택해주세요.'],
-  );
+
+  const [booklist, setBooklist] = React.useState<string[]>([]);
+
   const back = () => {
     navigation.goBack();
   };
   const {dismiss} = useBottomSheetModal();
+
+  const submit = async (selected: string, book_name: string) => {
+    console.log({
+      id: user.id,
+      password: user.password,
+      shInfold: props.route.params.id,
+      book_name: book_name,
+      classification: selected,
+    });
+    const res = await axios
+      .post(`${SERVER_URL}user/reserve`, {
+        id: user.id,
+        password: user.password,
+        shInfold: props.route.params.id,
+        book_name: book_name,
+        classification: selected,
+      })
+      .then(res => {
+        console.log(res);
+        setDescription('예약이 완료되었습니다.');
+
+        setVisible(true);
+      })
+      .catch(err => {
+        console.log(err);
+        setDescription('예약에 실패하였습니다.');
+        setVisible(true);
+      });
+  };
+
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <Btn onPress={back} Icon="chevron-back" />,
-      headerRight: () => <Btn onPress={dismiss} title="신청하기" />,
+      headerRight: () => (
+        <Btn
+          onPress={() => {
+            submit(selected, selectedBook);
+          }}
+          title="신청하기"
+        />
+      ),
     });
-  }, []);
+  }, [selected, selectedBook]);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const bottomSheetModalRef2 = useRef<BottomSheetModal>(null);
   // variables
@@ -78,9 +110,21 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
   const modalclose2 = () => {
     bottomSheetModalRef2.current?.close();
   };
+
+  const filter = (str: string) => {
+    let newbooklist: string[] = [];
+    bookdata.map(book => {
+      if (book.category.category === str) {
+        newbooklist.push(book.title);
+      }
+    });
+    setBooklist(newbooklist);
+    console.log(newbooklist);
+  };
+
   const selectcategory = (str: string) => {
     setSelected(str);
-    setBooklist(bookdata[str]);
+    filter(str);
     setSelectedBook('도서를 선택해 주세요.');
     modalclose();
   };
@@ -88,82 +132,92 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
     setSelectedBook(str);
     modalclose2();
   };
+  console.log(selectedBook);
   return (
-    <View style={styles.container}>
-      <StyledText style={[styles.title, {marginTop: 0 * height}]}>
-        날짜
-      </StyledText>
-      <View style={styles.inputbox}>
-        <StyledText style={globalstyles.p1}>
-          {props.route.params.date}
+    <>
+      <View style={styles.container}>
+        <StyledText style={[styles.title, {marginTop: 0 * height}]}>
+          날짜
         </StyledText>
-      </View>
-      <StyledText style={styles.title}>시간</StyledText>
-      <View style={styles.inputbox}>
-        <StyledText style={globalstyles.p1}>
-          {props.route.params.time}
-        </StyledText>
-      </View>
+        <View style={styles.inputbox}>
+          <StyledText style={globalstyles.p1}>
+            {props.route.params.date}
+          </StyledText>
+        </View>
+        <StyledText style={styles.title}>시간</StyledText>
+        <View style={styles.inputbox}>
+          <StyledText style={globalstyles.p1}>
+            {props.route.params.time}
+          </StyledText>
+        </View>
 
-      <StyledText style={styles.title}>분야</StyledText>
-      <TouchableOpacity
-        style={styles.inputbox}
-        onPress={handlePresentModalPress}>
-        <StyledText
-          style={[
-            globalstyles.p1,
-            {
-              color: selected === '분야를 선택해주세요.' ? 'gray' : 'black',
-            },
-          ]}>
-          {selected}
-        </StyledText>
-      </TouchableOpacity>
+        <StyledText style={styles.title}>분야</StyledText>
+        <TouchableOpacity
+          style={styles.inputbox}
+          onPress={handlePresentModalPress}>
+          <StyledText
+            style={[
+              globalstyles.p1,
+              {
+                color: selected === '분야를 선택해주세요.' ? 'gray' : 'black',
+              },
+            ]}>
+            {selected}
+          </StyledText>
+        </TouchableOpacity>
 
-      <StyledText style={styles.title}>도서명</StyledText>
-      <TouchableOpacity
-        style={styles.inputbox}
-        onPress={handlepresentModalPress2}>
-        <StyledText
-          style={[
-            globalstyles.p1,
-            {
-              color:
-                selectedBook === '도서를 선택해 주세요.' ? 'gray' : 'black',
-            },
-          ]}>
-          {selectedBook}
-        </StyledText>
-      </TouchableOpacity>
-      <BottomSheetModal
-        ref={bottomSheetModalRef}
-        index={0}
-        snapPoints={snapPoints}
-        stackBehavior="push"
-        handleComponent={SheetHandle}>
-        <BooksearchModal
-          closeModal={modalclose}
-          setState={selectcategory}
-          list={certificationlist}
-          title="분야"
-          selected={selected}
-        />
-      </BottomSheetModal>
-      <BottomSheetModal
-        ref={bottomSheetModalRef2}
-        index={0}
-        snapPoints={snapPoints}
-        stackBehavior="push"
-        handleComponent={SheetHandle}>
-        <BooksearchModal
-          closeModal={modalclose2}
-          setState={selectbook}
-          list={booklist}
-          title="도서명"
-          selected={selectedBook}
-        />
-      </BottomSheetModal>
-    </View>
+        <StyledText style={styles.title}>도서명</StyledText>
+        <TouchableOpacity
+          style={styles.inputbox}
+          onPress={handlepresentModalPress2}>
+          <StyledText
+            style={[
+              globalstyles.p1,
+              {
+                color:
+                  selectedBook === '도서를 선택해 주세요.' ? 'gray' : 'black',
+              },
+            ]}>
+            {selectedBook}
+          </StyledText>
+        </TouchableOpacity>
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          index={0}
+          snapPoints={snapPoints}
+          stackBehavior="push"
+          handleComponent={SheetHandle}>
+          <BooksearchModal
+            closeModal={modalclose}
+            setState={selectcategory}
+            list={certificationlist}
+            title="분야"
+            selected={selected}
+          />
+        </BottomSheetModal>
+        <BottomSheetModal
+          ref={bottomSheetModalRef2}
+          index={0}
+          snapPoints={snapPoints}
+          stackBehavior="push"
+          handleComponent={SheetHandle}>
+          <BooksearchModal
+            closeModal={modalclose2}
+            setState={selectbook}
+            list={booklist}
+            title="도서명"
+            selected={selectedBook}
+          />
+        </BottomSheetModal>
+      </View>
+      <AlertModal
+        visible={visible}
+        description={description}
+        accpetText="확인"
+        onConfirm={closemodal}
+        onClose={closemodal}
+      />
+    </>
   );
 };
 

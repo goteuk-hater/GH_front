@@ -64,8 +64,8 @@ const Login = () => {
   };
   useEffect(() => {
     AsyncStorage.clear();
-    dispatch(setUser({}));
-    dispatch(setUserInfo({}));
+    // dispatch(setUser({}));
+    // dispatch(setUserInfo({}));
   }, []);
 
   return (
