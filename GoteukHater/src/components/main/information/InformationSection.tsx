@@ -5,18 +5,14 @@ import {Student} from '../../../../config/Type';
 import FlexView from '../../globalcomponents/FlexView';
 import StyledText from '../../globalcomponents/StyledText';
 import InformationCard from './InformationCard';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../../store/RootReducer';
 
-interface Props {
-  user: Student;
-}
-
-const InformationSection = (props: Props) => {
-  const user = props.user;
-
+const InformationSection = () => {
   return (
     <View style={{rowGap: 12 * height}}>
       <StyledText style={globalstyles.h1}>내 정보</StyledText>
-      <InformationCard user={user} />
+      <InformationCard />
     </View>
   );
 };

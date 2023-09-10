@@ -3,38 +3,28 @@ import {
   NavigationProp,
   NavigationState,
 } from '@react-navigation/native';
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import {
-  Text,
   StyleSheet,
   View,
   FlatList,
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import {
-  Agenda,
-  AgendaList,
-  Calendar,
-  CalendarProvider,
-  ExpandableCalendar,
-  WeekCalendar,
-} from 'react-native-calendars';
+import {Calendar} from 'react-native-calendars';
 import {ScrollView} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
+
 import Card from '../../components/globalcomponents/Card';
-import FlexView from '../../components/globalcomponents/FlexView';
+
 import StyledText from '../../components/globalcomponents/StyledText';
 import TimeselectCard from '../../components/reservation/TimeselectCard';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import Btn from '../../components/globalcomponents/Btn';
-import {ModalHeader} from '../../components/reservation/ModalHeader';
-import {BtnParamList} from '../../../config/Type';
-import {createStackNavigator} from '@react-navigation/stack';
+
 import axios from 'axios';
 import {SERVER_URL} from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Fetchuser} from '../../../hooks/Hooks';
+
+import {Fetchuser} from '../../hooks/Hooks';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -60,13 +50,6 @@ const DATA = [
   {time: '16:00 PM', maxnumber: 16, nownumber: 12},
   {time: '16:30 PM', maxnumber: 16, nownumber: 12},
 ];
-interface Navi {
-  screen: 'ReservationDetail';
-  params: {
-    time: string;
-    date: string;
-  };
-}
 
 const ReservationHome = ({navigation}: Props) => {
   //내일 날짜
@@ -107,11 +90,13 @@ const ReservationHome = ({navigation}: Props) => {
   };
   const fetchdata = async () => {
     const user = await Fetchuser();
+
+    console.log(user);
     const res = await axios.post(`${SERVER_URL}user/calender`, {
       id: user.id,
       password: user.password,
     });
-    // console.log(res.data);
+
     setReservationSchedule(res.data);
   };
   useEffect(() => {
@@ -147,7 +132,7 @@ const ReservationHome = ({navigation}: Props) => {
             }}
             dayComponent={({date, state}) => {
               let strdate = date.dateString;
-              console.log(strdate);
+
               let day = new Date(strdate).getDay();
               if (
                 mindate <= strdate &&

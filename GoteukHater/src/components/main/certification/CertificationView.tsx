@@ -1,18 +1,47 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import FlexView from '../../globalcomponents/FlexView';
 import CertificationCard from './CertificationCard';
 import {height, width} from '../../../../config/globalStyles';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../../store/RootReducer';
+const dict = {
+  1: '과학 사상(1권)',
+  2: '동·서양의 문학(3권)',
+  3: '동양의역사와사상(2권)',
+  4: '서양의역사와사상(4권)',
+};
 const CertificationView = () => {
+  const user = useSelector((state: RootState) => state.User);
+  // const science = Number(user.read_certification[dict[1]][0]);
+  // const eastwest = Number(user.read_certification[dict[2]][0]);
+  // const east = Number(user.read_certification[dict[3]][0]);
+  // const west = Number(user.read_certification[dict[4]][0]);
   return (
     <View style={{rowGap: 4 * height}}>
       <View style={[styles.row, {columnGap: 8 * width}]}>
-        <CertificationCard title={'서양의 역사와 사상'} maxnum={4} mynum={1} />
-        <CertificationCard title={'동양의 역사와 사상'} maxnum={2} mynum={2} />
+        <CertificationCard
+          title={'서양의 역사와 사상'}
+          maxnum={4}
+          mynum={user.read_certification[dict[4]]}
+        />
+        <CertificationCard
+          title={'동양의 역사와 사상'}
+          maxnum={2}
+          mynum={user.read_certification[dict[3]]}
+        />
       </View>
       <View style={[styles.row, {columnGap: 8 * width}]}>
-        <CertificationCard title={'과학 사상'} maxnum={1} mynum={0} />
-        <CertificationCard title={'동서양의 문학'} maxnum={3} mynum={3} />
+        <CertificationCard
+          title={'과학 사상'}
+          maxnum={1}
+          mynum={user.read_certification[dict[1]]}
+        />
+        <CertificationCard
+          title={'동서양의 문학'}
+          maxnum={3}
+          mynum={user.read_certification[dict[2]]}
+        />
       </View>
     </View>
   );

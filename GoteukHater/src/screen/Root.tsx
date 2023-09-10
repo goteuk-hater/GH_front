@@ -16,7 +16,6 @@ type RootStackParamList = {
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 const Stack = createStackNavigator<RootStackParamList>();
 const Root = () => {
-  const [modalVisible, setModalVisible] = React.useState(false);
   return (
     <NavigationContainer>
       <BottomSheetModalProvider>
@@ -24,15 +23,19 @@ const Root = () => {
         <Stack.Navigator>
           <Stack.Group>
             <Stack.Screen name="SplashScreen" component={SplashScreen} />
+          </Stack.Group>
+          {/* 로그인 */}
+          <Stack.Group>
             <Stack.Screen
               name="NestPage"
               component={NestPage}
               options={{headerShown: false, gestureEnabled: false}}
             />
-          </Stack.Group>
-          {/* 로그인 */}
-          <Stack.Group screenOptions={{headerShown: false}}>
-            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{headerShown: false}}
+            />
           </Stack.Group>
         </Stack.Navigator>
       </BottomSheetModalProvider>

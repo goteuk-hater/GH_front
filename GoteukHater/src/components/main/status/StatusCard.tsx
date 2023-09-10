@@ -13,9 +13,13 @@ import ClassBox from '../../globalcomponents/ClassBox';
 import StyledText from '../../globalcomponents/StyledText';
 import DateBox from './DateBox';
 import {AlertModal} from '../../Modal/AlertModal';
-import {Fetchuser} from '../../../../hooks/Hooks';
+
 import axios from 'axios';
 import {SERVER_URL} from '@env';
+import {FetchStatus, Fetchuser} from '../../../hooks/Hooks';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../../../store/store';
+import {asyncStatusFetch} from '../../../store/slice/StatusSlice';
 
 interface StatusProps {
   title: string;
@@ -26,40 +30,26 @@ interface StatusProps {
   style?: StyleProp<ViewStyle>;
   location?: string;
   reserve_id?: string;
-  fetchdata: () => void;
 }
 
 const StatusCard: React.FunctionComponent<StatusProps> = props => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = React.useState<boolean>(false);
   const [visible2, setVisible2] = React.useState<boolean>(false);
   const closemodal = () => {
     setVisible(false);
   };
-  const closemodal2 = async () => {
-    props.fetchdata();
+  const closemodal2 = () => {
+    dispatch(asyncStatusFetch());
     setVisible2(false);
   };
-
+  const user = useSelector((state: RootState) => state.User);
   const onCancel = async () => {
-    const user = await Fetchuser();
-    console.log({
+    const res = await axios.post(`${SERVER_URL}user/cancle`, {
       id: user.id,
       password: user.password,
       reserve_id: props.reserve_id,
     });
-    console.log(user.id, user.password, props.reserve_id);
-    const res = await axios
-      .post(`${SERVER_URL}user/cancle`, {
-        id: user.id,
-        password: user.password,
-        reserve_id: props.reserve_id,
-      })
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(e => {
-        console.log(e.response.data);
-      });
   };
   const onConfirm = async () => {
     await onCancel();

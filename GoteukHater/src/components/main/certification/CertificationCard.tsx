@@ -36,7 +36,7 @@ const CertificationCard: React.FunctionComponent<
             {props.mynum}/{props.maxnum}권
           </StyledText>
           <View style={styles.barbox}>
-            <View style={[styles.bar, barcolor, {width: rate}]} />
+            <View style={[styles.bar, {width: rate}, barcolor]} />
           </View>
         </View>
       }
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     borderRadius: 20 * scale,
     flexDirection: 'row',
     width: 151 * width,
+
     height: 8 * height,
     backgroundColor: '#EAEEF2',
   },
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
   },
   green: {
     backgroundColor: '#20B358',
+    maxWidth: 151 * width,
   },
 });
 export default CertificationCard;

@@ -1,5 +1,5 @@
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
-import React, {type PropsWithChildren} from 'react';
+import React, {useEffect, type PropsWithChildren} from 'react';
 import {View, Text, StyleSheet, Alert} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import {color} from 'react-native-reanimated';
@@ -12,11 +12,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {SERVER_URL} from '@env';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {setUser, setUserInfo} from '../../store/slice/UserSlice';
 
 const Login = () => {
   const [id, setId] = React.useState('');
   const [password, setPassword] = React.useState('');
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const Loginfunction = async () => {
     if (id === '' || password === '') {
       Alert.alert('아이디와 비밀번호를 입력해주세요.');
@@ -26,21 +29,23 @@ const Login = () => {
       Alert.alert('아이디는 8자리입니다.');
       return;
     }
-    // setPhone(
-    //   '18011485',
-    //   '"gAAAAABk8u3o1l-eqocF4AvI0nGU23DqXr8xzMMIEsROsILp8MxROCOrZPzgemKCJMAApjz7W4AzVjq6XK09pFCN5RRSThV_DQ=="',
-    // );
     try {
       const res = await axios.post(`${SERVER_URL}user/login`, {
         id: id,
         password: password,
       });
       if (res.status === 200) {
-        console.log(res.data);
         if (res.data === 'false') {
           Alert.alert('로그인 실패');
         } else {
-          setPhone(id, res.data);
+          setPhone(id, res.data.password);
+          dispatch(
+            setUser({
+              id: res.data.id,
+              password: res.data.password,
+            }),
+          );
+          dispatch(setUserInfo(res.data.conf_data));
           navigation.navigate('NestPage' as never);
         }
       }
@@ -57,6 +62,11 @@ const Login = () => {
       console.log(e);
     }
   };
+  useEffect(() => {
+    AsyncStorage.clear();
+    dispatch(setUser({}));
+    dispatch(setUserInfo({}));
+  }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -112,17 +122,6 @@ const Login = () => {
             <StyledText style={globalstyles.h1}>로그인</StyledText>
           </Card>
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={Restore}>
-          <Card
-            style={{
-              backgroundColor: '#D9D9D9',
-              width: 348 * scale,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <StyledText style={globalstyles.h1}>저장됐니?</StyledText>
-          </Card>
-        </TouchableOpacity> */}
       </FlexView>
     </SafeAreaView>
   );

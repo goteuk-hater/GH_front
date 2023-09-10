@@ -1,19 +1,17 @@
-import {NavigationProp, NavigationState} from '@react-navigation/native';
+import {
+  NavigationProp,
+  NavigationState,
+  useNavigation,
+} from '@react-navigation/native';
 import {TouchableOpacity, View} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {globalstyles, height, width} from '../../../../config/globalStyles';
 import ApplicationStatus from './ApplicationStatus';
-import CertificationView from '../certification/CertificationView';
-import FlexView from '../../globalcomponents/FlexView';
 import StyledText from '../../globalcomponents/StyledText';
-import CertificationCard from '../certification/CertificationCard';
 
-interface Props {
-  navigation: NavigationProp<NavigationState>;
-  statusData: [];
-  fetchstatusData: () => void;
-}
-const StatusSection = ({navigation, statusData, fetchstatusData}: Props) => {
+const StatusSection = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={{rowGap: 12 * height}}>
       <View style={styles.titlebox}>
@@ -24,10 +22,7 @@ const StatusSection = ({navigation, statusData, fetchstatusData}: Props) => {
           <StyledText style={globalstyles.p1}>전체보기</StyledText>
         </TouchableOpacity>
       </View>
-      <ApplicationStatus
-        statusData={statusData}
-        fetchstatusData={fetchstatusData}
-      />
+      <ApplicationStatus />
     </View>
   );
 };
