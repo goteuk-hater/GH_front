@@ -3,11 +3,16 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import {Fetchuser} from '../../hooks/Hooks';
+import {Status} from '../../../config/Type';
+interface StatusState {
+  data: Status[];
+  status: string;
+}
 
 const initialState = {
   data: [],
   status: '',
-};
+} as StatusState;
 const asyncStatusFetch = createAsyncThunk('Status/fetchStatus', async () => {
   const user = await Fetchuser();
   const res = await axios.post(`${SERVER_URL}user/reserve_status`, {

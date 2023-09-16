@@ -19,7 +19,7 @@ const Root = () => {
   return (
     <NavigationContainer>
       <BottomSheetModalProvider>
-        <StatusBar />
+        <StatusBar barStyle={'dark-content'} />
         <Stack.Navigator>
           <Stack.Group>
             <Stack.Screen name="SplashScreen" component={SplashScreen} />

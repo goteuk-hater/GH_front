@@ -1,17 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
-
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import {onOpen, Picker} from 'react-native-actions-sheet-picker';
 import StyledText from '../../components/globalcomponents/StyledText';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 import Btn from '../../components/globalcomponents/Btn';
-import {Book, BtnParamList} from '../../../config/Type';
+import {BtnParamList} from '../../../config/Type';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import SheetHandle from '../../components/globalcomponents/SheetHandle';
-import TagModal from '../../components/booksearch/TagModal';
 import BooksearchModal from '../../components/reservation/BooksearchModal';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../store/RootReducer';
@@ -50,13 +47,6 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
   const {dismiss} = useBottomSheetModal();
 
   const submit = async (selected: string, book_name: string) => {
-    console.log({
-      id: user.id,
-      password: user.password,
-      shInfold: props.route.params.id,
-      book_name: book_name,
-      classification: selected,
-    });
     const res = await axios
       .post(`${SERVER_URL}user/reserve`, {
         id: user.id,
@@ -66,13 +56,10 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
         classification: selected,
       })
       .then(res => {
-        console.log(res);
         setDescription('예약이 완료되었습니다.');
-
         setVisible(true);
       })
       .catch(err => {
-        console.log(err);
         setDescription('예약에 실패하였습니다.');
         setVisible(true);
       });

@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  View,
-  ViewStyle,
-  StyleProp,
-  Alert,
-  Modal,
-  TouchableOpacity,
-} from 'react-native';
+import {View, ViewStyle, StyleProp, TouchableOpacity} from 'react-native';
 import Card from '../../globalcomponents/Card';
-import {globalstyles, height, width} from '../../../../config/globalStyles';
+import {globalstyles, width} from '../../../../config/globalStyles';
 import ClassBox from '../../globalcomponents/ClassBox';
 import StyledText from '../../globalcomponents/StyledText';
 import DateBox from './DateBox';
@@ -16,7 +9,6 @@ import {AlertModal} from '../../Modal/AlertModal';
 
 import axios from 'axios';
 import {SERVER_URL} from '@env';
-import {FetchStatus, Fetchuser} from '../../../hooks/Hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../../store/store';
 import {asyncStatusFetch} from '../../../store/slice/StatusSlice';

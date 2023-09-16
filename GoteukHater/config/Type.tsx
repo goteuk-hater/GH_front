@@ -46,7 +46,6 @@ export interface Category {
 }
 
 export interface Book {
-  id: number;
   title: string;
   author: string;
   publisher: string;
@@ -72,4 +71,11 @@ export interface BookReservation {
   location: string;
   reserve_id: string;
   time: string;
+}
+export interface Status {
+  date: string;
+  time: string;
+  location: string;
+  book_name: string;
+  reserve_id: string;
 }

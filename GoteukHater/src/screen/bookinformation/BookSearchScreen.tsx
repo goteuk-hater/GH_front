@@ -78,7 +78,7 @@ const BookSearchScreen = () => {
     return <View style={{height: 12 * height}} />;
   }, []);
   const renderItem = useCallback(({item}: {item: Book}) => {
-    return <BookCard Book={item} key={item.id.toString()} />;
+    return <BookCard Book={item} key={item.title} />;
   }, []);
 
   useEffect(() => {
@@ -128,7 +128,7 @@ const BookSearchScreen = () => {
           //   index,
           // })}
           ItemSeparatorComponent={itemseparater}
-          keyExtractor={(item: Book) => item.id.toString()}
+          keyExtractor={(item: Book) => item.title}
           ListFooterComponent={<View style={{height: 100 * height}} />}
           onEndReachedThreshold={0.1}
           maxToRenderPerBatch={6}

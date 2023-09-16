@@ -1,14 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Modal,
-  Text,
-  Pressable,
-  Button,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import React from 'react';
+import {SafeAreaView, StyleSheet, Button} from 'react-native';
 import {NavigationProp, NavigationState} from '@react-navigation/native';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import InformationSection from '../../components/main/information/InformationSection';
@@ -17,7 +8,7 @@ import CertificationSection from '../../components/main/certification/Certificat
 import LinkSection from '../../components/main/Link/LinkSection';
 import {View} from 'react-native';
 
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import {asyncStatusFetch} from '../../store/slice/StatusSlice';
 import {AppDispatch} from '../../store/store';
