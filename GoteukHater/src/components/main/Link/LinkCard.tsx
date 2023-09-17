@@ -2,7 +2,7 @@ import {NavigationProp, NavigationState} from '@react-navigation/native';
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {height, scale} from '../../../../config/globalStyles';
+import {globalstyles, height, scale} from '../../../../config/globalStyles';
 import Card from '../../globalcomponents/Card';
 import StyledText from '../../globalcomponents/StyledText';
 interface LinkCardProps {
@@ -25,14 +25,12 @@ const LinkCard: React.FC<LinkCardProps> = props => {
 
 const styles = StyleSheet.create({
   linktitle: {
-    fontSize: 16 * scale,
-    fontWeight: '700',
-    marginBottom: 2,
+    ...globalstyles.h3,
+    marginBottom: 2 * height,
   },
   linktext: {
     color: '#8B8B8B',
-    fontSize: 12 * scale,
-    fontWeight: '700',
+    ...globalstyles.h5,
   },
 });
 export default LinkCard;

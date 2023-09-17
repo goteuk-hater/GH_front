@@ -47,6 +47,13 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
   const {dismiss} = useBottomSheetModal();
 
   const submit = async (selected: string, book_name: string) => {
+    console.log({
+      id: user.id,
+      password: user.password,
+      shInfold: props.route.params.id,
+      book_name: book_name,
+      classification: selected,
+    });
     const res = await axios
       .post(`${SERVER_URL}user/reserve`, {
         id: user.id,

@@ -32,7 +32,7 @@ const CertificationCard: React.FunctionComponent<
       children={
         <View style={{rowGap: 8 * height}}>
           <StyledText style={globalstyles.h3}>{props.title}</StyledText>
-          <StyledText style={[globalstyles.p2, styles.certifiedtext]}>
+          <StyledText style={[styles.certifiedtext, globalstyles.p2]}>
             {props.mynum}/{props.maxnum}권
           </StyledText>
           <View style={styles.barbox}>
@@ -46,8 +46,7 @@ const CertificationCard: React.FunctionComponent<
 
 const styles = StyleSheet.create({
   certifiedtitle: {
-    fontSize: 14 * scale,
-    fontWeight: '700',
+    ...globalstyles.h4,
   },
   certifiedtext: {
     textAlign: 'right',
@@ -57,7 +56,6 @@ const styles = StyleSheet.create({
     borderRadius: 20 * scale,
     flexDirection: 'row',
     width: 151 * width,
-
     height: 8 * height,
     backgroundColor: '#EAEEF2',
   },

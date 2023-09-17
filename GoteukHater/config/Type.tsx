@@ -46,6 +46,7 @@ export interface Category {
 }
 
 export interface Book {
+  book_code: string;
   title: string;
   author: string;
   publisher: string;

@@ -24,10 +24,9 @@ export const globalstyles = StyleSheet.create({
   },
   h2: {
     fontSize: 18 * scale,
-    fontWeight: '700',
     ...Platform.select({
       android: {
-        fontFamily: 'SUIT-Bold',
+        fontFamily: 'SUIT-ExtraBold',
       },
       ios: {
         fontWeight: '700',
@@ -36,10 +35,10 @@ export const globalstyles = StyleSheet.create({
   },
   h3: {
     fontSize: 16 * scale,
-    fontWeight: '700',
+
     ...Platform.select({
       android: {
-        fontFamily: 'SUIT-Bold',
+        fontFamily: 'SUIT-ExtraBold',
       },
       ios: {
         fontWeight: '700',
@@ -48,10 +47,10 @@ export const globalstyles = StyleSheet.create({
   },
   h4: {
     fontSize: 14 * scale,
-    fontWeight: '700',
+
     ...Platform.select({
       android: {
-        fontFamily: 'SUIT-Bold',
+        fontFamily: 'SUIT-ExtraBold',
       },
       ios: {
         fontWeight: '700',
@@ -60,10 +59,9 @@ export const globalstyles = StyleSheet.create({
   },
   h5: {
     fontSize: 12 * scale,
-    fontWeight: '700',
     ...Platform.select({
       android: {
-        fontFamily: 'SUIT-Bold',
+        fontFamily: 'SUIT-ExtraBold',
       },
       ios: {
         fontWeight: '700',
@@ -74,15 +72,7 @@ export const globalstyles = StyleSheet.create({
     fontSize: 14 * scale,
     ...Platform.select({
       android: {
-        fontFamily: 'SUIT-Medium',
-      },
-      ios: {
-        fontWeight: '500',
-      },
-    }),
-    ...Platform.select({
-      android: {
-        fontFamily: 'SUIT-Medium',
+        fontFamily: 'SUIT-Bold',
       },
       ios: {
         fontWeight: '500',
@@ -93,7 +83,7 @@ export const globalstyles = StyleSheet.create({
     fontSize: 12 * scale,
     ...Platform.select({
       android: {
-        fontFamily: 'SUIT-ExtraBold',
+        fontFamily: 'SUIT-Bold',
       },
       ios: {
         fontWeight: '500',

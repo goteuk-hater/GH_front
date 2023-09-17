@@ -98,7 +98,7 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
               onClose={closemodal2}
             />
             <StyledText style={[globalstyles.p1, {color: '#818181'}]}>
-              광개토관 108B호
+              {props.location?.slice(0, 10)}
             </StyledText>
           </>
         ) : null}

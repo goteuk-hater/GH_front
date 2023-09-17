@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     rowGap: 32 * height,
-    paddingVertical: 32 * height,
+    justifyContent: 'space-between',
   },
 
   img: {
@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
   },
   modalbody: {
     backgroundColor: '#f6f6f9',
+    height: 500 * height,
     rowGap: 12 * height,
-    height: 200 * height,
     borderRadius: 16 * scale,
     padding: 32 * scale,
   },
