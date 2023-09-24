@@ -1,6 +1,6 @@
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
-import React, {useEffect, type PropsWithChildren} from 'react';
-import {View, Text, StyleSheet, Alert} from 'react-native';
+import React, {useEffect, type PropsWithChildren, useCallback} from 'react';
+import {View, Text, StyleSheet, Alert, Linking} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import {color} from 'react-native-reanimated';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -11,7 +11,7 @@ import {globalstyles, height, scale} from '../../../config/globalStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {SERVER_URL} from '@env';
-import {useNavigation} from '@react-navigation/native';
+import {Link, useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {setUser, setUserInfo} from '../../store/slice/UserSlice';
 
@@ -62,38 +62,38 @@ const Login = () => {
       console.log(e);
     }
   };
+
+  const url =
+    'https://portal.sejong.ac.kr/jsp/login/loginSSL.jsp?rtUrl=portal.sejong.ac.kr/comm/member/user/ssoLoginProc.do';
+  const openUrl = useCallback(async () => {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  }, [url]);
   useEffect(() => {
-    AsyncStorage.clear();
     // dispatch(setUser({}));
     // dispatch(setUserInfo({}));
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <FlexView
+    <SafeAreaView style={{flex: 1, justifyContent: 'space-between'}}>
+      <View
         style={{
           padding: 16 * scale,
-          paddingTop: 60 * height,
-          alignItems: 'center',
-        }}
-        gapVertical={40 * height}>
-        <FlexView style={{alignItems: 'center'}} gapVertical={12 * height}>
-          <StyledText
-            style={
-              (globalstyles.h1, {fontSize: 40 * scale, fontWeight: '700'})
-            }>
+          paddingTop: 70 * height,
+          rowGap: 24 * height,
+        }}>
+        <View style={{rowGap: 12 * height}}>
+          <StyledText style={[globalstyles.h1, {fontSize: 28 * scale}]}>
             고특싫어
           </StyledText>
-          <StyledText style={[globalstyles.h1, {color: '#b2b2b2'}]}>
-            학술정보원 아이디로 로그인 하세용
-          </StyledText>
-        </FlexView>
-        <Card style={styles.inputbox}>
+        </View>
+        <View style={{rowGap: 12 * height, marginBottom: 24 * height}}>
           <TextInput
-            style={[
-              styles.input,
-              {borderBottomColor: '#D9D9D9', borderBottomWidth: 1 * scale},
-            ]}
+            style={[styles.input]}
             onChangeText={setId}
             value={id}
             placeholder="아이디를 입력하세요."
@@ -101,6 +101,7 @@ const Login = () => {
             keyboardType="numeric"
             maxLength={8}
           />
+
           <TextInput
             style={styles.input}
             onChangeText={setPassword}
@@ -109,20 +110,29 @@ const Login = () => {
             placeholderTextColor={'#D9D9D9'}
             secureTextEntry={true}
           />
-        </Card>
-
-        <TouchableOpacity onPress={Loginfunction}>
-          <Card
-            style={{
-              backgroundColor: '#D9D9D9',
-              width: 348 * scale,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <StyledText style={globalstyles.h1}>로그인</StyledText>
-          </Card>
-        </TouchableOpacity>
-      </FlexView>
+        </View>
+        <View style={styles.infobox}>
+          <TouchableOpacity onPress={Loginfunction} style={styles.btn}>
+            <StyledText style={[globalstyles.h1, {color: 'white'}]}>
+              로그인
+            </StyledText>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={openUrl}>
+            <StyledText
+              style={[
+                styles.infotext,
+                {
+                  textDecorationLine: 'underline',
+                },
+              ]}>
+              아이디나 비밀번호를 잊으셨나요?
+            </StyledText>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <StyledText style={[styles.infotext, {marginBottom: 48 * height}]}>
+        "고특싫어"는 사용자의 비밀번호를 서버에 저장하지 않습니다.
+      </StyledText>
     </SafeAreaView>
   );
 };
@@ -136,10 +146,34 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   input: {
-    width: 348 * scale,
+    width: '100%',
     height: 56 * height,
-    padding: 16 * scale,
+    paddingVertical: 12 * scale,
+    paddingHorizontal: 16 * scale,
     color: '#000000',
+    backgroundColor: 'white',
+    borderRadius: 10 * scale,
+    borderWidth: 1 * scale,
+    borderColor: '#D9D9D9',
+  },
+  btn: {
+    width: '100%',
+    paddingVertical: 12 * scale,
+    paddingHorizontal: 20 * scale,
+    backgroundColor: 'rgba(195, 14, 46, 1)',
+    borderRadius: 10 * scale,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  infobox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    rowGap: 12 * height,
+  },
+  infotext: {
+    ...globalstyles.p2,
+    color: '#979799',
+    textAlign: 'center',
   },
 });
 

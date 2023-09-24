@@ -18,6 +18,7 @@ export type MainStackParamList = {
 
     navigate: (screen: string) => void;
   };
+  MyPageScreen: undefined;
   BookSearchScreen: undefined;
   ExamMainScreen: undefined;
   BtnScreen: undefined;

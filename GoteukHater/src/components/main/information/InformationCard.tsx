@@ -11,8 +11,7 @@ import {
   scale,
   width,
 } from '../../../../config/globalStyles';
-import {Student} from '../../../../config/Type';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../store/RootReducer';
 

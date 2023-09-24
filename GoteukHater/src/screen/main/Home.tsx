@@ -14,8 +14,9 @@ import {isAndroid} from 'react-native-calendars/src/expandableCalendar/commons';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {Screen} from 'react-native-screens';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import ExamMainScreen from '../examdata/ExamMainScreen';
+
 import {Platform} from 'react-native';
+import {MypageScreen} from '../mypage/MypageScreen';
 
 const Home = () => {
   const Stack = createStackNavigator<MainStackParamList>();
@@ -87,10 +88,10 @@ const Home = () => {
           }}
         />
         <Stack.Screen
-          name="ExamMainScreen"
-          component={ExamMainScreen}
+          name="MypageScreen"
+          component={MypageScreen as never}
           options={{
-            title: '라우팅',
+            title: '내정보',
             headerLeft: () => (
               <Btn
                 Icon="chevron-back"

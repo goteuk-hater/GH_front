@@ -23,12 +23,6 @@ const Main = ({navigation}: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.content, {rowGap: 20 * height}]}>
-        <Button
-          title="Logout"
-          onPress={() => {
-            navigation.navigate('Login' as never);
-          }}
-        />
         <InformationSection />
         <StatusSection />
         <CertificationSection />
