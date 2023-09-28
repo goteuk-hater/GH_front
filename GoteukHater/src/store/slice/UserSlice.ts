@@ -10,6 +10,7 @@ const initialState = {
   name: '',
   read_certification: {},
   status: '',
+  loading: false,
 } as UserInfo;
 
 export const UserSlice = createSlice({
@@ -27,11 +28,15 @@ export const UserSlice = createSlice({
       state.name = action.payload.name;
       state.read_certification = action.payload.read_certification;
       state.status = action.payload.status;
+      state.loading = false;
+    },
+    isLoading(state) {
+      state.loading = true;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const {setUser, setUserInfo} = UserSlice.actions;
+export const {setUser, setUserInfo, isLoading} = UserSlice.actions;
 
 export default UserSlice.reducer;

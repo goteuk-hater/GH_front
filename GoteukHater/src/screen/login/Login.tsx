@@ -7,7 +7,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Card from '../../components/globalcomponents/Card';
 import FlexView from '../../components/globalcomponents/FlexView';
 import StyledText from '../../components/globalcomponents/StyledText';
-import {globalstyles, height, scale} from '../../../config/globalStyles';
+import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {SERVER_URL} from '@env';
@@ -70,12 +70,12 @@ const Login = () => {
     if (supported) {
       await Linking.openURL(url);
     } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
+      Alert.alert(`error: ${url}`);
     }
   }, [url]);
   useEffect(() => {
-    // dispatch(setUser({}));
-    // dispatch(setUserInfo({}));
+    setId('');
+    setPassword('');
   }, []);
 
   return (
@@ -83,25 +83,27 @@ const Login = () => {
       <View
         style={{
           padding: 16 * scale,
-          paddingTop: 70 * height,
-          rowGap: 24 * height,
+          paddingTop: 48,
+          rowGap: 32 * height,
         }}>
-        <View style={{rowGap: 12 * height}}>
+        <View style={{rowGap: 4 * height}}>
           <StyledText style={[globalstyles.h1, {fontSize: 28 * scale}]}>
             고특싫어
           </StyledText>
+          <StyledText style={[styles.infotext, {textAlign: 'left'}]}>
+            세종대학교 포털 아이디로 로그인해주세요!
+          </StyledText>
         </View>
-        <View style={{rowGap: 12 * height, marginBottom: 24 * height}}>
+        <View style={{rowGap: 12 * height, marginBottom: 16 * height}}>
           <TextInput
             style={[styles.input]}
             onChangeText={setId}
             value={id}
-            placeholder="아이디를 입력하세요."
+            placeholder="학번을 입력해주세요."
             placeholderTextColor={'#D9D9D9'}
             keyboardType="numeric"
             maxLength={8}
           />
-
           <TextInput
             style={styles.input}
             onChangeText={setPassword}
@@ -157,7 +159,7 @@ const styles = StyleSheet.create({
     borderColor: '#D9D9D9',
   },
   btn: {
-    width: '100%',
+    width: 343 * width,
     paddingVertical: 12 * scale,
     paddingHorizontal: 20 * scale,
     backgroundColor: 'rgba(195, 14, 46, 1)',

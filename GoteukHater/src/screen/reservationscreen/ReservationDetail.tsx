@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import StyledText from '../../components/globalcomponents/StyledText';
@@ -25,15 +25,21 @@ const certificationlist = [
 ];
 const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
   const dispatch = useDispatch<AppDispatch>();
+
   const navigation = useNavigation();
   const bookdata = useSelector((state: RootState) => state.Books.data);
   const user = useSelector((state: RootState) => state.User);
   const [visible, setVisible] = React.useState<boolean>(false);
+  const [visible1, setVisible1] = React.useState<boolean>(false);
   const closemodal = () => {
     setVisible(false);
     dispatch(asyncStatusFetch());
     dismiss();
   };
+  const closemodal1 = () => {
+    setVisible1(false);
+  };
+
   const [description, setDescription] = React.useState<string>('');
   const [selected, setSelected] = React.useState('분야를 선택해주세요.');
   const [selectedBook, setSelectedBook] =
@@ -47,13 +53,21 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
   const {dismiss} = useBottomSheetModal();
 
   const submit = async (selected: string, book_name: string) => {
-    console.log({
-      id: user.id,
-      password: user.password,
-      shInfold: props.route.params.id,
-      book_name: book_name,
-      classification: selected,
-    });
+    if (selected === '분야를 선택해주세요.') {
+      setDescription('분야를 선택해주세요.');
+      setVisible1(true);
+      return;
+    }
+    if (book_name === '도서를 선택해 주세요.') {
+      setDescription('도서를 선택해주세요.');
+      setVisible1(true);
+      return;
+    }
+    if (parseInt(user.grade) > 3) {
+      setDescription('인증 가능한 학기가 아닙니다.');
+      setVisible(true);
+      return;
+    }
     const res = await axios
       .post(`${SERVER_URL}user/reserve`, {
         id: user.id,
@@ -67,7 +81,7 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
         setVisible(true);
       })
       .catch(err => {
-        setDescription('예약에 실패하였습니다.');
+        setDescription('예약은 주 1회 가능합니다.');
         setVisible(true);
       });
   };
@@ -210,6 +224,13 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
         accpetText="확인"
         onConfirm={closemodal}
         onClose={closemodal}
+      />
+      <AlertModal
+        visible={visible1}
+        description={description}
+        accpetText="확인"
+        onConfirm={closemodal1}
+        onClose={closemodal1}
       />
     </>
   );

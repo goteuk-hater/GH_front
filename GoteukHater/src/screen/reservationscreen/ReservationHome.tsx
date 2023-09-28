@@ -4,30 +4,20 @@ import {
   NavigationState,
 } from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, View, FlatList, Platform} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import {ScrollView} from 'react-native-gesture-handler';
-
 import Card from '../../components/globalcomponents/Card';
-
 import StyledText from '../../components/globalcomponents/StyledText';
 import TimeselectCard from '../../components/reservation/TimeselectCard';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import Btn from '../../components/globalcomponents/Btn';
-
 import axios from 'axios';
 import {SERVER_URL} from '@env';
-
 import {Fetchuser} from '../../hooks/Hooks';
-import Reservation from 'react-native-calendars/src/agenda/reservation-list/reservation';
-import {DayState} from 'react-native-calendars/src/types';
 import {Daycomponent} from '../../components/reservation/DayComponent';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../store/store';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -42,10 +32,9 @@ interface Reservation {
   [date: string]: ReservationInfo[];
 }
 
-// 예약 일정을 담는 타입
-
 const ReservationHome = ({navigation}: Props) => {
   const [selectedDate, setSelectedDate] = React.useState('');
+  const status = useSelector((state: RootState) => state.Status);
   const [selected, setSelected] = React.useState<number>(-1);
   const [ReservationSchedule, setReservationSchedule] =
     React.useState<Reservation>();
@@ -73,7 +62,22 @@ const ReservationHome = ({navigation}: Props) => {
     });
     setReservationSchedule(res.data);
     let key = Object.keys(res.data);
-    setReservationKey(key);
+    let newunavaible: string[] = [];
+
+    status.data.map((item, index) => {
+      let date = new Date(item.date);
+      let startDay = date.getDay();
+      for (let i = startDay; i < 6; i++) {
+        let strDate = date.toISOString().slice(0, 10);
+        newunavaible.push(strDate);
+        date.setDate(date.getDate() + 1);
+      }
+    });
+    let newkey = key.filter(item => {
+      return !newunavaible.includes(item);
+    });
+
+    setReservationKey(newkey);
   };
 
   useEffect(() => {
@@ -111,9 +115,7 @@ const ReservationHome = ({navigation}: Props) => {
               if (date == undefined) return null;
               let strdate = date ? date.dateString : '';
               if (
-                reservationKey[0] <= strdate &&
-                strdate <= reservationKey[reservationKey.length - 1] &&
-                ReservationSchedule
+                reservationKey.includes(strdate) && ReservationSchedule
                   ? ReservationSchedule[strdate].length > 0
                   : false
               ) {

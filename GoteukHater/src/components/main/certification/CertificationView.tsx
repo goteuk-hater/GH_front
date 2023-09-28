@@ -13,10 +13,7 @@ const dict = {
 };
 const CertificationView = () => {
   const user = useSelector((state: RootState) => state.User);
-  // const science = Number(user.read_certification[dict[1]][0]);
-  // const eastwest = Number(user.read_certification[dict[2]][0]);
-  // const east = Number(user.read_certification[dict[3]][0]);
-  // const west = Number(user.read_certification[dict[4]][0]);
+
   return (
     <View style={{rowGap: 4 * height}}>
       <View style={[styles.row, {columnGap: 8 * width}]}>

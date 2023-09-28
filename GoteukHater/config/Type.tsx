@@ -1,6 +1,11 @@
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import {NavigationProp, NavigationState} from '@react-navigation/native';
-
+export type RootStackParamList = {
+  Login: undefined;
+  SplashScreen: undefined;
+  NestPage: undefined;
+  Home: undefined;
+};
 export type MainStackParamList = {
   Main: {
     navigation: NavigationProp<NavigationState>;
@@ -66,6 +71,7 @@ export interface UserInfo {
   name: string;
   read_certification: Certification;
   status: string;
+  loading: boolean;
 }
 export interface BookReservation {
   book_name: string;

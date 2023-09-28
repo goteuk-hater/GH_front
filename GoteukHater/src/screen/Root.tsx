@@ -7,13 +7,9 @@ import SplashScreen from './SplashScreen';
 import Login from './login/Login';
 import Home from './main/Home';
 import NestPage from './main/NestPage';
-type RootStackParamList = {
-  Login: undefined;
-  SplashScreen: undefined;
-  NestPage: undefined;
-  Home: undefined;
-};
+
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {RootStackParamList} from '../../config/Type';
 const Stack = createStackNavigator<RootStackParamList>();
 const Root = () => {
   return (
