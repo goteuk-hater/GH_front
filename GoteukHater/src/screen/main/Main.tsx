@@ -1,6 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, StyleSheet, Button} from 'react-native';
-import {NavigationProp, NavigationState} from '@react-navigation/native';
+import {
+  NavigationProp,
+  NavigationState,
+  useRoute,
+} from '@react-navigation/native';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import InformationSection from '../../components/main/information/InformationSection';
 import StatusSection from '../../components/main/status/StatusSection';
@@ -8,10 +12,11 @@ import CertificationSection from '../../components/main/certification/Certificat
 import LinkSection from '../../components/main/Link/LinkSection';
 import {View} from 'react-native';
 
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {asyncStatusFetch} from '../../store/slice/StatusSlice';
-import {AppDispatch} from '../../store/store';
+import {AppDispatch, RootState} from '../../store/store';
+import {setVisible} from '../../store/slice/ModeSlice';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -20,6 +25,7 @@ interface Props {
 const Main = ({navigation}: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   dispatch(asyncStatusFetch());
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.content, {rowGap: 20 * height}]}>

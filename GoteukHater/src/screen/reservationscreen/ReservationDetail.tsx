@@ -25,7 +25,6 @@ const certificationlist = [
 ];
 const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
   const dispatch = useDispatch<AppDispatch>();
-
   const navigation = useNavigation();
   const bookdata = useSelector((state: RootState) => state.Books.data);
   const user = useSelector((state: RootState) => state.User);

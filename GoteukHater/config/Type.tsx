@@ -6,6 +6,10 @@ export type RootStackParamList = {
   NestPage: undefined;
   Home: undefined;
 };
+export type MypageStackParamList = {
+  Report: undefined;
+  Inquiry: undefined;
+};
 export type MainStackParamList = {
   Main: {
     navigation: NavigationProp<NavigationState>;
@@ -72,6 +76,9 @@ export interface UserInfo {
   read_certification: Certification;
   status: string;
   loading: boolean;
+}
+export interface Tab {
+  screen: string;
 }
 export interface BookReservation {
   book_name: string;

@@ -6,6 +6,9 @@ import ModalButton from './ModalButton';
 import BtnScreen from '../../screen/reservationscreen/BtnScreen';
 import {height, scale, width} from '../../../config/globalStyles';
 import SheetHandle from '../globalcomponents/SheetHandle';
+import {useRoute} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../store/store';
 
 const Formbtn = () => {
   const snapPoints = React.useMemo(() => [790 * height], []);
@@ -16,6 +19,8 @@ const Formbtn = () => {
   const modalclose = React.useCallback(() => {
     bottomSheetModalRef.current?.dismiss();
   }, []);
+  const mode = useSelector((state: RootState) => state.Mode);
+  if (!mode.visible) return null;
   return (
     <BottomSheetModalProvider>
       <SafeAreaView>
