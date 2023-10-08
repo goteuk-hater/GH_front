@@ -9,7 +9,7 @@ import {RootStackParamList} from '../../../config/Type';
 import {useDispatch} from 'react-redux';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {setInvisible, setVisible} from '../../store/slice/ModeSlice';
-import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import SheetHandle from '../../components/globalcomponents/SheetHandle';
 import {MypageStackScreen} from './MypageStackScreen';
 

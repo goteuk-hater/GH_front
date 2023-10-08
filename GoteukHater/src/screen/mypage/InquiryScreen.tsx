@@ -9,6 +9,7 @@ import {RootState} from '../../store/store';
 import {SwitchTab} from '../../components/inquiry/SwitchTab';
 import {height, scale, width} from '../../../config/globalStyles';
 import {QAlist} from '../../components/inquiry/QAlist';
+import {Inquiry} from '../../components/inquiry/Inquiry';
 
 export const InquiryScreen = () => {
   const naviagtion = useNavigation();
@@ -19,27 +20,24 @@ export const InquiryScreen = () => {
       naviagtion.setOptions({
         headerRight: () => null,
       });
-    } else {
-      naviagtion.setOptions({
-        headerRight: () => (
-          <Btn
-            onPress={() => {
-              dismiss();
-            }}
-            title="신청하기"
-          />
-        ),
-      });
     }
+    //  else {
+    //   naviagtion.setOptions({
+    //     headerRight: () => (
+    //       <Btn
+    //         onPress={() => {
+    //           dismiss();
+    //         }}
+    //         title="신청하기"
+    //       />
+    //     ),
+    //   });
+    // }
   }, [screen]);
   return (
     <View style={styles.container}>
       <SwitchTab screen={screen} />
-      {screen === 'question' ? (
-        <QAlist />
-      ) : (
-        <StyledText>1:1 문의하기</StyledText>
-      )}
+      {screen === 'question' ? <QAlist /> : <Inquiry />}
     </View>
   );
 };
@@ -49,6 +47,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16 * width,
     paddingVertical: 20 * height,
     rowGap: 20 * height,
-    backgroundColor: 'white',
+    backgroundColor: '#F6F6F9',
   },
 });

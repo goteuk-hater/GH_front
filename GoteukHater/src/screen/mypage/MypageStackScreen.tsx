@@ -35,6 +35,7 @@ export const MypageStackScreen = (props: Props) => {
             headerTitle: () => (
               <StyledText style={globalstyles.h2}>버그 신고</StyledText>
             ),
+            headerLeft: () => null,
           }}
         />
         <MypageStack.Screen
@@ -45,6 +46,7 @@ export const MypageStackScreen = (props: Props) => {
               <StyledText style={globalstyles.h2}>문의 하기</StyledText>
             ),
             headerRight: () => <Btn />,
+            headerLeft: () => null,
           }}
         />
       </MypageStack.Navigator>

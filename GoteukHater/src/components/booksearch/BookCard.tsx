@@ -38,7 +38,6 @@ const BookCard = (props: Props) => {
     <TouchableOpacity
       onPress={() => {
         dismiss();
-
         navigation.navigate('BookInfoScreen', {
           book,
         });

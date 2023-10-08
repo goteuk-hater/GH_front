@@ -16,11 +16,14 @@ import {Text} from 'react-native-svg';
 import Home from './Home';
 import Formbtn from '../../components/Modal/Formbtn';
 import {create} from 'react-test-renderer';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 const NestPage = (props: any) => {
   return (
     <View style={{flex: 1, backgroundColor: '#F6F6F9'}}>
-      <Home />
+      <BottomSheetModalProvider>
+        <Home />
+      </BottomSheetModalProvider>
       <Formbtn />
     </View>
   );

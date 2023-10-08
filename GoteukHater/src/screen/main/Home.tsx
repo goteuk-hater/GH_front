@@ -91,7 +91,10 @@ const Home = () => {
           name="MypageScreen"
           component={MypageScreen as never}
           options={{
-            title: '내정보',
+            headerTitle: () => (
+              <StyledText style={globalstyles.h1}>내 정보</StyledText>
+            ),
+
             headerLeft: () => (
               <Btn
                 Icon="chevron-back"
