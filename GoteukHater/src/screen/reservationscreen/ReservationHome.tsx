@@ -18,6 +18,7 @@ import {Fetchuser} from '../../hooks/Hooks';
 import {Daycomponent} from '../../components/reservation/DayComponent';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store/store';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -85,9 +86,10 @@ const ReservationHome = ({navigation}: Props) => {
   }, []);
   useEffect(() => {
     if (selectedDate == '') return;
-    if (ReservationSchedule == undefined) return;
+    if (ReservationSchedule === undefined) return;
     setReservationInfo(ReservationSchedule[selectedDate]);
   }, [selectedDate]);
+
   return (
     <ScrollView style={styles.container}>
       <View style={{rowGap: 20 * height, marginTop: 16 * height}}>
@@ -114,6 +116,17 @@ const ReservationHome = ({navigation}: Props) => {
             dayComponent={({date, state}) => {
               if (date == undefined) return null;
               let strdate = date ? date.dateString : '';
+              if (!ReservationSchedule) {
+                return (
+                  <SkeletonPlaceholder>
+                    <SkeletonPlaceholder.Item
+                      width={30 * scale}
+                      height={30 * scale}
+                      borderRadius={5 * scale}
+                    />
+                  </SkeletonPlaceholder>
+                );
+              }
               if (
                 reservationKey.includes(strdate) && ReservationSchedule
                   ? ReservationSchedule[strdate].length > 0
@@ -212,6 +225,13 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15 * scale,
     borderTopRightRadius: 15 * scale,
     backgroundColor: '#20B358',
+  },
+  skeleton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 30 * scale,
+    height: 30 * scale,
+    borderRadius: 20 * scale,
   },
 });
 export default ReservationHome;

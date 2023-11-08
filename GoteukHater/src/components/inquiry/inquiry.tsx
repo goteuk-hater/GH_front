@@ -57,7 +57,7 @@ export const Inquiry = () => {
           <TextInput
             multiline={true}
             style={[styles.inputbox2, globalstyles.p1]}
-            placeholder={`문의내용을 자유롭게 작성해 주세요! \n상단에 입력하신 연락처로 성실히 답변을 드리겠습니다.\n\n(원활한 답변을 위한 실시간 통신은 다음 업데이트에 예정되어있습니다!)`}
+            placeholder={`문의내용을 자유롭게 작성해 주세요! \r\n상단에 입력하신 연락처로 성실히 답변을 드리겠습니다.`}
             onChangeText={onChangeText}
             value={text}
             textAlignVertical="top"

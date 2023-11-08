@@ -17,20 +17,19 @@ import StyledText from '../../globalcomponents/StyledText';
 import StatusCard from './StatusCard';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../store/store';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const ApplicationStatus = () => {
   const statusData = useSelector((state: RootState) => state.Status);
   if (statusData.status == 'loading') {
     return (
-      <View
-        style={{
-          width: 358 * width,
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 32 * scale,
-        }}>
-        <StyledText style={globalstyles.h3}>로딩중...</StyledText>
-      </View>
+      <SkeletonPlaceholder>
+        <SkeletonPlaceholder.Item
+          width={358 * width}
+          height={111 * height}
+          borderRadius={12}
+        />
+      </SkeletonPlaceholder>
     );
   }
   return (
@@ -43,6 +42,7 @@ const ApplicationStatus = () => {
               alignItems: 'center',
               justifyContent: 'center',
               padding: 32 * scale,
+              height: 111 * height,
             }}>
             <StyledText style={globalstyles.h3}>
               예약한 시험이 없습니다.
@@ -54,7 +54,7 @@ const ApplicationStatus = () => {
               title={item.book_name}
               date={item.date}
               time={item.time}
-              classification="서양의 역사와 사상"
+              classification={item.classification}
               key={item.reserve_id}
             />
           ))

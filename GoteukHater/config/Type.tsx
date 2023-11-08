@@ -86,6 +86,7 @@ export interface BookReservation {
   location: string;
   reserve_id: string;
   time: string;
+  classification: string;
 }
 export interface Status {
   date: string;

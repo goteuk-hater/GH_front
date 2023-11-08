@@ -12,15 +12,22 @@ import {SERVER_URL} from '@env';
 import {BookReservation} from '../../../config/Type';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store/store';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const BookingListScreen = () => {
   const data = useSelector((state: RootState) => state.Status);
 
   if (data.status == 'loading') {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <StyledText>Loading...</StyledText>
-      </View>
+      <SkeletonPlaceholder>
+        <View style={styles.flatlist}>
+          <SkeletonPlaceholder.Item
+            width={358 * width}
+            height={111 * height}
+            borderRadius={12}
+          />
+        </View>
+      </SkeletonPlaceholder>
     );
   }
   return (
@@ -45,7 +52,7 @@ const BookingListScreen = () => {
                 title={item.book_name}
                 date={item.date}
                 time={item.time}
-                classification="서양의 역사와 사상"
+                classification={item.classification}
                 detail={true}
                 style={{width: 358 * width, marginBottom: 8 * height}}
                 location={item.location}

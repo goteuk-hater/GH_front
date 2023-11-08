@@ -60,6 +60,7 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
       setVisible2(true);
     });
   };
+
   return (
     <Card style={[props.style, {minWidth: 240 * width}]}>
       <View style={globalstyles.row_spacebetween}>

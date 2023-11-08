@@ -84,7 +84,7 @@ export const MypageScreen = () => {
           </StyledText>
           <StyledText
             style={[globalstyles.p2, {textAlign: 'center', color: '#979799'}]}>
-            계정 삭제시 등록한정보가 모두 초기화됩니다.
+            로그 아웃시 등록한정보가 모두 초기화됩니다.
           </StyledText>
         </View>
       </View>
