@@ -11,7 +11,8 @@ import {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Btn from '../../components/globalcomponents/Btn';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
-
+import axios from 'axios';
+import {DISCORD_URL} from '@env';
 export const ReportScreen = () => {
   const date = new Date();
   const year = date.getFullYear();
@@ -21,18 +22,23 @@ export const ReportScreen = () => {
   const naviagtion = useNavigation();
 
   const {dismiss} = useBottomSheetModal();
+  const postInquiry = async () => {
+    const description = `내용: ${text}`;
+    const res = await axios.post(DISCORD_URL, {
+      embeds: [
+        {
+          title: '버그 신고',
+          description: description,
+        },
+      ],
+    });
+    await dismiss();
+  };
   useEffect(() => {
     naviagtion.setOptions({
-      headerRight: () => (
-        <Btn
-          title="제출하기"
-          onPress={() => {
-            dismiss();
-          }}
-        />
-      ),
+      headerRight: () => <Btn title="제출하기" onPress={postInquiry} />,
     });
-  }, []);
+  }, [postInquiry]);
   return (
     <TouchableWithoutFeedback
       onPress={() => {

@@ -66,12 +66,7 @@ const Login = () => {
   const url =
     'https://portal.sejong.ac.kr/jsp/login/loginSSL.jsp?rtUrl=portal.sejong.ac.kr/comm/member/user/ssoLoginProc.do';
   const openUrl = useCallback(async () => {
-    const supported = await Linking.canOpenURL(url);
-    if (supported) {
-      await Linking.openURL(url);
-    } else {
-      Alert.alert(`error: ${url}`);
-    }
+    await Linking.openURL(url);
   }, [url]);
   useEffect(() => {
     setId('');

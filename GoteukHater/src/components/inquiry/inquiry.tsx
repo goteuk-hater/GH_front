@@ -12,24 +12,30 @@ import {
 } from 'react-native';
 import StyledText from '../globalcomponents/StyledText';
 import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-
+import axios from 'axios';
+import {DISCORD_URL} from '@env';
 export const Inquiry = () => {
   const [text, onChangeText] = useState<string>('');
   const [address, onChangeAddress] = useState<string>('');
   const {dismiss} = useBottomSheetModal();
   const navigation = useNavigation();
+  const postInquiry = async () => {
+    const description = `연락처: ${address}\n문의내용: ${text}`;
+    const res = await axios.post(DISCORD_URL, {
+      embeds: [
+        {
+          title: '문의사항',
+          description: description,
+        },
+      ],
+    });
+    await dismiss();
+  };
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <Btn
-          title="제출하기"
-          onPress={() => {
-            dismiss();
-          }}
-        />
-      ),
+      headerRight: () => <Btn title="제출하기" onPress={postInquiry} />,
     });
-  }, []);
+  }, [postInquiry]);
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -40,20 +46,17 @@ export const Inquiry = () => {
           <StyledText style={[styles.title, {marginTop: 0 * height}]}>
             연락처
           </StyledText>
-          <View style={styles.inputbox}>
-            <TextInput
-              style={globalstyles.p1}
-              placeholder="답변받을 이메일 주소나 휴대전화 번호를 입력해 주세요."
-              onChangeText={onChangeAddress}
-              value={address}
-            />
-          </View>
+          <TextInput
+            style={[styles.inputbox, globalstyles.p1]}
+            placeholder="답변받을 이메일 주소나 휴대전화 번호를 입력해 주세요."
+            onChangeText={onChangeAddress}
+            value={address}
+          />
         </View>
         <View>
           <StyledText style={[styles.title, {marginTop: 0 * height}]}>
             문의 내용
           </StyledText>
-
           <TextInput
             multiline={true}
             style={[styles.inputbox2, globalstyles.p1]}
@@ -71,7 +74,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F6F6F9',
-
     rowGap: 20 * height,
   },
   inputbox: {

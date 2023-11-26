@@ -70,6 +70,7 @@ export const globalstyles = StyleSheet.create({
   },
   p1: {
     fontSize: 14 * scale,
+    color: 'black',
     ...Platform.select({
       android: {
         fontFamily: 'SUIT-Bold',
