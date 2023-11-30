@@ -23,7 +23,9 @@ export const ReportScreen = () => {
 
   const {dismiss} = useBottomSheetModal();
   const postInquiry = async () => {
-    const description = `내용: ${text}`;
+    const description = `
+    날짜 : ${year}년 ${month + 1}월 ${day}일\n
+    내용: ${text}`;
     const res = await axios.post(DISCORD_URL, {
       embeds: [
         {
