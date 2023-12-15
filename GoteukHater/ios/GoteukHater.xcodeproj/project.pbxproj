@@ -12,6 +12,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		714BFB4A29A0E91A00EB7F04 /* SUITVariable-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 714BFB4929A0E91A00EB7F04 /* SUITVariable-Regular.ttf */; };
+		7163FDC72B2C3500004A82AF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		7699B88040F8A987B510C191 /* libPods-GoteukHater-GoteukHaterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-GoteukHater-GoteukHaterTests.a */; };
 /* End PBXBuildFile section */
 
@@ -29,7 +30,7 @@
 		00E356EE1AD99517003FC87E /* GoteukHaterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoteukHaterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* GoteukHaterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoteukHaterTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* GoteukHater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoteukHater.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* goteukhater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goteukhater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GoteukHater/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = GoteukHater/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = GoteukHater/Images.xcassets; sourceTree = "<group>"; };
@@ -172,7 +173,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* GoteukHater.app */,
+				13B07F961A680F5B00A75B9A /* goteukhater.app */,
 				00E356EE1AD99517003FC87E /* GoteukHaterTests.xctest */,
 			);
 			name = Products;
@@ -232,7 +233,7 @@
 			);
 			name = GoteukHater;
 			productName = GoteukHater;
-			productReference = 13B07F961A680F5B00A75B9A /* GoteukHater.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* goteukhater.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -285,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				714BFB4A29A0E91A00EB7F04 /* SUITVariable-Regular.ttf in Resources */,
+				7163FDC72B2C3500004A82AF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,14 +543,18 @@
 			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-GoteukHater.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = GWKWP5264B;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = GoteukHater/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "고특싫어";
+				"INFOPLIST_KEY_CFBundleDisplayName[sdk=iphoneos*]" = "고특싫어";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -567,7 +573,7 @@
 				);
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = GoteukHater;
+				PRODUCT_NAME = goteukhater;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -580,6 +586,7 @@
 			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-GoteukHater.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -587,6 +594,9 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = GWKWP5264B;
 				INFOPLIST_FILE = GoteukHater/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "고특싫어";
+				"INFOPLIST_KEY_CFBundleDisplayName[sdk=iphoneos*]" = "고특싫어";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -605,7 +615,7 @@
 				);
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = GoteukHater;
+				PRODUCT_NAME = goteukhater;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -614,6 +624,7 @@
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-GoteukHater.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -750,6 +761,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -780,7 +792,7 @@
 				00E356F71AD99517003FC87E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "GoteukHater" */ = {
 			isa = XCConfigurationList;
@@ -789,7 +801,7 @@
 				13B07F951A680F5B00A75B9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GoteukHater" */ = {
 			isa = XCConfigurationList;
@@ -798,7 +810,7 @@
 				83CBBA211A601CBA00E9B192 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
