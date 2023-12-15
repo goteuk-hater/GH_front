@@ -1,7 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TouchableOpacity, View} from 'react-native';
 import {globalstyles, height} from '../../../../config/globalStyles';
-
 import StyledText from '../../globalcomponents/StyledText';
 import InformationCard from './InformationCard';
 import {useNavigation} from '@react-navigation/native';
@@ -9,17 +7,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../../../store/store';
 import {asyncStatusFetch} from '../../../store/slice/StatusSlice';
-import {Fetchuser} from '../../../hooks/Hooks';
+
 import {SERVER_URL} from '@env';
 import axios from 'axios';
-import {isLoading, setUser, setUserInfo} from '../../../store/slice/UserSlice';
+import {isLoading, setUserInfo} from '../../../store/slice/UserSlice';
+import {fetchUser} from '../../../hooks/Hooks';
 const InformationSection = () => {
   const usenavigation = useNavigation();
   const dispatch = useDispatch<AppDispatch>();
 
   const checkuser = async () => {
     dispatch(isLoading());
-    const user = await Fetchuser();
+    const user = await fetchUser();
     const res = await axios
       .post(`${SERVER_URL}user/user_info`, {
         id: user.id,

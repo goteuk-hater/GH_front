@@ -14,7 +14,7 @@ import {globalstyles, height, scale, width} from '../../../config/globalStyles';
 import Btn from '../../components/globalcomponents/Btn';
 import axios from 'axios';
 import {SERVER_URL} from '@env';
-import {Fetchuser} from '../../hooks/Hooks';
+import {fetchUser} from '../../hooks/Hooks';
 import {Daycomponent} from '../../components/reservation/DayComponent';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store/store';
@@ -55,7 +55,7 @@ const ReservationHome = ({navigation}: Props) => {
     );
   };
   const fetchdata = async () => {
-    const user = await Fetchuser();
+    const user = await fetchUser();
     const res = await axios.post(`${SERVER_URL}user/calender`, {
       id: user.id,
       password: user.password,

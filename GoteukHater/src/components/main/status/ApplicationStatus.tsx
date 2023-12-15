@@ -1,6 +1,4 @@
-import {SERVER_URL} from '@env';
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {
@@ -10,9 +8,7 @@ import {
   width,
 } from '../../../../config/globalStyles';
 import {BookReservation} from '../../../../config/Type';
-import {Fetchuser} from '../../../hooks/Hooks';
 import Card from '../../globalcomponents/Card';
-import FlexView from '../../globalcomponents/FlexView';
 import StyledText from '../../globalcomponents/StyledText';
 import StatusCard from './StatusCard';
 import {useSelector} from 'react-redux';

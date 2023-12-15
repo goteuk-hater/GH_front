@@ -1,4 +1,4 @@
-import React, {type PropsWithChildren} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {StatusBar} from 'react-native';
@@ -12,7 +12,7 @@ const Root = () => {
   return (
     <NavigationContainer>
       <BottomSheetModalProvider>
-        <StatusBar barStyle={'dark-content'} />
+        <StatusBar barStyle="dark-content" />
         <Stack.Navigator>
           <Stack.Group>
             <Stack.Screen
@@ -21,7 +21,6 @@ const Root = () => {
               options={{headerShown: false, gestureEnabled: false}}
             />
           </Stack.Group>
-          {/* 로그인 */}
           <Stack.Group>
             <Stack.Screen
               name="NestPage"

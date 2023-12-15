@@ -33,14 +33,11 @@ export const MypageScreen = () => {
       dispatch(setVisible());
     });
     return unsubscribe;
-  }, [navigation]);
+  }, [navigation, dispatch]);
   const snapPoints = useMemo(() => [790 * height], []);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
-  }, []);
-  const modalclose = useCallback(() => {
-    bottomSheetModalRef.current?.dismiss();
   }, []);
   const [routename, setroutename] = useState<string>('Report');
   return (

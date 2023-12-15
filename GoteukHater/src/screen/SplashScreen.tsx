@@ -5,7 +5,7 @@ import axios from 'axios';
 import React, {useEffect} from 'react';
 import {View, Alert, Image, StyleSheet} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {Fetchuser} from '../hooks/Hooks';
+import {fetchUser} from '../hooks/Hooks';
 import {setUser, setUserInfo} from '../store/slice/UserSlice';
 import {asyncBooksFetch} from '../store/slice/BooksSlice';
 import {AppDispatch} from '../store/store';
@@ -17,13 +17,12 @@ const SplashScreen = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const checkUser = async () => {
-    const user = await Fetchuser();
+    const user = await fetchUser();
 
     if (user.id == null || user.password == null) {
       navigation.navigate('Login' as never);
       return;
     }
-
     await axios
       .post(`${SERVER_URL}user/user_info`, {
         id: user.id,
