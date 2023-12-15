@@ -19,7 +19,7 @@ const BookingListScreen = () => {
 
   if (data.status == 'loading') {
     return (
-      <SkeletonPlaceholder>
+      <SkeletonPlaceholder speed={1500}>
         <View style={styles.flatlist}>
           <SkeletonPlaceholder.Item
             width={358 * width}

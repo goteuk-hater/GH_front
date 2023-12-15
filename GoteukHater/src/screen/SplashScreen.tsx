@@ -1,26 +1,22 @@
 import {SERVER_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  NavigationProp,
-  NavigationState,
-  useNavigation,
-} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import React, {useEffect} from 'react';
-import {View, Button, Alert} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../store/RootReducer';
+import {View, Alert, Image, StyleSheet} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {Fetchuser} from '../hooks/Hooks';
 import {setUser, setUserInfo} from '../store/slice/UserSlice';
-import {asyncStatusFetch, setStatus} from '../store/slice/StatusSlice';
 import {asyncBooksFetch} from '../store/slice/BooksSlice';
 import {AppDispatch} from '../store/store';
-
+import logo from '../../assets/images/logo.png';
+import StyledText from '../components/globalcomponents/StyledText';
+import {globalstyles, height, scale, width} from '../../config/globalStyles';
 const SplashScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch<AppDispatch>();
 
-  const checkuser = async () => {
+  const checkUser = async () => {
     const user = await Fetchuser();
 
     if (user.id == null || user.password == null) {
@@ -28,7 +24,7 @@ const SplashScreen = () => {
       return;
     }
 
-    const res = await axios
+    await axios
       .post(`${SERVER_URL}user/user_info`, {
         id: user.id,
         password: user.password,
@@ -49,26 +45,44 @@ const SplashScreen = () => {
       });
   };
 
-  const fetchdata = async () => {
-    checkuser();
+  const fetchData = async () => {
+    await checkUser();
     dispatch(asyncBooksFetch());
   };
 
   useEffect(() => {
-    fetchdata();
+    fetchData();
   }, []);
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Button
-        title="Login"
-        onPress={() => navigation.navigate('Login' as never)}
-      />
-      <Button
-        title="NestPage"
-        onPress={() => navigation.navigate('NestPage' as never)}
-      />
+    <View style={styles.container}>
+      <Image source={logo} style={styles.logo} />
+      <StyledText style={styles.title}>고특싫어</StyledText>
+      <StyledText style={styles.infoText}>
+        세종대학교 고전독서 예약 시스템
+      </StyledText>
     </View>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 50 * width,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {
+    width: 150 * width,
+    height: 150 * height,
+  },
+  title: {
+    ...globalstyles.h1,
+    fontSize: 28 * scale,
+  },
+  infoText: {
+    ...globalstyles.p2,
+    color: '#979799',
+    textAlign: 'center',
+  },
+});
 export default SplashScreen;

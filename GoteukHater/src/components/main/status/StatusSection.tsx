@@ -11,7 +11,6 @@ import StyledText from '../../globalcomponents/StyledText';
 
 const StatusSection = () => {
   const navigation = useNavigation();
-
   return (
     <View style={{rowGap: 12 * height}}>
       <View style={styles.titlebox}>

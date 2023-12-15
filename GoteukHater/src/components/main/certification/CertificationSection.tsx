@@ -19,29 +19,29 @@ const CertificationSection = () => {
     <View style={{rowGap: 12 * height}}>
       <StyledText style={globalstyles.h1}>나의 인증현황</StyledText>
       {user.loading ? (
-        <SkeletonPlaceholder>
+        <SkeletonPlaceholder speed={1500}>
           <View style={{rowGap: 4 * height}}>
             <View style={[styles.row, {columnGap: 8 * width}]}>
               <SkeletonPlaceholder.Item
                 width={175 * width}
-                height={77 * height}
+                height={88 * height}
                 borderRadius={15 * scale}
               />
               <SkeletonPlaceholder.Item
                 width={175 * width}
-                height={77 * height}
+                height={88 * height}
                 borderRadius={15 * scale}
               />
             </View>
             <View style={[styles.row, {columnGap: 8 * width}]}>
               <SkeletonPlaceholder.Item
                 width={175 * width}
-                height={77 * height}
+                height={88 * height}
                 borderRadius={15 * scale}
               />
               <SkeletonPlaceholder.Item
                 width={175 * width}
-                height={77 * height}
+                height={88 * height}
                 borderRadius={15 * scale}
               />
             </View>

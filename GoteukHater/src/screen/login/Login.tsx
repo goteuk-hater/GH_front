@@ -20,7 +20,7 @@ const Login = () => {
   const [password, setPassword] = React.useState('');
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const Loginfunction = async () => {
+  const loginFunction = async () => {
     if (id === '' || password === '') {
       Alert.alert('아이디와 비밀번호를 입력해주세요.');
       return;
@@ -53,7 +53,6 @@ const Login = () => {
       Alert.alert('아이디 비밀번호를 확인해주세요.');
     }
   };
-
   const setPhone = async (id: string, password: string) => {
     try {
       await AsyncStorage.setItem('id', id);
@@ -62,7 +61,6 @@ const Login = () => {
       console.log(e);
     }
   };
-
   const url =
     'https://portal.sejong.ac.kr/jsp/login/loginSSL.jsp?rtUrl=portal.sejong.ac.kr/comm/member/user/ssoLoginProc.do';
   const openUrl = useCallback(async () => {
@@ -74,22 +72,17 @@ const Login = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1, justifyContent: 'space-between'}}>
-      <View
-        style={{
-          padding: 16 * scale,
-          paddingTop: 48,
-          rowGap: 32 * height,
-        }}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.loginWrapper}>
         <View style={{rowGap: 4 * height}}>
           <StyledText style={[globalstyles.h1, {fontSize: 28 * scale}]}>
             고특싫어
           </StyledText>
-          <StyledText style={[styles.infotext, {textAlign: 'left'}]}>
+          <StyledText style={styles.infoText}>
             세종대학교 포털 아이디로 로그인해주세요!
           </StyledText>
         </View>
-        <View style={{rowGap: 12 * height, marginBottom: 16 * height}}>
+        <View style={styles.inputWrapper}>
           <TextInput
             style={[styles.input]}
             onChangeText={setId}
@@ -108,8 +101,8 @@ const Login = () => {
             secureTextEntry={true}
           />
         </View>
-        <View style={styles.infobox}>
-          <TouchableOpacity onPress={Loginfunction} style={styles.btn}>
+        <View style={styles.infoBox}>
+          <TouchableOpacity onPress={loginFunction} style={styles.btn}>
             <StyledText style={[globalstyles.h1, {color: 'white'}]}>
               로그인
             </StyledText>
@@ -117,7 +110,7 @@ const Login = () => {
           <TouchableOpacity onPress={openUrl}>
             <StyledText
               style={[
-                styles.infotext,
+                styles.infoText,
                 {
                   textDecorationLine: 'underline',
                 },
@@ -127,13 +120,26 @@ const Login = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <StyledText style={[styles.infotext, {marginBottom: 48 * height}]}>
+      <StyledText
+        style={[
+          styles.infoText,
+          {marginBottom: 48 * height, textAlign: 'center'},
+        ]}>
         "고특싫어"는 사용자의 비밀번호를 서버에 저장하지 않습니다.
       </StyledText>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  loginWrapper: {
+    padding: 16 * scale,
+    paddingTop: 48,
+    rowGap: 32 * height,
+  },
   inputbox: {
     backgroundColor: 'white',
     borderRadius: 10 * scale,
@@ -141,6 +147,10 @@ const styles = StyleSheet.create({
     borderColor: '#D9D9D9',
     justifyContent: 'center',
     padding: 0,
+  },
+  inputWrapper: {
+    rowGap: 12 * height,
+    marginBottom: 16 * height,
   },
   input: {
     width: '100%',
@@ -157,20 +167,19 @@ const styles = StyleSheet.create({
     width: 343 * width,
     paddingVertical: 12 * scale,
     paddingHorizontal: 20 * scale,
-    backgroundColor: 'rgba(195, 14, 46, 1)',
+    backgroundColor: 'rgba(195, 14, 46,1)',
     borderRadius: 10 * scale,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  infobox: {
+  infoBox: {
     justifyContent: 'center',
     alignItems: 'center',
     rowGap: 12 * height,
   },
-  infotext: {
+  infoText: {
     ...globalstyles.p2,
     color: '#979799',
-    textAlign: 'center',
   },
 });
 

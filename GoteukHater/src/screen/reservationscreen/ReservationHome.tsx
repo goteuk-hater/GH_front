@@ -36,7 +36,6 @@ interface Reservation {
 const ReservationHome = ({navigation}: Props) => {
   const [selectedDate, setSelectedDate] = React.useState('');
   const status = useSelector((state: RootState) => state.Status);
-  const [selected, setSelected] = React.useState<number>(-1);
   const [ReservationSchedule, setReservationSchedule] =
     React.useState<Reservation>();
   const [reservationKey, setReservationKey] = React.useState<string[]>([]);
@@ -118,7 +117,7 @@ const ReservationHome = ({navigation}: Props) => {
               let strdate = date ? date.dateString : '';
               if (!ReservationSchedule) {
                 return (
-                  <SkeletonPlaceholder>
+                  <SkeletonPlaceholder speed={2500}>
                     <SkeletonPlaceholder.Item
                       width={30 * scale}
                       height={30 * scale}
@@ -189,7 +188,6 @@ const ReservationHome = ({navigation}: Props) => {
               id={item.id}
               marginRight={index % 2 == 0 ? 12 : 0}
               setSelect={() => setSelect(item.time, item.id)}
-              isselected={selected == index}
             />
           )}
         />

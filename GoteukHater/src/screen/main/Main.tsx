@@ -1,22 +1,16 @@
-import React, {useEffect} from 'react';
-import {SafeAreaView, StyleSheet, Button} from 'react-native';
-import {
-  NavigationProp,
-  NavigationState,
-  useRoute,
-} from '@react-navigation/native';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import React from 'react';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import {NavigationProp, NavigationState} from '@react-navigation/native';
+import {height, width} from '../../../config/globalStyles';
 import InformationSection from '../../components/main/information/InformationSection';
 import StatusSection from '../../components/main/status/StatusSection';
 import CertificationSection from '../../components/main/certification/CertificationSection';
 import LinkSection from '../../components/main/Link/LinkSection';
 import {View} from 'react-native';
 
-import {useDispatch, useSelector} from 'react-redux';
-
+import {useDispatch} from 'react-redux';
 import {asyncStatusFetch} from '../../store/slice/StatusSlice';
-import {AppDispatch, RootState} from '../../store/store';
-import {setVisible} from '../../store/slice/ModeSlice';
+import {AppDispatch} from '../../store/store';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -25,7 +19,6 @@ interface Props {
 const Main = ({navigation}: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   dispatch(asyncStatusFetch());
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.content, {rowGap: 20 * height}]}>

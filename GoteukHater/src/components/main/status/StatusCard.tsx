@@ -35,13 +35,9 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
     dispatch(asyncStatusFetch());
     setVisible2(false);
   };
+  const [description, setDescription] = React.useState<string>('');
   const user = useSelector((state: RootState) => state.User);
   const onCancel = async () => {
-    console.log({
-      id: user.id,
-      password: user.password,
-      reserve_id: props.reserve_id,
-    });
     const res = await axios
       .post(`${SERVER_URL}user/cancle`, {
         id: user.id,
@@ -49,14 +45,17 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
         reserve_id: props.reserve_id,
       })
       .then(res => {
+        setDescription('예약이 취소되었습니다.');
         setVisible(false);
       })
       .catch(err => {
-        console.log(err);
+        setDescription(err.response.data);
+        setVisible(false);
       });
+    return res;
   };
   const onConfirm = () => {
-    onCancel().then(res => {
+    onCancel().then(err => {
       setVisible2(true);
     });
   };
@@ -93,7 +92,7 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
             />
             <AlertModal
               visible={visible2}
-              description="예약이 취소되었습니다."
+              description={description}
               accpetText="확인"
               onConfirm={closemodal2}
               onClose={closemodal2}

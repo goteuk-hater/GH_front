@@ -5,7 +5,7 @@ import {globalstyles, scale, width} from '../../../config/globalStyles';
 import Card from '../globalcomponents/Card';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
-export const QAcomponent = () => {
+export const QAcomponent = ({tag, title, content}) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -16,10 +16,8 @@ export const QAcomponent = () => {
           setOpen(!open);
         }}>
         <View style={[globalstyles.row, {columnGap: 4 * width}]}>
-          <StyledText style={styles.type}>[가입/탈퇴]</StyledText>
-          <StyledText style={styles.title}>
-            아이디와 비밀번호는 서버에 저장되나요?
-          </StyledText>
+          <StyledText style={styles.type}>[{tag}]</StyledText>
+          <StyledText style={styles.title}>{title}</StyledText>
         </View>
 
         <AntDesign
@@ -37,9 +35,7 @@ export const QAcomponent = () => {
             },
           ]}
           line={Infinity}>
-          아이디와 비밀번호는 서버에 저장되나요? 아이디와 비밀번호는 서버에
-          저장되나요? 아이디와 비밀번호는 서버에 저장되나요? 아이디와 비밀번호는
-          서버에 저장되나요? 아이디와 비밀번호는 서버에 저장되나요?
+          {content}
         </StyledText>
       )}
     </Card>

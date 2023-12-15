@@ -21,12 +21,12 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const ApplicationStatus = () => {
   const statusData = useSelector((state: RootState) => state.Status);
-  if (statusData.status == 'loading') {
+  if (statusData.status === 'loading') {
     return (
-      <SkeletonPlaceholder>
+      <SkeletonPlaceholder speed={1500}>
         <SkeletonPlaceholder.Item
           width={358 * width}
-          height={111 * height}
+          height={112 * height}
           borderRadius={12}
         />
       </SkeletonPlaceholder>

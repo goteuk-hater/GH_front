@@ -1,30 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
-
 import Card from '../../globalcomponents/Card';
 import StyledText from '../../globalcomponents/StyledText';
-import {SvgUri} from 'react-native-svg';
-import FlexView from '../../globalcomponents/FlexView';
-import {
-  globalstyles,
-  height,
-  scale,
-  width,
-} from '../../../../config/globalStyles';
-
+import {globalstyles, height, width} from '../../../../config/globalStyles';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../store/RootReducer';
 
 const InformationCard = () => {
   const user = useSelector((state: RootState) => state.User);
   return (
-    <Card style={{width: '100%'}}>
-      <View style={[globalstyles.row, {columnGap: 12 * width}]}>
-        <SvgUri
-          width={60 * scale}
-          height={60 * scale}
-          uri="https://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"
-        />
+    <Card style={styles.card}>
+      <View style={styles.wrapper}>
         <View style={{rowGap: 4 * height}}>
           <StyledText style={globalstyles.h2}>{user.name}</StyledText>
           <StyledText style={[globalstyles.h4, {color: '#636570'}]}>
@@ -37,10 +23,12 @@ const InformationCard = () => {
 };
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4 * height,
+  card: {
+    width: '100%',
+  },
+  wrapper: {
+    ...globalstyles.row,
+    columnGap: 12 * width,
   },
 });
 export default InformationCard;

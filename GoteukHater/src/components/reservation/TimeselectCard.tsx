@@ -12,7 +12,6 @@ interface Propstype {
   maxnumber: number;
   nownumber: number;
   marginRight: number;
-  isselected: boolean;
   id: string;
   setSelect: () => void;
 }
