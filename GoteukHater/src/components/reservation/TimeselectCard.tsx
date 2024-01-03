@@ -1,18 +1,16 @@
 import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import Card from '../globalcomponents/Card';
+import Card from '../global/Card';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import StyledText from '../globalcomponents/StyledText';
-import FlexView from '../globalcomponents/FlexView';
+import StyledText from '../global/StyledText';
+import FlexView from '../global/FlexView';
 import {useEffect, useState} from 'react';
-import {globalstyles, width} from '../../../config/globalStyles';
+import {globalStyle, height, width} from '@/config/globalStyle';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 interface Propstype {
   time: string;
   maxnumber: number;
   nownumber: number;
-  marginRight: number;
-  id: string;
   setSelect: () => void;
 }
 const TimeselectCard: React.FC<Propstype> = props => {
@@ -24,13 +22,14 @@ const TimeselectCard: React.FC<Propstype> = props => {
   const [timecolor, settimecolor] = useState(seats > 0 ? '#000000' : '#ffffff');
   return (
     <TouchableOpacity
-      style={{marginRight: props.marginRight * width}}
+      key={props.time}
       disabled={seats <= 0}
+      style={{marginBottom: 8 * height}}
       onPress={props.setSelect}>
       <Card style={{backgroundColor: backgroundcolor, width: 173 * width}}>
-        <View style={[globalstyles.row_spacebetween]}>
-          <View style={globalstyles.row_spacebetween}>
-            <StyledText style={[globalstyles.h4, {color: timecolor}]}>
+        <View style={[globalStyle.row_space_between]}>
+          <View style={globalStyle.row_space_between}>
+            <StyledText style={[globalStyle.h4, {color: timecolor}]}>
               {props.time}
             </StyledText>
             <AntDesign
@@ -41,7 +40,7 @@ const TimeselectCard: React.FC<Propstype> = props => {
             />
           </View>
 
-          <StyledText style={[globalstyles.h4, {color: fontcolor}]}>
+          <StyledText style={[globalStyle.h4, {color: fontcolor}]}>
             {seats > 0
               ? `남은자리 : ${props.maxnumber - props.nownumber}`
               : '예약불가'}

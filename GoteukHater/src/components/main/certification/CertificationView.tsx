@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
-import FlexView from '../../globalcomponents/FlexView';
+import FlexView from '../../global/FlexView';
 import CertificationCard from './CertificationCard';
-import {height, width} from '../../../../config/globalStyles';
+import {height, width} from '@/config/globalStyle';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../store/RootReducer';
 const dict = {
@@ -12,7 +12,7 @@ const dict = {
   4: '서양의역사와사상(4권)',
 };
 const CertificationView = () => {
-  const user = useSelector((state: RootState) => state.User);
+  const user = useSelector((state: RootState) => state.user);
 
   return (
     <View style={{rowGap: 4 * height}}>

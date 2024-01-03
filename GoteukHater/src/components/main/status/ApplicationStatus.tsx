@@ -1,15 +1,10 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {
-  globalstyles,
-  height,
-  scale,
-  width,
-} from '../../../../config/globalStyles';
-import {BookReservation} from '../../../../config/Type';
-import Card from '../../globalcomponents/Card';
-import StyledText from '../../globalcomponents/StyledText';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
+import {BookReservation} from '../../../config/Type';
+import Card from '../../global/Card';
+import StyledText from '../../global/StyledText';
 import StatusCard from './StatusCard';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../store/store';
@@ -40,7 +35,7 @@ const ApplicationStatus = () => {
               padding: 32 * scale,
               height: 111 * height,
             }}>
-            <StyledText style={globalstyles.h3}>
+            <StyledText style={globalStyle.h3}>
               예약한 시험이 없습니다.
             </StyledText>
           </Card>

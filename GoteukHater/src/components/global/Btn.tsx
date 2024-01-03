@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
 import StyledText from './StyledText';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 interface BtnProps {
@@ -20,7 +20,7 @@ const Btn = (props: BtnProps) => {
         {props.title ? (
           <StyledText
             style={[
-              globalstyles.h3,
+              globalStyle.h3,
               {color: '#007AFF', marginHorizontal: 5 * scale},
             ]}>
             {props.title}

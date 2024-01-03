@@ -4,8 +4,5 @@ module.exports = {
     browser: true,
     node: true,
   },
-  extends: [
-    '@react-native-community',
-    'prettier',
-  ],
+  extends: ['@react-native-community', 'prettier'],
 };

@@ -1,6 +1,6 @@
 import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
-import StyledText from '../globalcomponents/StyledText';
-import {globalstyles, scale} from '../../../config/globalStyles';
+import StyledText from '../global/StyledText';
+import {globalStyle, scale} from '@/config/globalStyle';
 import {DateData, DayState} from 'react-native-calendars/src/types';
 
 interface Props {
@@ -47,7 +47,7 @@ export const Daycomponent = (props: Props) => {
         props.setSelectedDate(props.date.dateString);
       }}>
       <View style={[styles.container, boxStyle]}>
-        <StyledText style={[globalstyles.h4, textStyle]}>
+        <StyledText style={[globalStyle.h4, textStyle]}>
           {props.date.day}
         </StyledText>
       </View>

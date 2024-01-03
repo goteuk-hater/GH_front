@@ -1,6 +1,6 @@
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import StyledText from '../globalcomponents/StyledText';
-import {globalstyles} from '../../../config/globalStyles';
+import StyledText from '../global/StyledText';
+import {globalStyle} from '@/config/globalStyle';
 import {useDispatch} from 'react-redux';
 import {setScreen} from '../../store/slice/TabSlice';
 
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
     columnGap: 8,
   },
   activetext: {
-    ...globalstyles.h3,
+    ...globalStyle.h3,
     color: 'black',
     textDecorationLine: 'underline',
   },
   text: {
-    ...globalstyles.h3,
+    ...globalStyle.h3,
     color: '#8B8B8B',
   },
 });

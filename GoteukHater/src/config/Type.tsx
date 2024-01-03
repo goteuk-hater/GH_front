@@ -3,7 +3,7 @@ import {NavigationProp, NavigationState} from '@react-navigation/native';
 export type RootStackParamList = {
   Login: undefined;
   SplashScreen: undefined;
-  NestPage: undefined;
+  HomePage: undefined;
   Home: undefined;
 };
 export type MypageStackParamList = {
@@ -24,10 +24,9 @@ export type MainStackParamList = {
       type: string;
       image: string;
     };
-
     navigate: (screen: string) => void;
   };
-  MyPageScreen: undefined;
+  MypageScreen: undefined;
   BookSearchScreen: undefined;
   ExamMainScreen: undefined;
   BtnScreen: undefined;
@@ -61,6 +60,8 @@ export interface Book {
   author: string;
   publisher: string;
   category: Category;
+  id: number;
+  image_url: string;
 }
 
 export interface Certification {
@@ -83,10 +84,10 @@ export interface Tab {
 export interface BookReservation {
   book_name: string;
   date: string;
-  location: string;
   reserve_id: string;
   time: string;
   classification: string;
+  location: string;
 }
 export interface Status {
   date: string;
@@ -94,4 +95,5 @@ export interface Status {
   location: string;
   book_name: string;
   reserve_id: string;
+  classification: string;
 }

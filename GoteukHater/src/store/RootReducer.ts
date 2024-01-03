@@ -6,7 +6,7 @@ import ModeSlice from './slice/ModeSlice';
 import TabSlice from './slice/TabSlice';
 
 const RootReducer = combineReducers({
-  User: UserSlice,
+  user: UserSlice,
   Status: StatusSlice,
   Books: BooksSlice,
   Mode: ModeSlice,

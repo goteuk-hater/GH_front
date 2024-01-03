@@ -1,16 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {NavigationProp, NavigationState} from '@react-navigation/native';
-import {height, width} from '../../../config/globalStyles';
+import {height, width} from '@/config/globalStyle';
 import InformationSection from '../../components/main/information/InformationSection';
 import StatusSection from '../../components/main/status/StatusSection';
 import CertificationSection from '../../components/main/certification/CertificationSection';
 import LinkSection from '../../components/main/Link/LinkSection';
 import {View} from 'react-native';
 
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {asyncStatusFetch} from '../../store/slice/StatusSlice';
 import {AppDispatch} from '../../store/store';
+import {RootState} from '@/store/RootReducer';
+import {asyncBooksFetch} from '@/store/slice/BooksSlice';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -18,14 +20,28 @@ interface Props {
 
 const Main = ({navigation}: Props) => {
   const dispatch = useDispatch<AppDispatch>();
-  dispatch(asyncStatusFetch());
+  const user = useSelector((state: RootState) => state.user);
+  useEffect(() => {
+    dispatch(
+      asyncStatusFetch({
+        id: user.id,
+        password: user.password,
+      }),
+    );
+    dispatch(asyncBooksFetch());
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.content, {rowGap: 20 * height}]}>
         <InformationSection />
         <StatusSection />
         <CertificationSection />
-        <LinkSection navigation={navigation} />
+        <LinkSection
+          onPress={() => {
+            navigation.navigate('BookSearchScreen' as never);
+          }}
+        />
       </View>
     </SafeAreaView>
   );

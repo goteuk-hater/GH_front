@@ -1,26 +1,19 @@
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import React, {type PropsWithChildren} from 'react';
-
+import React from 'react';
 import BookSearchScreen from '../bookinformation/BookSearchScreen';
 import BookInfoScreen from '../bookinformation/BookInfoScreen';
 import BookingListScreen from '../bookinglist/BookingListScreen';
 import Main from './Main';
-import {globalstyles, scale, width} from '../../../config/globalStyles';
-import StyledText from '../../components/globalcomponents/StyledText';
-
-import Btn from '../../components/globalcomponents/Btn';
-import {MainStackParamList} from '../../../config/Type';
-import {isAndroid} from 'react-native-calendars/src/expandableCalendar/commons';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import {Screen} from 'react-native-screens';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-
-import {Platform} from 'react-native';
+import {globalStyle, scale, width} from '@/config/globalStyle';
+import Btn from '../../components/global/Btn';
+import {MainStackParamList} from '../../config/Type';
+import {useNavigation} from '@react-navigation/native';
 import {MypageScreen} from '../mypage/MypageScreen';
+import StyledText from '@/components/global/StyledText';
 
 const Home = () => {
   const Stack = createStackNavigator<MainStackParamList>();
-  const navigation = useNavigation();
+
   return (
     <Stack.Navigator>
       <Stack.Group
@@ -37,16 +30,9 @@ const Home = () => {
           component={BookingListScreen}
           options={{
             headerTitle: () => (
-              <StyledText style={globalstyles.h2}>나의 신청현황</StyledText>
+              <StyledText style={globalStyle.h2}>나의 신청현황</StyledText>
             ),
-            headerLeft: () => (
-              <Btn
-                Icon="chevron-back"
-                onPress={() => {
-                  navigation.navigate('Main' as never);
-                }}
-              />
-            ),
+            headerLeft: BackButton,
           }}
         />
         <Stack.Screen
@@ -54,18 +40,11 @@ const Home = () => {
           component={BookSearchScreen}
           options={{
             headerTitle: () => (
-              <StyledText style={globalstyles.h2}>
+              <StyledText style={globalStyle.h2}>
                 고전도서 정보 게시판
               </StyledText>
             ),
-            headerLeft: () => (
-              <Btn
-                Icon="chevron-back"
-                onPress={() => {
-                  navigation.navigate('Main' as never);
-                }}
-              />
-            ),
+            headerLeft: BackButton,
           }}
         />
         <Stack.Screen
@@ -73,18 +52,11 @@ const Home = () => {
           component={BookInfoScreen as never}
           options={{
             headerTitle: () => (
-              <StyledText style={globalstyles.h1}>
+              <StyledText style={globalStyle.h1}>
                 고전도서 정보 게시판
               </StyledText>
             ),
-            headerLeft: () => (
-              <Btn
-                Icon="chevron-back"
-                onPress={() => {
-                  navigation.navigate('BookSearchScreen' as never);
-                }}
-              />
-            ),
+            headerLeft: BackButton,
           }}
         />
         <Stack.Screen
@@ -92,21 +64,25 @@ const Home = () => {
           component={MypageScreen as never}
           options={{
             headerTitle: () => (
-              <StyledText style={globalstyles.h1}>내 정보</StyledText>
+              <StyledText style={globalStyle.h1}>내 정보</StyledText>
             ),
-
-            headerLeft: () => (
-              <Btn
-                Icon="chevron-back"
-                onPress={() => {
-                  navigation.navigate('Main' as never);
-                }}
-              />
-            ),
+            headerLeft: BackButton,
           }}
         />
       </Stack.Group>
     </Stack.Navigator>
+  );
+};
+
+const BackButton = () => {
+  const navigation = useNavigation();
+  return (
+    <Btn
+      Icon="chevron-back"
+      onPress={() => {
+        navigation.navigate('Main' as never);
+      }}
+    />
   );
 };
 export default Home;

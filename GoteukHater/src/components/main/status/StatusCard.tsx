@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, ViewStyle, StyleProp, TouchableOpacity} from 'react-native';
-import Card from '../../globalcomponents/Card';
-import {globalstyles, width} from '../../../../config/globalStyles';
-import ClassBox from '../../globalcomponents/ClassBox';
-import StyledText from '../../globalcomponents/StyledText';
+import Card from '../../global/Card';
+import {globalStyle, width} from '@/config/globalStyle';
+import ClassBox from '../../global/ClassBox';
+import StyledText from '../../global/StyledText';
 import DateBox from './DateBox';
 import {AlertModal} from '../../Modal/AlertModal';
 
@@ -12,6 +12,7 @@ import {SERVER_URL} from '@env';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../../store/store';
 import {asyncStatusFetch} from '../../../store/slice/StatusSlice';
+import {postCancel} from '@/service/api';
 
 interface StatusProps {
   title: string;
@@ -26,33 +27,32 @@ interface StatusProps {
 
 const StatusCard: React.FunctionComponent<StatusProps> = props => {
   const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.user);
   const [visible, setVisible] = React.useState<boolean>(false);
   const [visible2, setVisible2] = React.useState<boolean>(false);
   const closemodal = () => {
     setVisible(false);
   };
   const closemodal2 = () => {
-    dispatch(asyncStatusFetch());
+    dispatch(
+      asyncStatusFetch({
+        id: user.id,
+        password: user.password,
+      }),
+    );
     setVisible2(false);
   };
   const [description, setDescription] = React.useState<string>('');
-  const user = useSelector((state: RootState) => state.User);
   const onCancel = async () => {
-    const res = await axios
-      .post(`${SERVER_URL}user/cancle`, {
+    const res = await postCancel(
+      {
         id: user.id,
         password: user.password,
-        reserve_id: props.reserve_id,
-      })
-      .then(res => {
-        setDescription('예약이 취소되었습니다.');
-        setVisible(false);
-      })
-      .catch(err => {
-        setDescription(err.response.data);
-        setVisible(false);
-      });
-    return res;
+      },
+      props.reserve_id as string,
+    );
+    setDescription(res);
+    setVisible(false);
   };
   const onConfirm = () => {
     onCancel().then(err => {
@@ -62,28 +62,28 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
 
   return (
     <Card style={[props.style, {minWidth: 240 * width}]}>
-      <View style={globalstyles.row_spacebetween}>
+      <View style={globalStyle.row_space_between}>
         <ClassBox classification={props.classification} usedScreen="main" />
         {props.detail ? (
           <TouchableOpacity
             onPress={() => {
               setVisible(true);
             }}>
-            <StyledText style={globalstyles.p2}>예약 취소</StyledText>
+            <StyledText style={globalStyle.p2}>예약 취소</StyledText>
           </TouchableOpacity>
         ) : null}
       </View>
       <View>
-        <StyledText style={globalstyles.h4}>{props.title}</StyledText>
+        <StyledText style={globalStyle.h4}>{props.title}</StyledText>
       </View>
-      <View style={globalstyles.row_spacebetween}>
+      <View style={globalStyle.row_space_between}>
         <DateBox date={props.date} time={props.time} />
         {props.detail ? (
           <>
             <AlertModal
               visible={visible}
               title="예약 취소"
-              description="2023년 8월 4일 11:00 ~ 11:30"
+              description={`${props.date} ${props.time} `}
               confirmText="예약을 취소하시겠습니까?"
               accpetText="예"
               rejectText="아니오"
@@ -97,7 +97,7 @@ const StatusCard: React.FunctionComponent<StatusProps> = props => {
               onConfirm={closemodal2}
               onClose={closemodal2}
             />
-            <StyledText style={[globalstyles.p1, {color: '#818181'}]}>
+            <StyledText style={[globalStyle.p1, {color: '#818181'}]}>
               {props.location?.slice(0, 10)}
             </StyledText>
           </>

@@ -10,7 +10,7 @@ export const fonts = {};
 export const width = WIDTH / FIGMA_WINDOW_WIDTH;
 export const height = HEIGHT / FIGMA_WINDOW_HEIGHT;
 export const scale = Math.sqrt(WIDTH * HEIGHT) / FIGMA_SCALE;
-export const globalstyles = StyleSheet.create({
+export const globalStyle = StyleSheet.create({
   h1: {
     fontSize: 20 * scale,
     ...Platform.select({
@@ -94,14 +94,14 @@ export const globalstyles = StyleSheet.create({
   content: {
     padding: 16 * scale,
   },
-  conatiner: {
+  container: {
     padding: 12 * scale,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  row_spacebetween: {
+  row_space_between: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

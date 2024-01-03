@@ -1,24 +1,19 @@
 import React, {useEffect} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   Image,
   ImageBackground,
   SafeAreaView,
 } from 'react-native';
-import Card from '../../components/globalcomponents/Card';
-import BookCard from '../../components/booksearch/BookCard';
-import StyledText from '../../components/globalcomponents/StyledText';
-import ClassBox from '../../components/globalcomponents/ClassBox';
-import Formbtn from '../../components/Modal/Formbtn';
+import StyledText from '@/components/global/StyledText';
 import {
   NavigationProp,
   NavigationState,
   useNavigation,
 } from '@react-navigation/native';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import {Book} from '../../../config/Type';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
+import {Book} from '@/config/Type';
 
 interface propsType {
   navigation: NavigationProp<NavigationState>;
@@ -58,19 +53,19 @@ const BookInfoScreen = (props: propsType) => {
             />
           </View>
           <View style={styles.modalbody}>
-            <StyledText style={[globalstyles.p1, {color: 'gray'}]}>
+            <StyledText style={[globalStyle.p1, {color: 'gray'}]}>
               {book.category.category}
             </StyledText>
-            <StyledText style={globalstyles.h2}>{book.title}</StyledText>
+            <StyledText style={globalStyle.h2}>{book.title}</StyledText>
             <View
               style={[
-                globalstyles.row,
+                globalStyle.row,
                 {
                   columnGap: 16 * width,
                 },
               ]}>
-              <StyledText style={globalstyles.h3}>{book.author}</StyledText>
-              <StyledText style={globalstyles.p2}>{book.publisher}</StyledText>
+              <StyledText style={globalStyle.h3}>{book.author}</StyledText>
+              <StyledText style={globalStyle.p2}>{book.publisher}</StyledText>
             </View>
           </View>
         </View>

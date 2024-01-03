@@ -1,9 +1,9 @@
 import {StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-svg';
-import {globalstyles, height} from '../../../config/globalStyles';
-import Btn from '../globalcomponents/Btn';
-import FlexView from '../globalcomponents/FlexView';
-import StyledText from '../globalcomponents/StyledText';
+import {globalStyle, height} from '@/config/globalStyle';
+import Btn from '../global/Btn';
+import FlexView from '../global/FlexView';
+import StyledText from '../global/StyledText';
 interface ModalHeaderProps {
   backIcon?: string;
   nextIcon?: string;
@@ -17,7 +17,7 @@ export const ModalHeader = (props: ModalHeaderProps) => {
       {props.backIcon ? (
         <Btn Icon={props.backIcon} onPress={props.back} />
       ) : null}
-      <StyledText style={globalstyles.h1}>{props.title}</StyledText>
+      <StyledText style={globalStyle.h1}>{props.title}</StyledText>
 
       {props.nextIcon ? (
         <Btn Icon={props.nextIcon} onPress={props.next} />

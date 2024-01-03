@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import StyledText from '../globalcomponents/StyledText';
-import {globalstyles, scale, width} from '../../../config/globalStyles';
-import Card from '../globalcomponents/Card';
+import StyledText from '../global/StyledText';
+import {globalStyle, scale, width} from '@/config/globalStyle';
+import Card from '../global/Card';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 export const QAcomponent = ({tag, title, content}) => {
@@ -11,11 +11,11 @@ export const QAcomponent = ({tag, title, content}) => {
   return (
     <Card style={styles.container}>
       <TouchableOpacity
-        style={globalstyles.row_spacebetween}
+        style={globalStyle.row_space_between}
         onPress={() => {
           setOpen(!open);
         }}>
-        <View style={[globalstyles.row, {columnGap: 4 * width}]}>
+        <View style={[globalStyle.row, {columnGap: 4 * width}]}>
           <StyledText style={styles.type}>[{tag}]</StyledText>
           <StyledText style={styles.title}>{title}</StyledText>
         </View>
@@ -29,7 +29,7 @@ export const QAcomponent = ({tag, title, content}) => {
       {open && (
         <StyledText
           style={[
-            globalstyles.p1,
+            globalStyle.p1,
             {
               color: '#8B8B8B',
             },
@@ -48,10 +48,10 @@ const styles = StyleSheet.create({
 
   type: {
     color: '#D8808A',
-    ...globalstyles.h4,
+    ...globalStyle.h4,
   },
   title: {
-    ...globalstyles.h4,
+    ...globalStyle.h4,
     color: 'black',
   },
 });

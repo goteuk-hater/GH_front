@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import {QAcomponent} from './QAcomponent';
-import {height, width} from '../../../config/globalStyles';
+import {height, width} from '@/config/globalStyle';
 const data = [1, 2, 3, 4];
 export const QAlist = () => {
   return (

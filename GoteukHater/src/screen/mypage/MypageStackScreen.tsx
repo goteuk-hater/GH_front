@@ -1,11 +1,11 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {ReportScreen} from './ReportScreen';
 import {InquiryTabScreen} from './InquiryTabScreen';
-import {MypageStackParamList} from '../../../config/Type';
+import {MypageStackParamList} from '../../config/Type';
 import {NavigationContainer} from '@react-navigation/native';
-import StyledText from '../../components/globalcomponents/StyledText';
-import {globalstyles, height} from '../../../config/globalStyles';
-import Btn from '../../components/globalcomponents/Btn';
+import StyledText from '@/components/global/StyledText';
+import {globalStyle, height} from '@/config/globalStyle';
+import Btn from '../../components/global/Btn';
 import {QAScreen} from './QAScreen';
 import {InquiryScreen} from './InquiryScreen';
 
@@ -33,7 +33,7 @@ export const MypageStackScreen = (props: Props) => {
           component={ReportScreen}
           options={{
             headerTitle: () => (
-              <StyledText style={globalstyles.h2}>버그 신고</StyledText>
+              <StyledText style={globalStyle.h2}>버그 신고</StyledText>
             ),
             headerLeft: () => null,
           }}
@@ -43,7 +43,7 @@ export const MypageStackScreen = (props: Props) => {
           component={InquiryScreen}
           options={{
             headerTitle: () => (
-              <StyledText style={globalstyles.h2}>문의 하기</StyledText>
+              <StyledText style={globalStyle.h2}>문의 하기</StyledText>
             ),
             headerRight: () => <Btn />,
             headerLeft: () => null,

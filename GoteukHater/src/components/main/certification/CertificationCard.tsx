@@ -1,15 +1,10 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {
-  globalstyles,
-  height,
-  scale,
-  width,
-} from '../../../../config/globalStyles';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
 
-import Card from '../../globalcomponents/Card';
-import FlexView from '../../globalcomponents/FlexView';
-import StyledText from '../../globalcomponents/StyledText';
+import Card from '../../global/Card';
+import FlexView from '../../global/FlexView';
+import StyledText from '../../global/StyledText';
 interface CertificationCardProps {
   title: string;
   maxnum: number;
@@ -31,8 +26,8 @@ const CertificationCard: React.FunctionComponent<
       style={{width: 175 * width}}
       children={
         <View style={{rowGap: 8 * height}}>
-          <StyledText style={globalstyles.h3}>{props.title}</StyledText>
-          <StyledText style={[styles.certifiedtext, globalstyles.p2]}>
+          <StyledText style={globalStyle.h3}>{props.title}</StyledText>
+          <StyledText style={[styles.certifiedtext, globalStyle.p2]}>
             {props.mynum}/{props.maxnum}권
           </StyledText>
           <View style={styles.barbox}>
@@ -46,7 +41,7 @@ const CertificationCard: React.FunctionComponent<
 
 const styles = StyleSheet.create({
   certifiedtitle: {
-    ...globalstyles.h4,
+    ...globalStyle.h4,
   },
   certifiedtext: {
     textAlign: 'right',

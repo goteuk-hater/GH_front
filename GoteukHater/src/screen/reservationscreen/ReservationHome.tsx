@@ -7,11 +7,11 @@ import React, {useEffect} from 'react';
 import {StyleSheet, View, FlatList, Platform} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import {ScrollView} from 'react-native-gesture-handler';
-import Card from '../../components/globalcomponents/Card';
-import StyledText from '../../components/globalcomponents/StyledText';
+import Card from '../../components/global/Card';
+import StyledText from '@/components/global/StyledText';
 import TimeselectCard from '../../components/reservation/TimeselectCard';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import Btn from '../../components/globalcomponents/Btn';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
+import Btn from '../../components/global/Btn';
 import axios from 'axios';
 import {SERVER_URL} from '@env';
 import {fetchUser} from '../../hooks/Hooks';
@@ -19,6 +19,7 @@ import {Daycomponent} from '../../components/reservation/DayComponent';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store/store';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {getCalendarData} from '@/service/api';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -36,6 +37,7 @@ interface Reservation {
 const ReservationHome = ({navigation}: Props) => {
   const [selectedDate, setSelectedDate] = React.useState('');
   const status = useSelector((state: RootState) => state.Status);
+  const user = useSelector((state: RootState) => state.user);
   const [ReservationSchedule, setReservationSchedule] =
     React.useState<Reservation>();
   const [reservationKey, setReservationKey] = React.useState<string[]>([]);
@@ -54,16 +56,14 @@ const ReservationHome = ({navigation}: Props) => {
       }),
     );
   };
-  const fetchdata = async () => {
-    const user = await fetchUser();
-    const res = await axios.post(`${SERVER_URL}user/calender`, {
+  const fetchData = async () => {
+    const res = await getCalendarData({
       id: user.id,
       password: user.password,
     });
     setReservationSchedule(res.data);
     let key = Object.keys(res.data);
     let newunavaible: string[] = [];
-
     status.data.map((item, index) => {
       let date = new Date(item.date);
       let startDay = date.getDay();
@@ -76,12 +76,11 @@ const ReservationHome = ({navigation}: Props) => {
     let newkey = key.filter(item => {
       return !newunavaible.includes(item);
     });
-
     setReservationKey(newkey);
   };
 
   useEffect(() => {
-    fetchdata();
+    fetchData();
   }, []);
   useEffect(() => {
     if (selectedDate == '') return;
@@ -166,31 +165,39 @@ const ReservationHome = ({navigation}: Props) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  <StyledText style={globalstyles.h2}>{header}</StyledText>
+                  <StyledText style={globalStyle.h2}>{header}</StyledText>
                 </View>
               );
             }}
           />
         </Card>
         <View style={{rowGap: 4 * height}}>
-          <StyledText style={globalstyles.h1}>시간선택</StyledText>
+          <StyledText style={globalStyle.h1}>시간선택</StyledText>
         </View>
-        <FlatList
-          data={reservationInfo}
-          numColumns={2}
-          scrollEnabled={false}
-          ItemSeparatorComponent={() => <View style={{height: 12 * height}} />}
-          renderItem={({item, index}) => (
-            <TimeselectCard
-              time={item.time}
-              maxnumber={item.total_seats}
-              nownumber={item.available_seats}
-              id={item.id}
-              marginRight={index % 2 == 0 ? 12 : 0}
-              setSelect={() => setSelect(item.time, item.id)}
-            />
-          )}
-        />
+        <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+          }}>
+          {reservationInfo.map((item, index) => {
+            return (
+              <TimeselectCard
+                time={item.time}
+                maxnumber={item.total_seats}
+                nownumber={item.available_seats}
+                setSelect={() => setSelect(item.time, item.id)}
+                key={
+                  item.id +
+                  item.time +
+                  index +
+                  item.total_seats +
+                  item.available_seats
+                }
+              />
+            );
+          })}
+        </View>
       </View>
     </ScrollView>
   );

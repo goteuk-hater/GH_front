@@ -1,45 +1,44 @@
-import {TouchableOpacity, View} from 'react-native';
-import {globalstyles, height} from '../../../../config/globalStyles';
-import StyledText from '../../globalcomponents/StyledText';
+import {Alert, TouchableOpacity, View} from 'react-native';
+import {globalStyle, height} from '@/config/globalStyle';
+import StyledText from '../../global/StyledText';
 import InformationCard from './InformationCard';
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch} from '../../../store/store';
 import {asyncStatusFetch} from '../../../store/slice/StatusSlice';
-
-import {SERVER_URL} from '@env';
-import axios from 'axios';
 import {isLoading, setUserInfo} from '../../../store/slice/UserSlice';
-import {fetchUser} from '../../../hooks/Hooks';
-const InformationSection = () => {
-  const usenavigation = useNavigation();
-  const dispatch = useDispatch<AppDispatch>();
+import {RootState} from '@/store/RootReducer';
+import {getUserInfo} from '@/service/api';
 
-  const checkuser = async () => {
+const InformationSection = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.user);
+  const reload = async () => {
     dispatch(isLoading());
-    const user = await fetchUser();
-    const res = await axios
-      .post(`${SERVER_URL}user/user_info`, {
+    dispatch(
+      asyncStatusFetch({
         id: user.id,
         password: user.password,
-      })
-      .then(res => {
-        dispatch(setUserInfo(res.data));
-      });
-  };
-
-  const fetchdata = async () => {
-    checkuser();
-  };
-  const reload = () => {
-    dispatch(asyncStatusFetch());
-    fetchdata();
+      }),
+    );
+    const userInfo = await getUserInfo({
+      id: user.id,
+      password: user.password,
+    });
+    if (!userInfo) {
+      Alert.alert('회원 정보가 변경되었습니다.\n다시 로그인 해주세요.');
+      navigation.navigate('Login' as never);
+      return;
+    }
+    dispatch(setUserInfo(userInfo));
+    navigation.navigate('HomePage' as never);
   };
   return (
     <View style={{rowGap: 12 * height}}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <StyledText style={globalstyles.h1}>내 정보</StyledText>
+        <StyledText style={globalStyle.h1}>내 정보</StyledText>
         <TouchableOpacity
           onPress={() => {
             reload();
@@ -49,7 +48,7 @@ const InformationSection = () => {
       </View>
       <TouchableOpacity
         onPress={() => {
-          usenavigation.navigate('MypageScreen' as never);
+          navigation.navigate('MypageScreen' as never);
         }}>
         <InformationCard />
       </TouchableOpacity>

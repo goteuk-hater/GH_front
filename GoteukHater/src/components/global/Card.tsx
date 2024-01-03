@@ -2,8 +2,7 @@ import React, {Children} from 'react';
 import {StyleSheet, StyleProp, ViewStyle, View} from 'react-native';
 import {Shadow} from 'react-native-shadow-2';
 import {Svg} from 'react-native-svg';
-import {height, scale} from '../../../config/globalStyles';
-import FlexView from './FlexView';
+import {height, scale} from '@/config/globalStyle';
 
 interface propsType {
   children: React.ReactNode;

@@ -1,15 +1,15 @@
 import {StyleSheet, View} from 'react-native';
-import StyledText from '../../components/globalcomponents/StyledText';
+import StyledText from '@/components/global/StyledText';
 import {useNavigation} from '@react-navigation/native';
 import {useEffect} from 'react';
-import Btn from '../../components/globalcomponents/Btn';
+import Btn from '../../components/global/Btn';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store/store';
 import {SwitchTab} from '../../components/inquiry/SwitchTab';
-import {height, scale, width} from '../../../config/globalStyles';
+import {height, scale, width} from '@/config/globalStyle';
 import {QAlist} from '../../components/inquiry/QAlist';
-import {Inquiry} from '../../components/inquiry/Inquiry';
+import {Inquiry} from '../../components/inquiry/inquiry';
 
 export const InquiryScreen = () => {
   const naviagtion = useNavigation();

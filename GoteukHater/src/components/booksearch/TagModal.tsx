@@ -5,9 +5,9 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import SheetHandle from '../globalcomponents/SheetHandle';
-import StyledText from '../globalcomponents/StyledText';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
+import SheetHandle from '../global/SheetHandle';
+import StyledText from '../global/StyledText';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {useEffect, useState} from 'react';
@@ -87,8 +87,8 @@ const TagModal = ({closeModal, submit, tagList, title}: Props) => {
   };
   return (
     <View style={styles.modalView}>
-      <View style={[globalstyles.row_spacebetween, styles.title]}>
-        <StyledText style={globalstyles.h1}>{title}</StyledText>
+      <View style={[globalStyle.row_space_between, styles.title]}>
+        <StyledText style={globalStyle.h1}>{title}</StyledText>
       </View>
       <View style={styles.tagContainer}>
         {tag.map((tag, index) => {
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     rowGap: 14 * height,
   },
   modalText: {
-    ...globalstyles.h3,
+    ...globalStyle.h3,
   },
   tagContainer: {
     rowGap: 20 * height,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   btntext: {
-    ...globalstyles.h2,
+    ...globalStyle.h2,
     letterSpacing: 3 * width,
     color: '#FFFFFF',
   },

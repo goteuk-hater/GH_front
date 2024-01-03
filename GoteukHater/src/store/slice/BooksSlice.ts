@@ -1,8 +1,9 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import axios from 'axios';
+
+import {Book} from '../../config/Type';
 import {SERVER_URL} from '@env';
-import {Book} from '../../../config/Type';
 
 interface BooksState {
   data: Book[];

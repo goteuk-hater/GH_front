@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
 import {Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
 
-import StyledText from '../globalcomponents/StyledText';
+import StyledText from '../global/StyledText';
 
 interface Props {
   visible: boolean;
@@ -30,22 +30,22 @@ export const AlertModal = ({
       <View style={styles.modalBackground}>
         <View style={styles.modal}>
           <View style={styles.modalcontent}>
-            <View style={[globalstyles.center]}>
+            <View style={[globalStyle.center]}>
               {title ? (
-                <StyledText style={globalstyles.h1}>{title}</StyledText>
+                <StyledText style={globalStyle.h1}>{title}</StyledText>
               ) : null}
             </View>
-            <View style={[globalstyles.center]}>
-              <StyledText style={globalstyles.p1}>{description}</StyledText>
+            <View style={[globalStyle.center]}>
+              <StyledText style={globalStyle.p1}>{description}</StyledText>
               {confirmText ? (
-                <StyledText style={globalstyles.p1}>{confirmText}</StyledText>
+                <StyledText style={globalStyle.p1}>{confirmText}</StyledText>
               ) : null}
             </View>
           </View>
 
           <View
             style={[
-              globalstyles.row_spacebetween,
+              globalStyle.row_space_between,
               {
                 borderTopWidth: 1,
                 borderColor: '#EFEFF0',
@@ -54,7 +54,7 @@ export const AlertModal = ({
             {rejectText ? (
               <>
                 <TouchableOpacity style={styles.modalButton} onPress={onClose}>
-                  <StyledText style={globalstyles.h3}>{rejectText}</StyledText>
+                  <StyledText style={globalStyle.h3}>{rejectText}</StyledText>
                 </TouchableOpacity>
                 <View
                   style={{
@@ -66,7 +66,7 @@ export const AlertModal = ({
                 <TouchableOpacity
                   style={styles.modalButton}
                   onPress={onConfirm}>
-                  <StyledText style={globalstyles.h3}>{accpetText}</StyledText>
+                  <StyledText style={globalStyle.h3}>{accpetText}</StyledText>
                 </TouchableOpacity>
               </>
             ) : null}
@@ -74,7 +74,7 @@ export const AlertModal = ({
               <TouchableOpacity
                 style={styles.modalbigButton}
                 onPress={onConfirm}>
-                <StyledText style={globalstyles.h3}>{accpetText}</StyledText>
+                <StyledText style={globalStyle.h3}>{accpetText}</StyledText>
               </TouchableOpacity>
             ) : null}
           </View>

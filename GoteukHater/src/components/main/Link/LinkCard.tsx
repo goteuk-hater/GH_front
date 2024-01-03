@@ -1,36 +1,33 @@
-import {NavigationProp, NavigationState} from '@react-navigation/native';
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {globalstyles, height, scale} from '../../../../config/globalStyles';
-import Card from '../../globalcomponents/Card';
-import StyledText from '../../globalcomponents/StyledText';
+import {globalStyle, height, scale} from '@/config/globalStyle';
+import Card from '../../global/Card';
+import StyledText from '../../global/StyledText';
 interface LinkCardProps {
-  navigation: NavigationProp<NavigationState>;
+  onPress?: () => void;
   title: string;
   text: string;
-  link: string;
 }
-const LinkCard: React.FC<LinkCardProps> = props => {
+const LinkCard: React.FC<LinkCardProps> = ({onPress, title, text}) => {
   return (
     <Card style={{width: '100%', height: 75 * height}}>
-      <TouchableOpacity
-        onPress={() => props.navigation.navigate(props.link as never)}>
-        <StyledText style={styles.linktitle}>{props.title}</StyledText>
-        <StyledText style={styles.linktext}>{props.text}</StyledText>
+      <TouchableOpacity onPress={onPress}>
+        <StyledText style={styles.linkTitle}>{title}</StyledText>
+        <StyledText style={styles.linkText}>{text}</StyledText>
       </TouchableOpacity>
     </Card>
   );
 };
 
 const styles = StyleSheet.create({
-  linktitle: {
-    ...globalstyles.h3,
+  linkTitle: {
+    ...globalStyle.h3,
     marginBottom: 2 * height,
   },
-  linktext: {
+  linkText: {
     color: '#8B8B8B',
-    ...globalstyles.h5,
+    ...globalStyle.h5,
   },
 });
 export default LinkCard;

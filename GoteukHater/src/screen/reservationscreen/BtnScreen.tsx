@@ -9,10 +9,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import ReservationDetail from './ReservationDetail';
 import ReservationHome from './ReservationHome';
-import Btn from '../../components/globalcomponents/Btn';
-import {globalstyles, height, scale} from '../../../config/globalStyles';
-import StyledText from '../../components/globalcomponents/StyledText';
-import {BtnParamList} from '../../../config/Type';
+import Btn from '../../components/global/Btn';
+import {globalStyle, height, scale} from '@/config/globalStyle';
+import StyledText from '@/components/global/StyledText';
+import {BtnParamList} from '../../config/Type';
 
 interface Props {
   close: () => void;
@@ -38,7 +38,7 @@ const BtnScreen = (props: Props) => {
             component={ReservationHome}
             options={{
               headerTitle: () => (
-                <StyledText style={globalstyles.h2}>고전시험 예약</StyledText>
+                <StyledText style={globalStyle.h2}>고전시험 예약</StyledText>
               ),
               headerLeft: () => null,
               headerRight: () => null,
@@ -49,7 +49,7 @@ const BtnScreen = (props: Props) => {
             component={ReservationDetail}
             options={{
               headerTitle: () => (
-                <StyledText style={globalstyles.h2}>고전시험 예약</StyledText>
+                <StyledText style={globalStyle.h2}>고전시험 예약</StyledText>
               ),
               headerRight: () => (
                 <Btn

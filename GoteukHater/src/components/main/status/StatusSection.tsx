@@ -5,20 +5,20 @@ import {
 } from '@react-navigation/native';
 import {TouchableOpacity, View} from 'react-native';
 import {StyleSheet} from 'react-native';
-import {globalstyles, height, width} from '../../../../config/globalStyles';
+import {globalStyle, height, width} from '@/config/globalStyle';
 import ApplicationStatus from './ApplicationStatus';
-import StyledText from '../../globalcomponents/StyledText';
+import StyledText from '../../global/StyledText';
 
 const StatusSection = () => {
   const navigation = useNavigation();
   return (
     <View style={{rowGap: 12 * height}}>
       <View style={styles.titlebox}>
-        <StyledText style={globalstyles.h1}>나의 신청현황</StyledText>
+        <StyledText style={globalStyle.h1}>나의 신청현황</StyledText>
         <TouchableOpacity
           style={styles.btn}
           onPress={() => navigation.navigate('BookingListScreen' as never)}>
-          <StyledText style={globalstyles.p1}>전체보기</StyledText>
+          <StyledText style={globalStyle.p1}>전체보기</StyledText>
         </TouchableOpacity>
       </View>
       <ApplicationStatus />

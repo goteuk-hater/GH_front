@@ -1,23 +1,23 @@
 import {Keyboard, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import StyledText from '../globalcomponents/StyledText';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
+import StyledText from '../global/StyledText';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import TagModal from './TagModal';
 import {useCallback, useMemo, useRef, useState} from 'react';
-import ClassBox from '../globalcomponents/ClassBox';
+import ClassBox from '../global/ClassBox';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import SheetHandle from '../globalcomponents/SheetHandle';
+import SheetHandle from '../global/SheetHandle';
 interface PropsType {
   tagList: string[];
-  addtag: (tag: string) => void;
-  removetag: (tag: string) => void;
+  addTag: (tag: string) => void;
+  removeTag: (tag: string) => void;
   setTagList: (tagList: string[]) => void;
 }
 
 export const SelectHeader = ({
   tagList,
-  addtag,
-  removetag,
+  addTag,
+  removeTag,
   setTagList,
 }: PropsType) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -36,7 +36,7 @@ export const SelectHeader = ({
     <View style={styles.container}>
       <TouchableOpacity onPress={handlePresentModalPress}>
         <View style={styles.modalbtn}>
-          <StyledText style={[globalstyles.h4]}>
+          <StyledText style={[globalStyle.h4]}>
             영역 <AntDesign name="caretdown" size={14 * scale} color="black" />
           </StyledText>
         </View>
@@ -45,7 +45,7 @@ export const SelectHeader = ({
         return (
           <TouchableOpacity
             onPress={() => {
-              removetag(tag);
+              removeTag(tag);
             }}
             key={index}>
             <ClassBox classification={tag} usedScreen="main" />
@@ -71,13 +71,13 @@ export const SelectHeader = ({
 };
 const styles = StyleSheet.create({
   container: {
-    ...globalstyles.row,
+    ...globalStyle.row,
     columnGap: 8 * width,
     // flexWrap: 'wrap',
     alignItems: 'center',
   },
   modalbtn: {
-    ...globalstyles.row,
+    ...globalStyle.row,
     paddingVertical: 4 * height,
     alignItems: 'center',
   },

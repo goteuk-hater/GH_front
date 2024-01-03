@@ -1,13 +1,13 @@
 import {StyleSheet, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Shadow} from 'react-native-shadow-2';
-import FlexView from '../globalcomponents/FlexView';
-import StyledText from '../globalcomponents/StyledText';
+import FlexView from '../global/FlexView';
+import StyledText from '../global/StyledText';
 import Evillcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import Card from '../globalcomponents/Card';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
+import Card from '../global/Card';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface ModalButtonProps {
@@ -24,7 +24,7 @@ const ModalButton = (props: ModalButtonProps) => {
           <View style={styles.box}>
             <StyledText
               style={[
-                globalstyles.h3,
+                globalStyle.h3,
                 {
                   lineHeight: 22 * height,
                 },

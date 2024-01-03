@@ -1,11 +1,11 @@
 import React, {type PropsWithChildren} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
-import Card from '../../components/globalcomponents/Card';
-import ClassBox from '../../components/globalcomponents/ClassBox';
-import Formbtn from '../../components/Modal/Formbtn';
-import StyledText from '../../components/globalcomponents/StyledText';
-import {height} from '../../../config/globalStyles';
+import Card from '../../components/global/Card';
+import ClassBox from '../../components/global/ClassBox';
+import Formbtn from '../../components/Modal/FloatButton';
+import StyledText from '@/components/global/StyledText';
+import {height} from '@/config/globalStyle';
 const ExamMainScreen = () => {
   const [text, onChangeText] = React.useState('');
   return (

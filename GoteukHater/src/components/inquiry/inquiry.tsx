@@ -1,7 +1,7 @@
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
-import Btn from '../globalcomponents/Btn';
+import Btn from '../global/Btn';
 import {
   Keyboard,
   StyleSheet,
@@ -10,8 +10,8 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import StyledText from '../globalcomponents/StyledText';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import StyledText from '../global/StyledText';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
 import axios from 'axios';
 import {DISCORD_URL} from '@env';
 export const Inquiry = () => {
@@ -47,7 +47,7 @@ export const Inquiry = () => {
             연락처
           </StyledText>
           <TextInput
-            style={[styles.inputbox, globalstyles.p1]}
+            style={[styles.inputbox, globalStyle.p1]}
             placeholder="답변받을 이메일 주소나 휴대전화 번호를 입력해 주세요."
             onChangeText={onChangeAddress}
             value={address}
@@ -59,7 +59,7 @@ export const Inquiry = () => {
           </StyledText>
           <TextInput
             multiline={true}
-            style={[styles.inputbox2, globalstyles.p1]}
+            style={[styles.inputbox2, globalStyle.p1]}
             placeholder={`문의내용을 자유롭게 작성해 주세요! \r\n상단에 입력하신 연락처로 성실히 답변을 드리겠습니다.`}
             onChangeText={onChangeText}
             value={text}

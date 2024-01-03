@@ -6,14 +6,14 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import Card from '../globalcomponents/Card';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import Card from '../global/Card';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
 
-import StyledText from '../globalcomponents/StyledText';
-import ClassBox from '../globalcomponents/ClassBox';
+import StyledText from '../global/StyledText';
+import ClassBox from '../global/ClassBox';
 import BookDetailModal from './BookDetailModal';
 import {CommonActions, useNavigation} from '@react-navigation/native';
-import {Book, MainStackParamList} from '../../../config/Type';
+import {Book, MainStackParamList} from '@/config/Type';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 
 interface Props {
@@ -21,16 +21,14 @@ interface Props {
 }
 
 const BookCard = (props: Props) => {
-  const URL = {
+  const url = {
     uri: props.Book.image_url,
   };
   const [isModalVisible, setModalVisible] = React.useState(false);
   const onCancel = () => {
     setModalVisible(false);
   };
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+
   const {dismiss} = useBottomSheetModal();
   const navigation = useNavigation<MainStackParamList['BookSearchScreen']>();
   const book = props.Book;
@@ -43,9 +41,9 @@ const BookCard = (props: Props) => {
         });
       }}>
       <Card style={styles.card}>
-        <View style={styles.imgbox}>
+        <View style={styles.imgBox}>
           <Image
-            source={URL}
+            source={url}
             style={{
               height: 180 * height,
               width: 120 * width,
@@ -64,10 +62,10 @@ const BookCard = (props: Props) => {
             />
           </View>
           <View>
-            <StyledText style={[globalstyles.h2, {textAlign: 'center'}]}>
+            <StyledText style={[globalStyle.h2, {textAlign: 'center'}]}>
               {book.title}
             </StyledText>
-            <StyledText style={[globalstyles.p1, {textAlign: 'center'}]}>
+            <StyledText style={[globalStyle.p1, {textAlign: 'center'}]}>
               {book.author}
             </StyledText>
           </View>
@@ -86,12 +84,11 @@ const BookCard = (props: Props) => {
 const styles = StyleSheet.create({
   card: {
     width: 172 * width,
-    marginRight: 14 * width,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16 * scale,
   },
-  imgbox: {
+  imgBox: {
     justifyContent: 'center',
     alignItems: 'center',
   },

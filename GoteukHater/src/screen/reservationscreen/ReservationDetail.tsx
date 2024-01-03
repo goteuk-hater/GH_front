@@ -2,13 +2,13 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import StyledText from '../../components/globalcomponents/StyledText';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
+import StyledText from '@/components/global/StyledText';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
-import Btn from '../../components/globalcomponents/Btn';
-import {BtnParamList} from '../../../config/Type';
+import Btn from '../../components/global/Btn';
+import {BtnParamList} from '../../config/Type';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
-import SheetHandle from '../../components/globalcomponents/SheetHandle';
+import SheetHandle from '../../components/global/SheetHandle';
 import BooksearchModal from '../../components/reservation/BooksearchModal';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../store/RootReducer';
@@ -27,12 +27,17 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigation = useNavigation();
   const bookdata = useSelector((state: RootState) => state.Books.data);
-  const user = useSelector((state: RootState) => state.User);
+  const user = useSelector((state: RootState) => state.user);
   const [visible, setVisible] = React.useState<boolean>(false);
   const [visible1, setVisible1] = React.useState<boolean>(false);
   const closemodal = () => {
     setVisible(false);
-    dispatch(asyncStatusFetch());
+    dispatch(
+      asyncStatusFetch({
+        id: user.id,
+        password: user.password,
+      }),
+    );
     dismiss();
   };
   const closemodal1 = () => {
@@ -127,7 +132,6 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
       }
     });
     setBooklist(newbooklist);
-    console.log(newbooklist);
   };
 
   const selectcategory = (str: string) => {
@@ -140,7 +144,7 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
     setSelectedBook(str);
     modalclose2();
   };
-  console.log(selectedBook);
+
   return (
     <>
       <View style={styles.container}>
@@ -148,13 +152,13 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
           날짜
         </StyledText>
         <View style={styles.inputbox}>
-          <StyledText style={globalstyles.p1}>
+          <StyledText style={globalStyle.p1}>
             {props.route.params.date}
           </StyledText>
         </View>
         <StyledText style={styles.title}>시간</StyledText>
         <View style={styles.inputbox}>
-          <StyledText style={globalstyles.p1}>
+          <StyledText style={globalStyle.p1}>
             {props.route.params.time}
           </StyledText>
         </View>
@@ -165,7 +169,7 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
           onPress={handlePresentModalPress}>
           <StyledText
             style={[
-              globalstyles.p1,
+              globalStyle.p1,
               {
                 color: selected === '분야를 선택해주세요.' ? 'gray' : 'black',
               },
@@ -180,7 +184,7 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
           onPress={handlepresentModalPress2}>
           <StyledText
             style={[
-              globalstyles.p1,
+              globalStyle.p1,
               {
                 color:
                   selectedBook === '도서를 선택해 주세요.' ? 'gray' : 'black',

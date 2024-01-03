@@ -1,26 +1,23 @@
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
-import React, {useEffect, type PropsWithChildren, useCallback} from 'react';
-import {View, Text, StyleSheet, Alert, Linking} from 'react-native';
+import React, {useCallback} from 'react';
+import {View, StyleSheet, Alert, Linking} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
-import {color} from 'react-native-reanimated';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import Card from '../../components/globalcomponents/Card';
-import FlexView from '../../components/globalcomponents/FlexView';
-import StyledText from '../../components/globalcomponents/StyledText';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import {SERVER_URL} from '@env';
-import {Link, useNavigation} from '@react-navigation/native';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
+import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {setUser, setUserInfo} from '../../store/slice/UserSlice';
-
+import StyledText from '@/components/global/StyledText';
+import {getUserInfo, postLogin} from '@/service/api';
+import {setUserToStorage} from '@/utils/asyncStorage';
+import {setUser, setUserInfo} from '@/store/slice/UserSlice';
+const URL =
+  'https://portal.sejong.ac.kr/jsp/login/loginSSL.jsp?rtUrl=portal.sejong.ac.kr/comm/member/user/ssoLoginProc.do';
 const Login = () => {
   const [id, setId] = React.useState('');
   const [password, setPassword] = React.useState('');
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const loginFunction = async () => {
+  const login = async () => {
     if (id === '' || password === '') {
       Alert.alert('아이디와 비밀번호를 입력해주세요.');
       return;
@@ -30,52 +27,35 @@ const Login = () => {
       return;
     }
     try {
-      const res = await axios.post(`${SERVER_URL}user/login`, {
-        id: id,
-        password: password,
-      });
-      if (res.status === 200) {
-        if (res.data === 'false') {
-          Alert.alert('로그인 실패');
-        } else {
-          setPhone(id, res.data.password);
-          dispatch(
-            setUser({
-              id: res.data.id,
-              password: res.data.password,
-            }),
-          );
-          dispatch(setUserInfo(res.data.conf_data));
-          navigation.navigate('NestPage' as never);
-        }
+      const user = await postLogin({id, password});
+      if (user) {
+        dispatch(
+          setUser({
+            id: user.id,
+            password: user.password,
+          }),
+        );
+        setUserToStorage(user.id, user.password);
+        const userInfo = await getUserInfo(user);
+        dispatch(setUserInfo(userInfo));
+        dispatch(setUser(user));
+        setId('');
+        setPassword('');
+        navigation.navigate('HomePage' as never);
       }
     } catch (e) {
       Alert.alert('아이디 비밀번호를 확인해주세요.');
     }
   };
-  const setPhone = async (id: string, password: string) => {
-    try {
-      await AsyncStorage.setItem('id', id);
-      await AsyncStorage.setItem('password', password);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const url =
-    'https://portal.sejong.ac.kr/jsp/login/loginSSL.jsp?rtUrl=portal.sejong.ac.kr/comm/member/user/ssoLoginProc.do';
   const openUrl = useCallback(async () => {
-    await Linking.openURL(url);
-  }, [url]);
-  useEffect(() => {
-    setId('');
-    setPassword('');
+    await Linking.openURL(URL);
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.loginWrapper}>
         <View style={{rowGap: 4 * height}}>
-          <StyledText style={[globalstyles.h1, {fontSize: 28 * scale}]}>
+          <StyledText style={[globalStyle.h1, {fontSize: 28 * scale}]}>
             고특싫어
           </StyledText>
           <StyledText style={styles.infoText}>
@@ -85,7 +65,9 @@ const Login = () => {
         <View style={styles.inputWrapper}>
           <TextInput
             style={[styles.input]}
-            onChangeText={setId}
+            onChangeText={text => {
+              setId(text);
+            }}
             value={id}
             placeholder="학번을 입력해주세요."
             placeholderTextColor={'#D9D9D9'}
@@ -94,7 +76,9 @@ const Login = () => {
           />
           <TextInput
             style={styles.input}
-            onChangeText={setPassword}
+            onChangeText={text => {
+              setPassword(text);
+            }}
             value={password}
             placeholder="패스워드를 입력하세요."
             placeholderTextColor={'#D9D9D9'}
@@ -102,8 +86,8 @@ const Login = () => {
           />
         </View>
         <View style={styles.infoBox}>
-          <TouchableOpacity onPress={loginFunction} style={styles.btn}>
-            <StyledText style={[globalstyles.h1, {color: 'white'}]}>
+          <TouchableOpacity onPress={login} style={styles.btn}>
+            <StyledText style={[globalStyle.h1, {color: 'white'}]}>
               로그인
             </StyledText>
           </TouchableOpacity>
@@ -178,7 +162,7 @@ const styles = StyleSheet.create({
     rowGap: 12 * height,
   },
   infoText: {
-    ...globalstyles.p2,
+    ...globalStyle.p2,
     color: '#979799',
   },
 });

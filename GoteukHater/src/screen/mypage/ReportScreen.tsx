@@ -5,11 +5,11 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import StyledText from '../../components/globalcomponents/StyledText';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import StyledText from '@/components/global/StyledText';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
 import {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import Btn from '../../components/globalcomponents/Btn';
+import Btn from '../../components/global/Btn';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 import axios from 'axios';
 import {DISCORD_URL} from '@env';
@@ -52,7 +52,7 @@ export const ReportScreen = () => {
             날짜
           </StyledText>
           <View style={styles.inputbox}>
-            <StyledText style={globalstyles.p1}>
+            <StyledText style={globalStyle.p1}>
               {year}년 {month + 1}월 {day}일
             </StyledText>
           </View>
@@ -64,7 +64,7 @@ export const ReportScreen = () => {
 
           <TextInput
             multiline={true}
-            style={[styles.inputbox2, globalstyles.p1]}
+            style={[styles.inputbox2, globalStyle.p1]}
             placeholder="버그에 대한 내용이나 앱을 사용하며 불편한 점을 자유롭게 작성해 주세요."
             onChangeText={onChangeText}
             value={text}

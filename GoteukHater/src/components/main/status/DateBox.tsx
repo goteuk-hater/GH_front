@@ -1,10 +1,10 @@
 import {StyleSheet, View} from 'react-native';
 import Calendar from 'react-native-vector-icons/Feather';
 import Clock from 'react-native-vector-icons/MaterialIcons';
-import {globalstyles, scale, width} from '../../../../config/globalStyles';
+import {globalStyle, scale, width} from '@/config/globalStyle';
 
-import FlexView from '../../globalcomponents/FlexView';
-import StyledText from '../../globalcomponents/StyledText';
+import FlexView from '../../global/FlexView';
+import StyledText from '../../global/StyledText';
 
 interface DateProps {
   date: string;
@@ -13,17 +13,17 @@ interface DateProps {
 const DateBox = (props: DateProps) => {
   return (
     <FlexView
-      style={[globalstyles.row, styles.datebox]}
+      style={[globalStyle.row, styles.datebox]}
       gapHorizental={8 * width}>
-      <FlexView style={globalstyles.row} gapHorizental={4 * width}>
+      <FlexView style={globalStyle.row} gapHorizental={4 * width}>
         <Calendar name="calendar" size={14 * scale} color="#B1B3C5" />
-        <StyledText style={[globalstyles.h5, styles.timetext]}>
+        <StyledText style={[globalStyle.h5, styles.timetext]}>
           {props.date}
         </StyledText>
       </FlexView>
-      <FlexView style={globalstyles.row} gapHorizental={4 * width}>
+      <FlexView style={globalStyle.row} gapHorizental={4 * width}>
         <Clock name="schedule" size={14 * scale} color="#B1B3C5" />
-        <StyledText style={[globalstyles.h5, styles.timetext]}>
+        <StyledText style={[globalStyle.h5, styles.timetext]}>
           {props.time}
         </StyledText>
       </FlexView>

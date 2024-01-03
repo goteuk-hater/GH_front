@@ -6,10 +6,10 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import StyledText from '../globalcomponents/StyledText';
-import {Book} from '../../../config/Type';
+import StyledText from '../global/StyledText';
+import {Book} from '../../config/Type';
 
 interface Props {
   book: Book;
@@ -36,12 +36,12 @@ const BookDetailModal = (props: Props) => {
         <View style={styles.modalcontent}>
           <Image source={URL} style={styles.img} resizeMode="cover" />
           <View style={styles.modalbody}>
-            <StyledText style={[globalstyles.p1, {color: 'gray'}]}>
+            <StyledText style={[globalStyle.p1, {color: 'gray'}]}>
               {book.category.category}
             </StyledText>
-            <StyledText style={globalstyles.h2}>{book.title}</StyledText>
-            <StyledText style={globalstyles.h3}>{book.author}</StyledText>
-            <StyledText style={globalstyles.p2}>{book.publisher}</StyledText>
+            <StyledText style={globalStyle.h2}>{book.title}</StyledText>
+            <StyledText style={globalStyle.h3}>{book.author}</StyledText>
+            <StyledText style={globalStyle.p2}>{book.publisher}</StyledText>
           </View>
         </View>
       </View>

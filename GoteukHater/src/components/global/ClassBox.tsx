@@ -1,11 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
 interface propsType {
   classification: string;
   usedScreen?: string;
 }
-
 const ClassBox: React.FC<propsType> = props => {
   let classtext;
   if (props.classification === '서양의 역사와 사상') {
@@ -30,7 +29,7 @@ const ClassBox: React.FC<propsType> = props => {
 const styles = StyleSheet.create({
   text: {
     color: 'white',
-    ...globalstyles.h4,
+    ...globalStyle.h4,
   },
 });
 

@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {Tab} from '../../../config/Type';
+import {Tab} from '../../config/Type';
 
 // User에서 관리해야하는 Slice
 const initialState = {

@@ -1,8 +1,8 @@
-import {SERVER_URL} from '@env';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {fetchUser} from '../../hooks/Hooks';
-import {Status} from '../../../config/Type';
+
+import {Status} from '../../config/Type';
+import {SERVER_URL} from '@env';
 interface StatusState {
   data: Status[];
   status: string;
@@ -12,15 +12,17 @@ const initialState = {
   data: [],
   status: '',
 } as StatusState;
-const asyncStatusFetch = createAsyncThunk('Status/fetchStatus', async () => {
-  const user = await fetchUser();
-  const res = await axios.post(`${SERVER_URL}user/reserve_status`, {
-    id: user.id,
-    password: user.password,
-  });
+const asyncStatusFetch = createAsyncThunk(
+  'Status/fetchStatus',
+  async (user: {id: string; password: string}) => {
+    const res = await axios.post(`${SERVER_URL}user/reserve_status`, {
+      id: user.id,
+      password: user.password,
+    });
 
-  return res.data;
-});
+    return res.data;
+  },
+);
 
 export const StatusSlice = createSlice({
   name: 'Status',

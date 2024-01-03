@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {UserInfo} from '../../../config/Type';
+import {createSlice} from '@reduxjs/toolkit';
+import {UserInfo} from '../../config/Type';
 
 // User에서 관리해야하는 Slice
 const initialState = {
@@ -14,7 +14,7 @@ const initialState = {
 } as UserInfo;
 
 export const UserSlice = createSlice({
-  name: 'User',
+  name: 'user',
   initialState,
   reducers: {
     // 모든 사용자 정보를 상태에 저장합니다.

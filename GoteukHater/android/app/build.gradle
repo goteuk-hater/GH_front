@@ -116,6 +116,14 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file('skyksit.keystore')
+                storePassword '**1301kk'
+                keyAlias 'skyksit'
+                keyPassword '**1301kk'
+            }
+        }
     }
     buildTypes {
         debug {

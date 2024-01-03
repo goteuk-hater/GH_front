@@ -1,16 +1,16 @@
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import StyledText from '../../components/globalcomponents/StyledText';
+import StyledText from '@/components/global/StyledText';
 import InformationCard from '../../components/main/information/InformationCard';
-import {globalstyles, height, width} from '../../../config/globalStyles';
-import Card from '../../components/globalcomponents/Card';
+import {globalStyle, height, width} from '@/config/globalStyle';
+import Card from '../../components/global/Card';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {RootStackParamList} from '../../../config/Type';
+import {RootStackParamList} from '../../config/Type';
 import {useDispatch} from 'react-redux';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {setInvisible, setVisible} from '../../store/slice/ModeSlice';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import SheetHandle from '../../components/globalcomponents/SheetHandle';
+import SheetHandle from '../../components/global/SheetHandle';
 import {MypageStackScreen} from './MypageStackScreen';
 
 export const MypageScreen = () => {
@@ -51,7 +51,7 @@ export const MypageScreen = () => {
               handlePresentModalPress();
             }}>
             <Card style={{width: '100%'}}>
-              <StyledText style={globalstyles.p1}>버그 신고하기</StyledText>
+              <StyledText style={globalStyle.p1}>버그 신고하기</StyledText>
             </Card>
           </TouchableOpacity>
           <TouchableOpacity
@@ -60,7 +60,7 @@ export const MypageScreen = () => {
               handlePresentModalPress();
             }}>
             <Card style={{width: '100%'}}>
-              <StyledText style={globalstyles.p1}>문의 하기</StyledText>
+              <StyledText style={globalStyle.p1}>문의 하기</StyledText>
             </Card>
           </TouchableOpacity>
           <TouchableOpacity
@@ -68,7 +68,7 @@ export const MypageScreen = () => {
               logout();
             }}>
             <Card style={{width: '100%'}}>
-              <StyledText style={[globalstyles.p1, {color: '#EB5828'}]}>
+              <StyledText style={[globalStyle.p1, {color: '#EB5828'}]}>
                 로그아웃
               </StyledText>
             </Card>
@@ -76,11 +76,11 @@ export const MypageScreen = () => {
         </View>
         <View style={{width: '100%'}}>
           <StyledText
-            style={[globalstyles.p2, {textAlign: 'center', color: '#979799'}]}>
+            style={[globalStyle.p2, {textAlign: 'center', color: '#979799'}]}>
             기기에 있는 사용자의 데이터는 서버에 저장되지 않으며
           </StyledText>
           <StyledText
-            style={[globalstyles.p2, {textAlign: 'center', color: '#979799'}]}>
+            style={[globalStyle.p2, {textAlign: 'center', color: '#979799'}]}>
             로그 아웃시 등록한정보가 모두 초기화됩니다.
           </StyledText>
         </View>

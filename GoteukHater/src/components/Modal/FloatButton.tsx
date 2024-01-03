@@ -4,13 +4,13 @@ import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import ModalButton from './ModalButton';
 
 import BtnScreen from '../../screen/reservationscreen/BtnScreen';
-import {height, scale, width} from '../../../config/globalStyles';
-import SheetHandle from '../globalcomponents/SheetHandle';
+import {height, scale, width} from '@/config/globalStyle';
+import SheetHandle from '../global/SheetHandle';
 import {useRoute} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store/store';
 
-const Formbtn = () => {
+const FloatButton = () => {
   const snapPoints = React.useMemo(() => [790 * height], []);
   const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
   const handlePresentModalPress = React.useCallback(() => {
@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 24,
   },
 });
-export default Formbtn;
+export default FloatButton;

@@ -2,22 +2,22 @@ import {NavigationProp, NavigationState} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 
-import Card from '../../components/globalcomponents/Card';
-import StyledText from '../../components/globalcomponents/StyledText';
+import Card from '../../components/global/Card';
+import StyledText from '@/components/global/StyledText';
 import StatusCard from '../../components/main/status/StatusCard';
-import {globalstyles, height, scale, width} from '../../../config/globalStyles';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
 
 import axios from 'axios';
 import {SERVER_URL} from '@env';
-import {BookReservation} from '../../../config/Type';
+
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store/store';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {BookReservation} from '@/config/Type';
 
 const BookingListScreen = () => {
-  const data = useSelector((state: RootState) => state.Status);
-
-  if (data.status == 'loading') {
+  const bookingList = useSelector((state: RootState) => state.Status);
+  if (bookingList.status == 'loading') {
     return (
       <SkeletonPlaceholder speed={1500}>
         <View style={styles.flatlist}>
@@ -34,7 +34,7 @@ const BookingListScreen = () => {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.flatlist}>
-          {data.data.length === 0 ? (
+          {bookingList.data.length === 0 ? (
             <Card
               style={{
                 width: '100%',
@@ -42,12 +42,12 @@ const BookingListScreen = () => {
                 justifyContent: 'center',
                 padding: 32 * scale,
               }}>
-              <StyledText style={globalstyles.h3}>
+              <StyledText style={globalStyle.h3}>
                 예약한 시험이 없습니다.
               </StyledText>
             </Card>
           ) : (
-            data.data?.map((item: BookReservation) => (
+            bookingList.data?.map(item => (
               <StatusCard
                 title={item.book_name}
                 date={item.date}
