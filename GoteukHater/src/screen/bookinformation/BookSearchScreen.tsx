@@ -5,10 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Keyboard,
-  ScrollView,
   FlatList,
-  VirtualizedList,
-  VirtualizedListProps,
 } from 'react-native';
 import {globalStyle, height, width} from '@/config/globalStyle';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -18,8 +15,6 @@ import {Book} from '../../config/Type';
 import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store/RootReducer';
-import StyledText from '@/components/global/StyledText';
-import {useNavigation} from '@react-navigation/native';
 
 const BookSearchScreen = () => {
   const [tagList, setTagList] = useState<string[]>([]);

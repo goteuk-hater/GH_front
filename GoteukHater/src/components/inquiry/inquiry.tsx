@@ -6,12 +6,11 @@ import {
   Keyboard,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import StyledText from '../global/StyledText';
-import {globalStyle, height, scale, width} from '@/config/globalStyle';
+import {globalStyle, height, scale} from '@/config/globalStyle';
 import axios from 'axios';
 import {DISCORD_URL} from '@env';
 export const Inquiry = () => {
@@ -47,8 +46,9 @@ export const Inquiry = () => {
             연락처
           </StyledText>
           <TextInput
-            style={[styles.inputbox, globalStyle.p1]}
+            style={[styles.inputBox, globalStyle.p1]}
             placeholder="답변받을 이메일 주소나 휴대전화 번호를 입력해 주세요."
+            placeholderTextColor="#D9D9D9"
             onChangeText={onChangeAddress}
             value={address}
           />
@@ -59,8 +59,9 @@ export const Inquiry = () => {
           </StyledText>
           <TextInput
             multiline={true}
-            style={[styles.inputbox2, globalStyle.p1]}
+            style={[styles.inputBox2, globalStyle.p1]}
             placeholder={`문의내용을 자유롭게 작성해 주세요! \r\n상단에 입력하신 연락처로 성실히 답변을 드리겠습니다.`}
+            placeholderTextColor="#D9D9D9"
             onChangeText={onChangeText}
             value={text}
             textAlignVertical="top"
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F6F9',
     rowGap: 20 * height,
   },
-  inputbox: {
+  inputBox: {
     backgroundColor: 'white',
     height: 47 * height,
     padding: 12 * scale,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     borderColor: '#D9D9D9',
     justifyContent: 'center',
   },
-  inputbox2: {
+  inputBox2: {
     backgroundColor: 'white',
     height: 400 * height,
     paddingTop: 12 * scale,

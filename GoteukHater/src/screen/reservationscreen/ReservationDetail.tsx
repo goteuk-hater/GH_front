@@ -85,7 +85,6 @@ const ReservationDetail = (props: BtnParamList['ReservationDetail']) => {
         setVisible(true);
       })
       .catch(err => {
-        console.log(err.response.data);
         setDescription('예약은 주 1회 가능합니다.');
         setVisible(true);
       });

@@ -32,7 +32,7 @@ const BookCard = (props: Props) => {
   const {dismiss} = useBottomSheetModal();
   const navigation = useNavigation<MainStackParamList['BookSearchScreen']>();
   const book = props.Book;
-  console.log(book.title);
+
   return (
     <TouchableOpacity
       onPress={() => {
