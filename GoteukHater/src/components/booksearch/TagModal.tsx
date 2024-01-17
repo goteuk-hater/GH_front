@@ -1,4 +1,5 @@
 import {
+  BackHandler,
   Modal,
   StyleSheet,
   TouchableOpacity,
@@ -11,6 +12,7 @@ import StyledText from '../global/StyledText';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {useEffect, useState} from 'react';
+import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 interface Props {
   closeModal: () => void;
   submit: (tagList: string[]) => void;
@@ -85,6 +87,24 @@ const TagModal = ({closeModal, submit, tagList, title}: Props) => {
       </TouchableOpacity>
     );
   };
+  const {dismiss} = useBottomSheetModal();
+  useEffect(() => {
+    const backAction = () => {
+      dismiss();
+      return true;
+    };
+
+    // 리스너 등록
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => {
+      // 이벤트 리스너 해제
+      backHandler.remove();
+    };
+  }, []);
   return (
     <View style={styles.modalView}>
       <View style={[globalStyle.row_space_between, styles.title]}>

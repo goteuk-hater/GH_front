@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {BackHandler, StyleSheet, View} from 'react-native';
 import StyledText from '@/components/global/StyledText';
 import {useNavigation} from '@react-navigation/native';
 import {useEffect} from 'react';
@@ -21,19 +21,25 @@ export const InquiryScreen = () => {
         headerRight: () => null,
       });
     }
-    //  else {
-    //   naviagtion.setOptions({
-    //     headerRight: () => (
-    //       <Btn
-    //         onPress={() => {
-    //           dismiss();
-    //         }}
-    //         title="신청하기"
-    //       />
-    //     ),
-    //   });
-    // }
   }, [screen]);
+
+  useEffect(() => {
+    const backAction = () => {
+      dismiss();
+      return true;
+    };
+
+    // 리스너 등록
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => {
+      // 이벤트 리스너 해제
+      backHandler.remove();
+    };
+  }, []);
   return (
     <View style={styles.container}>
       <SwitchTab screen={screen} />

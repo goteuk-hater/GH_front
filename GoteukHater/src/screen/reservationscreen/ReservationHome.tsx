@@ -4,7 +4,7 @@ import {
   NavigationState,
 } from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {StyleSheet, View, FlatList, Platform} from 'react-native';
+import {StyleSheet, View, FlatList, Platform, BackHandler} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import {ScrollView} from 'react-native-gesture-handler';
 import Card from '../../components/global/Card';
@@ -20,6 +20,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from '../../store/store';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {getCalendarData} from '@/service/api';
+import {useBottomSheetModal} from '@gorhom/bottom-sheet';
 
 interface Props {
   navigation: NavigationProp<NavigationState>;
@@ -87,7 +88,24 @@ const ReservationHome = ({navigation}: Props) => {
     if (ReservationSchedule === undefined) return;
     setReservationInfo(ReservationSchedule[selectedDate]);
   }, [selectedDate]);
+  const {dismiss} = useBottomSheetModal();
+  useEffect(() => {
+    const backAction = () => {
+      dismiss();
+      return true;
+    };
 
+    // 리스너 등록
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => {
+      // 이벤트 리스너 해제
+      backHandler.remove();
+    };
+  }, []);
   return (
     <ScrollView style={styles.container}>
       <View style={{rowGap: 20 * height, marginTop: 16 * height}}>
@@ -220,6 +238,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginBottom: 4 * height,
   },
+
   titleinfo: {
     color: '#8b8b8b',
   },

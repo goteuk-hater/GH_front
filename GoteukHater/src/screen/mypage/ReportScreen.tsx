@@ -1,4 +1,5 @@
 import {
+  BackHandler,
   Keyboard,
   StyleSheet,
   TextInput,
@@ -22,6 +23,23 @@ export const ReportScreen = () => {
   const naviagtion = useNavigation();
 
   const {dismiss} = useBottomSheetModal();
+  useEffect(() => {
+    const backAction = () => {
+      dismiss();
+      return true;
+    };
+
+    // 리스너 등록
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => {
+      // 이벤트 리스너 해제
+      backHandler.remove();
+    };
+  }, []);
   const postInquiry = async () => {
     const description = `
     날짜 : ${year}년 ${month + 1}월 ${day}일\n

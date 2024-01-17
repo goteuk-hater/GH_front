@@ -12,9 +12,13 @@ const InformationCard = () => {
     <Card style={styles.card}>
       <View style={styles.wrapper}>
         <View style={{rowGap: 4 * height}}>
-          <StyledText style={globalStyle.h2}>{user.name}</StyledText>
+          {/* <StyledText style={globalStyle.h2}>{user.name}</StyledText>
           <StyledText style={[globalStyle.h4, {color: '#636570'}]}>
             {user.major} {user.grade}학년 - {user.id}
+          </StyledText> */}
+          <StyledText style={globalStyle.h2}>홍길동</StyledText>
+          <StyledText style={[globalStyle.h4, {color: '#636570'}]}>
+            {user.major} {user.grade}학년 - 12345678
           </StyledText>
         </View>
       </View>

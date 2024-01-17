@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {Alert, BackHandler, SafeAreaView, StyleSheet} from 'react-native';
 import {NavigationProp, NavigationState} from '@react-navigation/native';
 import {height, width} from '@/config/globalStyle';
 import InformationSection from '../../components/main/information/InformationSection';
@@ -31,6 +31,30 @@ const Main = ({navigation}: Props) => {
     dispatch(asyncBooksFetch());
   }, []);
 
+  useEffect(() => {
+    const backAction = () => {
+      if (!navigation.isFocused()) {
+        navigation.goBack();
+        return true;
+      }
+      Alert.alert('앱 종료', '앱을 종료하시겠습니까?', [
+        {text: '취소', onPress: () => null},
+        {text: '확인', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+
+    // 리스너 등록
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => {
+      // 이벤트 리스너 해제
+      backHandler.remove();
+    };
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.content, {rowGap: 20 * height}]}>

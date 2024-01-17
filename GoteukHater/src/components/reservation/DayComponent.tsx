@@ -1,6 +1,11 @@
-import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import StyledText from '../global/StyledText';
-import {globalStyle, scale} from '@/config/globalStyle';
+import {globalStyle, height, scale, width} from '@/config/globalStyle';
 import {DateData, DayState} from 'react-native-calendars/src/types';
 
 interface Props {
@@ -42,16 +47,20 @@ export const Daycomponent = (props: Props) => {
   }
 
   return (
-    <TouchableWithoutFeedback
+    <TouchableOpacity
       onPress={() => {
         props.setSelectedDate(props.date.dateString);
+      }}
+      style={{
+        width: 30 * width,
+        height: 30 * height,
       }}>
       <View style={[styles.container, boxStyle]}>
         <StyledText style={[globalStyle.h4, textStyle]}>
           {props.date.day}
         </StyledText>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 
@@ -59,8 +68,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 30 * scale,
-    height: 30 * scale,
+    width: 30 * width,
+    height: 30 * height,
     borderRadius: 20 * scale,
   },
 });
